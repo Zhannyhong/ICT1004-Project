@@ -1,0 +1,54 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16 Sep 2020, 4:31:47 pm
+    Author     : LYJ
+*/
+nav img {
+    height: 36px;
+}
+section h1 {
+    text-decoration: underline;
+}
+article img {
+    border: thick double black;
+}
+
+.img-popup {
+    
+}
+
+figure {
+    display: inline-block;
+}
+
+figcaption {
+    color: gray;
+    font-style: italic;
+    text-align: center;
+}
+
+footer {
+    border-top: solid;
+    text-align: center;
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+.img-popup {
+    z-index: 1; /* Popup appears on top */
+    height: 20rem;
+    bottom: 6.25rem;
+    left: 5rem;
+    padding: 0.75rem;
+    background: azure;
+    position: absolute;
+    box-shadow: 0 0 1rem dimgray;
+}
+
+.img-popup img {
+    height: 100%;
+}
