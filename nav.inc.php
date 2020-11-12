@@ -33,6 +33,9 @@
             <li class="nav-item">
                 <a class="nav-link" title="Sign In" href="login.php">Sign In</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" title="Sign In" href="profile_page.php">Profile Page</a>
+            </li>
         </ul>
     </div>
 </nav>
