@@ -22,7 +22,7 @@
             <div class="spacing textstyle">
                 <h5>Username: Some_Tabby123</h5>
                 <h5>Email: tabby123@gmail.com</h5>
-                <a class="btn btn-primary" href="">Edit account</a>
+                <a class="btn btn-primary" href="edit_profile.php">Edit profile</a>
             </div>
             
             <h2>Ratings and Reviews</h2>
