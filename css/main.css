@@ -52,3 +52,27 @@ footer {
 .img-popup img {
     height: 100%;
 }
+
+.avatar {
+    object-fit: cover;
+    width: 7rem;
+    height: 7rem;
+    max-width: 100%;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.spacing {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.textstyle {
+    background-color: blanchedalmond; 
+    border-radius: 20px; 
+    width: auto; 
+    height: auto; 
+    padding: 5px 30px 5px 30px; /* Making space around letters */
+    font-size: 18px; 
+    text-align: center;
+}

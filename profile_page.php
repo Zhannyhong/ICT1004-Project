@@ -13,25 +13,20 @@
         ?>
         <main class="container">
             <h1>Profile Page</h1>
-            <p>
-                Existing members log in here. For new members, please go to the
-                <a href="register.php">Sign Up page</a>.
-            </p>
-            <form action="process_login.php" method="post">
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input class="form-control" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9._%+-]+\.(com|edu|sg)$"
-                        id="email" required name="email" placeholder="Enter email">
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input class="form-control" type="password" id="pwd"
-                        required name="pwd" placeholder="Enter password">
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Submit</button>
-                </div>
-            </form>
+            <hr>
+       
+            <div class="row">
+                <img class="avatar" src="images/tabby_large.jpg">
+            </div>
+
+            <div class="spacing textstyle">
+                <h5>Username: Some_Tabby123</h5>
+                <h5>Email: tabby123@gmail.com</h5>
+                <a class="btn btn-primary" href="">Edit account</a>
+            </div>
+            
+            <h2>Ratings and Reviews</h2>
+            <hr>
         </main>
         <?php
             include "footer.inc.php";
