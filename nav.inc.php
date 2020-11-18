@@ -9,7 +9,7 @@
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="#">
-        <img src="images/pets.svg" alt="LOGO"/>
+        <img src="images/popcorn.svg" alt="LOGO"/>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-navbar-toggler" aria-controls="mobile-navbar-toggler" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -19,11 +19,6 @@
             <li class="nav-item">
                 <a class="nav-link" title="Home" href="index.php">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" title="Dogs" href="index.php#dogs">Dogs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" title="Cats" href="index.php#cats">Cats</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" title="Movie" href="movie_template.php">Movie</a>

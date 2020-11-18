@@ -34,7 +34,7 @@
                         <img class="avatar" src="images/tabby_small.jpg" alt="Anne's Avatar">
                         <h4 class="mb-0">Anne Tan</h4>
                         <h6 class="small text-muted">Project Lead</h6>
-                        <a href="mailto:2003116@sit.singaporetech.edu.sg" title="Send me an email!">
+                        <a href="mailto:2002716@sit.singaporetech.edu.sg" title="Send me an email!">
                             <i class="material-icons">email</i>
                         </a>
                     </div>
@@ -43,9 +43,9 @@
                 <article class="col-sm-6">
                     <div class="bg-white rounded shadow-sm">
                         <img class="avatar" src="images/tabby_small.jpg" alt="Jessica's Avatar">
-                        <h4 class="mb-0">Jessica Hui</h4>
+                        <h4 class="mb-0">Jessica Tan</h4>
                         <h6 class="small text-muted">Project Lead</h6>
-                        <a href="mailto:2003116@sit.singaporetech.edu.sg" title="Send me an email!">
+                        <a href="mailto:2002253@sit.singaporetech.edu.sg" title="Send me an email!">
                             <i class="material-icons">email</i>
                         </a>
                     </div>
@@ -80,7 +80,7 @@
                         <img class="avatar" src="images/tabby_small.jpg" alt="Yong Jun's Avatar">
                         <h4 class="mb-0">Lim Yong Jun</h4>
                         <h6 class="small text-muted">Project Lead</h6>
-                        <a href="mailto:2003116@sit.singaporetech.edu.sg" title="Send me an email!">
+                        <a href="mailto:2003119@sit.singaporetech.edu.sg" title="Send me an email!">
                             <i class="material-icons">email</i>
                         </a>
                     </div>
