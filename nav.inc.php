@@ -25,6 +25,9 @@
             <li class="nav-item">
                 <a class="nav-link" title="Cats" href="index.php#cats">Cats</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" title="Cats" href="movie_template.php">Movie</a>
+            </li>
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">

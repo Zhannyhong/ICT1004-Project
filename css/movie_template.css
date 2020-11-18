@@ -1,0 +1,9 @@
+div.col-sm-4 img {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+img.avatar.mr-3 {
+    width: 64px;
+    height: 64px;
+}
