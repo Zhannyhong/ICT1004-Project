@@ -16,46 +16,41 @@ and open the template in the editor.
             include "nav.inc.php";
         ?>
         <main class="container">
-            <h1>Member Registration</h1>
-            <p>
-                For existing members, please go to the
-                <a href="login.php">Sign In page</a>.
-            </p>
+            <div class="my-5">
+                <h1 class="display-4">The show is just starting</h1>
+                <h6 class="lead">Create a free account to share your movie reviews with the MovieReview community.</h6>
+                <h6 class="lead">Already have a MovieReview account? <a href="login.php">Log in here</a>.</h6>
+            </div>
+
             <form action="process_register.php" method="post">
                 <div class="form-group">
-                    <label for="fname">First Name:</label>
-                    <input class="form-control" type="text" id="fname"
-                        name="fname" placeholder="Enter first name">
+                    <label for="email">Email</label>
+                    <input required class="form-control" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9._%+-]+\.(com|edu|sg)$"
+                        id="email" name="email" placeholder="Enter email">
                 </div>
                 <div class="form-group">
-                    <label for="lname">Last Name:</label>
-                    <input class="form-control" type="text" id="lname" required 
-                        maxlength="45" name="lname" placeholder="Enter last name">
+                    <label for="username">Username</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">@</div>
+                        </div>
+                        <input required class="form-control" type="text" id="username" name="username" placeholder="Enter username">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input class="form-control" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9._%+-]+\.(com|edu|sg)$"
-                        id="email" required name="email" placeholder="Enter email">
+                    <label for="pwd">Password</label>
+                    <input required class="form-control" type="password" id="pwd" name="pwd" minlength="8" placeholder="Enter password">
+                    <small class="form-text text-muted">
+                        Your password must be at least 8 characters long, contain upper and lowercase letters, and include numbers.
+                    </small>
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input class="form-control" type="password" id="pwd"
-                        required name="pwd" placeholder="Enter password">
+                    <label for="pwd_confirm">Confirm Password</label>
+                    <input required class="form-control" type="password" id="pwd_confirm" name="pwd_confirm" minlength="8" placeholder="Confirm password">
                 </div>
                 <div class="form-group">
-                    <label for="pwd_confirm">Confirm Password:</label>
-                    <input class="form-control" type="password" id="pwd_confirm"
-                        required name="pwd_confirm" placeholder="Confirm password">
-                </div>
-                <div class="form-check">
-                    <label>
-                        <input type="checkbox" id="agree_check" required
-                            name="agree_check">
-                        Agree to terms and conditions.
-                    </label>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <p class="small text-muted mb-1">By clicking on the "Sign Me Up!" button below, you agree to MovieReview's Terms of Use and Privacy Policy.</p>
+                    <button class="btn btn-primary" type="submit">Sign Me Up!</button>
                 </div>
             </form>
         </main>

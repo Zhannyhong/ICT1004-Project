@@ -21,7 +21,7 @@
             </p>
         </header>
 
-        <main class="container-fluid">
+        <main class="container">
             <div>
                 <h2 class="display-4 font-weight-light">Meet the Team</h2>
                 <p class="font-italic text-muted">The ones that made it all possible.</p>

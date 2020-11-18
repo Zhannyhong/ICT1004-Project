@@ -16,24 +16,23 @@ and open the template in the editor.
             include "nav.inc.php";
         ?>
         <main class="container">
-            <h1>Member Login</h1>
-            <p>
-                Existing members log in here. For new members, please go to the
-                <a href="register.php">Sign Up page</a>.
-            </p>
+            <div class="my-5">
+                <h1 class="display-4">Member Login</h1>
+                <h6 class="lead">Need a MovieReview account? <a href="register.php">Create an account</a>.</h6>
+            </div>
+
             <form action="process_login.php" method="post">
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input class="form-control" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9._%+-]+\.(com|edu|sg)$"
-                        id="email" required name="email" placeholder="Enter email">
+                    <label for="email">Email</label>
+                    <input required class="form-control" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9._%+-]+\.(com|edu|sg)$"
+                        id="email" name="email" placeholder="Enter email">
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input class="form-control" type="password" id="pwd"
-                        required name="pwd" placeholder="Enter password">
+                    <label for="pwd">Password</label>
+                    <input required class="form-control" type="password" id="pwd" name="pwd" placeholder="Enter password">
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" type="submit">Login</button>
                 </div>
             </form>
         </main>
