@@ -13,12 +13,17 @@ nav img {
 section h1 {
     text-decoration: underline;
 }
-article img {
-    border: thick double black;
+article {
+    margin: 1rem 0 1rem;
 }
 
-.img-popup {
-    
+article div {
+    padding: 3rem;
+}
+
+.jumbotron {
+    padding-top: 13rem;
+    padding-bottom: 13rem;
 }
 
 figure {
@@ -33,9 +38,12 @@ figcaption {
 
 footer {
     border-top: solid;
+    border-width: 1px;
     text-align: center;
     font-style: italic;
     font-size: 0.8rem;
+    padding: 10px;
+    margin: 2rem;
 }
 
 .img-popup {
@@ -59,7 +67,7 @@ footer {
     height: 7rem;
     max-width: 100%;
     border-radius: 50%;
-    margin: 0 auto;
+    margin: 1rem auto;
 }
 
 .spacing {
