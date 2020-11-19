@@ -46,7 +46,7 @@ and open the template in the editor.
                 </div>
                 <div class="form-group">
                     <label for="pwd_confirm">Confirm Password</label>
-                    <input required class="form-control" type="password" id="pwd_confirm" name="pwd_confirm" minlength="8" placeholder="Confirm password">
+                    <input required class="form-control" type="password" id="pwd_confirm" name="pwd_confirm" minlength="8" placeholder="Re-enter password">
                 </div>
                 <div class="form-group">
                     <p class="small text-muted mb-1">By clicking on the "Sign Me Up!" button below, you agree to MovieReview's Terms of Use and Privacy Policy.</p>

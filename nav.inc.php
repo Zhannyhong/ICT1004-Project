@@ -8,7 +8,7 @@
 ?>
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="index.php">
         <img src="images/popcorn.svg" alt="LOGO"/>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-navbar-toggler" aria-controls="mobile-navbar-toggler" aria-expanded="false" aria-label="Toggle navigation">
