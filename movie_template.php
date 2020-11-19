@@ -1,4 +1,6 @@
-<html lang="en">    
+<!DOCTYPE html>
+
+<html lang="en">
     <head>
         <?php
             include "head.inc.php";
@@ -8,114 +10,163 @@
     </head>
     <body>
         <?php
-        include "nav.inc.php";
+            include "nav.inc.php";
         ?>
         <main class="container">
-            <div class="row">
-                <div class="col-sm-4">
-                    <figure>
-                        <img src="images/poodle_large.jpg" 
-                             class="rounded" 
-                             alt="Movie Poster">
-                    </figure>
+            <div class="card">
+                <img src="images/chihuahua_large.jpg" class="card-img-top" alt="Movie Poster">
+                <div class="row card-body">
+                    <div class="col-7">
+                        <div class="row col-7 card-title">
+                            <h3 class="display-4">Movie Title</h3>
+
+                        </div>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Duis eget euismod mauris. Cras vitae tincidunt massa,
+                            sed tincidunt enim. Quisque rhoncus porta libero quis
+                            vulputate. Fusce ac viverra ex, ac rutrum libero.
+                            Mauris ac ipsum dui. Maecenas quis mi vulputate,
+                            convallis massa vitae, vehicula tellus. Morbi sit amet
+                            nisl quis lectus commodo laoreet. Nam sagittis quis diam
+                            at aliquam. Mauris elit leo, efficitur nec erat ac,
+                            feugiat ullamcorper diam. Donec molestie quam a arcu
+                            mollis placerat.
+                        </p>
+                        <p class="card-text text-muted small">Released on 1 November 2020</p>
+                        <span class="btn-static">PG13</span>
+                        <span class="btn-static">138 mins</span>
+                    </div>
+
+                    <div class="col-5 card-text">
+                        <h6 class="text-muted">Director:</h6>
+                        <h6>Quentin Tarantino</h6>
+
+                        <h6 class="text-muted">Producer:</h6>
+                        <h6>Steven Spielberg</h6>
+
+                        <h6 class="text-muted">Cast:</h6>
+                        <h6>Matt Damon, Luke Evans, Rami Malek, Angelina Jolie</h6>
+
+                        <h6 class="mt-5 text-muted">Genre:</h6>
+                        <h6>Thriller, Crime</h6>
+                    </div>
                 </div>
-                <div class="col">
-                    <h1>Movie Title</h1>
-                    <ul class="list-group list-group-horizontal-sm">
-                        <a href="#" class="list-group-item list-group-item-action">1 November 2020</a>
-                        <a href="#" class="list-group-item list-group-item-action">90min</a>
-                        <a href="#" class="list-group-item list-group-item-action">Action</a>
-                        <a href="#" class="list-group-item list-group-item-action">PG</a>
-                        <a href="#" class="list-group-item list-group-item-action">4.8⭐</a>
-                    </ul>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Duis eget euismod mauris. Cras vitae tincidunt massa, 
-                        sed tincidunt enim. Quisque rhoncus porta libero quis 
-                        vulputate. Fusce ac viverra ex, ac rutrum libero. 
-                        Mauris ac ipsum dui. Maecenas quis mi vulputate, 
-                        convallis massa vitae, vehicula tellus. Morbi sit amet 
-                        nisl quis lectus commodo laoreet. Nam sagittis quis diam
-                        at aliquam. Mauris elit leo, efficitur nec erat ac, 
-                        feugiat ullamcorper diam. Donec molestie quam a arcu 
-                        mollis placerat.
-                    </p>
-                    <h2>Cast and Crew</h2>
-                    <div class="card-group">
-                        <div class="card text-center">
-                            <img src="images/tabby_small.jpg" class="card-img-top" alt="Director">
-                            <div class="card-body">
-                                <h5 class="card-title">Director</h5>
-                                <p class="card-text">Name</p>
-                            </div>
+            </div>
+
+            <section id="review">
+                <h1>Ratings and Reviews</h1>
+                <div class="card">
+                    <div class="card-body row">
+                        <div class="col-xs-3 col-sm-4 col-md-3 text-center">
+                            <h1 class="display-3">4.2</h1>
+                            <h6 class="text-muted">1434 Reviews</h6>
                         </div>
-                        <div class="card text-center">
-                            <img src="images/tabby_small.jpg" class="card-img-top" alt="Producer">
-                            <div class="card-body">
-                                <h5 class="card-title">Producer</h5>
-                                <p class="card-text">Name</p>
-                            </div>
-                        </div>
-                        <div class="card text-center">
-                            <img src="images/tabby_small.jpg" class="card-img-top" alt="Actor">
-                            <div class="card-body">
-                                <h5 class="card-title">Actor 1</h5>
-                                <p class="card-text">Name</p>
-                            </div>
-                        </div>
-                        <div class="card text-center">
-                            <img src="images/tabby_small.jpg" class="card-img-top" alt="Actor 2">
-                            <div class="card-body">
-                                <h5 class="card-title">Actor 2</h5>
-                                <p class="card-text">Name</p>
-                            </div>
-                        </div>
-                        <div class="card text-center">
-                            <img src="images/tabby_small.jpg" class="card-img-top" alt="Actor 3">
-                            <div class="card-body">
-                                <h5 class="card-title">Actor 3</h5>
-                                <p class="card-text">Name</p>
+                        <div class="col-xs-9 col-sm-8 col-md-9">
+                            <div class="row">
+                                <!-- 5 Star Ratings -->
+                                <div class="col-xs-1 col-md-2 text-right">5 ⭐</div>
+                                <div class="col-xs-11 col-md-10">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 80%"
+                                             aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                            80%
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 4 Star Ratings -->
+                                <div class="col-xs-1 col-md-2 text-right">4 ⭐</div>
+                                <div class="col-xs-11 col-md-10">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                            60%
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 3 Star Ratings -->
+                                <div class="col-xs-1 col-md-2 text-right">3 ⭐</div>
+                                <div class="col-xs-11 col-md-10">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="40"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                            40%
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 2 Star Ratings -->
+                                <div class="col-xs-1 col-md-2 text-right">2 ⭐</div>
+                                <div class="col-xs-11 col-md-10">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="20"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                            20%
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 1 Star Ratings -->
+                                <div class="col-xs-1 col-md-2 text-right">1 ⭐</div>
+                                <div class="col-xs-11 col-md-10">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="15"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+                                            15%
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <h1>Reviews</h1>
-                <ul class="list-unstyled">
-                    <li class="media">
-                        <img src="images/tabby_small.jpg" class="avatar mr-3" alt="Reviewer">
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">5⭐: Good title</h5>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                            metus scelerisque ante sollicitudin. Cras purus odio, 
-                            vestibulum in vulputate at, tempus viverra turpis.
+
+                <div class="row">
+                    <div class="review-block">
+                        <hr/>
+                        <div class="row">
+                            <div class="col-3">
+                                <img class="avatar" src="images/tabby_small.jpg" alt="Reviewer Profile Picture">
+                                <h5>Bryan Lam</h5>
+                                <h6 class="small text-muted">November 25, 2020</h6>
+                            </div>
+                            <div class="col-9 mt-4">
+                                <div>⭐⭐⭐⭐⭐</div>
+                                <h5>Good shit</h5>
+                                <p>
+                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel
+                                    metus scelerisque ante sollicitudin. Cras purus odio,
+                                    vestibulum in vulputate at, tempus viverra turpis.
+                                </p>
+                            </div>
                         </div>
-                    </li>
-                    <li class="media">
-                        <img src="images/tabby_small.jpg" class="avatar mr-3" alt="Reviewer">
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">5⭐: Good title</h5>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                            metus scelerisque ante sollicitudin. Cras purus odio, 
-                            vestibulum in vulputate at, tempus viverra turpis.
+                        <hr/>
+                        <div class="row">
+                            <div class="col-3">
+                                <img class="avatar" src="images/tabby_small.jpg" alt="Reviewer Profile Picture">
+                                <h5>Yong Jun</h5>
+                                <h6 class="small text-muted">November 23, 2020</h6>
+                            </div>
+                            <div class="col-9 mt-4">
+                                <div>⭐⭐⭐⭐</div>
+                                <h5>Decent but can be improved</h5>
+                                <p>
+                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel
+                                    metus scelerisque ante sollicitudin. Cras purus odio,
+                                    vestibulum in vulputate at, tempus viverra turpis.
+                                </p>
+                            </div>
                         </div>
-                    </li>
-                    <li class="media">
-                        <img src="images/tabby_small.jpg" class="avatar mr-3" alt="Reviewer">
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">4⭐: Decent but can be improved</h5>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                            metus scelerisque ante sollicitudin. Cras purus odio, 
-                            vestibulum in vulputate at, tempus viverra turpis.
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                        <hr/>
+                    </div>
+                </div>
+            </section>
         </main>
         
         <?php
-        include "footer.inc.php";
+            include "footer.inc.php";
         ?>
     </body>
 </html>

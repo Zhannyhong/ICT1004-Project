@@ -10,9 +10,7 @@ and open the template in the editor.
 nav img {
     height: 36px;
 }
-section h1 {
-    text-decoration: underline;
-}
+
 article {
     margin: 1rem 0 1rem;
 }
@@ -34,6 +32,14 @@ figcaption {
     color: gray;
     font-style: italic;
     text-align: center;
+}
+
+.btn-static {
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 15px;
+    padding: 10px;
+    height: 35px;
 }
 
 footer {

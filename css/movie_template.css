@@ -7,3 +7,15 @@ img.avatar.mr-3 {
     width: 64px;
     height: 64px;
 }
+
+.card-img-top {
+    max-height: 500px;
+}
+
+#review {
+    margin-top: 5rem;
+}
+
+.review-block {
+    margin: 1rem;
+}
