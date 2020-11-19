@@ -19,3 +19,11 @@ img.avatar.mr-3 {
 .review-block {
     margin: 1rem;
 }
+
+.review-divider {
+    border-color: white;
+}
+
+.review-block {
+    padding: 0 3px;
+}

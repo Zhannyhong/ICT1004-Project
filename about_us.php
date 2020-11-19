@@ -24,7 +24,7 @@
         <main class="container">
             <div>
                 <h2 class="display-4 font-weight-light">Meet the Team</h2>
-                <p class="font-italic text-muted">The ones that made it all possible.</p>
+                <p class="font-italic">The ones that made it all possible.</p>
 
             </div>
 

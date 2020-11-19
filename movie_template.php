@@ -124,15 +124,15 @@
                 </div>
 
                 <div class="row">
-                    <div class="review-block">
-                        <hr/>
-                        <div class="row">
-                            <div class="col-3">
+                    <div>
+                        <hr class="review-divider"/>
+                        <div class="row review-block">
+                            <div class="col-4 col-md-3">
                                 <img class="avatar" src="images/tabby_small.jpg" alt="Reviewer Profile Picture">
                                 <h5>Bryan Lam</h5>
-                                <h6 class="small text-muted">November 25, 2020</h6>
+                                <h6 class="small">November 25, 2020</h6>
                             </div>
-                            <div class="col-9 mt-4">
+                            <div class="col-8 col-md-9 mt-4">
                                 <div>⭐⭐⭐⭐⭐</div>
                                 <h5>Good shit</h5>
                                 <p>
@@ -142,14 +142,14 @@
                                 </p>
                             </div>
                         </div>
-                        <hr/>
-                        <div class="row">
-                            <div class="col-3">
+                        <hr class="review-divider"/>
+                        <div class="row review-block">
+                            <div class="col-4 col-md-3">
                                 <img class="avatar" src="images/tabby_small.jpg" alt="Reviewer Profile Picture">
                                 <h5>Yong Jun</h5>
-                                <h6 class="small text-muted">November 23, 2020</h6>
+                                <h6 class="small">November 23, 2020</h6>
                             </div>
-                            <div class="col-9 mt-4">
+                            <div class="col-8 col-md-9 mt-4">
                                 <div>⭐⭐⭐⭐</div>
                                 <h5>Decent but can be improved</h5>
                                 <p>
@@ -159,7 +159,7 @@
                                 </p>
                             </div>
                         </div>
-                        <hr/>
+                        <hr class="review-divider"/>
                     </div>
                 </div>
             </section>
