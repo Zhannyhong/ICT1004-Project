@@ -82,19 +82,32 @@ footer {
     margin: 1rem auto;
 }
 
-.spacing {
-    margin-top: 20px;
-    margin-bottom: 10px;
+.profile {
+    padding: 3rem;
+    background-color: white;
+    text-align: center;
 }
 
-.textstyle {
-    background-color: blanchedalmond; 
-    border-radius: 20px; 
-    width: auto; 
-    height: auto; 
-    padding: 5px 30px 5px 30px; /* Making space around letters */
-    font-size: 18px; 
-    text-align: center;
+#edit-profile {
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.review {
+    margin-top: 5rem;
+}
+
+.review-divider {
+    border-color: white;
+}
+
+.review-block {
+    padding: 0 3px;
+}
+
+.review-movie {
+    text-align: right;
+    padding-right: 5px;
 }
 
 /*-----Slider-----*/
@@ -173,3 +186,6 @@ main > .container{
   background: white;
   padding: 10px;
 }
+
+
+

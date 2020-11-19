@@ -54,7 +54,7 @@
                 </div>
             </div>
 
-            <section id="review">
+            <div class="review">
                 <h1>Ratings and Reviews</h1>
                 <div class="card">
                     <div class="card-body row">
@@ -162,7 +162,7 @@
                         <hr class="review-divider"/>
                     </div>
                 </div>
-            </section>
+            </div>
         </main>
         
         <?php

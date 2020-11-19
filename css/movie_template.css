@@ -11,19 +11,3 @@ img.avatar.mr-3 {
 .card-img-top {
     max-height: 500px;
 }
-
-#review {
-    margin-top: 5rem;
-}
-
-.review-block {
-    margin: 1rem;
-}
-
-.review-divider {
-    border-color: white;
-}
-
-.review-block {
-    padding: 0 3px;
-}
