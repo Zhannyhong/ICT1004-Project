@@ -7,6 +7,12 @@ and open the template in the editor.
     Created on : 16 Sep 2020, 4:31:47 pm
     Author     : LYJ
 */
+body{
+    padding: 0;
+    margin: 0;
+    background: #add8e6 !important;
+}
+
 nav img {
     height: 36px;
 }
@@ -89,4 +95,81 @@ footer {
     padding: 5px 30px 5px 30px; /* Making space around letters */
     font-size: 18px; 
     text-align: center;
+}
+
+/*-----Slider-----*/
+#slide{
+    width: 2000px;
+    margin: 0;
+    margin-left: -445px;
+}
+
+/*-----Carousel Movies-----*/
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+.carousel-inner .carousel-item-right.active,
+.carousel-inner .carousel-item-next {
+    transform: translateX(50%);
+}
+
+.carousel-inner .carousel-item-left.active, 
+.carousel-inner .carousel-item-prev {
+    transform: translateX(-50%);
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+        transform: translateX(33.33%);
+    }
+
+    .carousel-inner .carousel-item-left.active, 
+    .carousel-inner .carousel-item-prev {
+        transform: translateX(-33.33%);
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+        transform: translateX(25%);
+    }
+
+    .carousel-inner .carousel-item-left.active, 
+    .carousel-inner .carousel-item-prev {
+        transform: translateX(-25%);
+    }
+}
+
+@media (min-width: 1200px) {
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+        transform: translateX(16%);
+    }
+
+    .carousel-inner .carousel-item-left.active, 
+    .carousel-inner .carousel-item-prev {
+        transform: translateX(-16%);
+    }
+}
+
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left{ 
+    transform: translateX(0);
+}
+
+
+main > .container{
+   background: white !important;
+}
+
+.content {
+  max-width: 2000px;
+  margin: auto;
+  background: white;
+  padding: 10px;
 }
