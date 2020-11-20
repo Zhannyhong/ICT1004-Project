@@ -12,21 +12,37 @@
             include "nav.inc.php";
         ?>
         <main class="container">
-                <div class="profile rounded shadow-sm">
+                <div class="profile rounded shadow-sm card-background">
                     <img class="avatar" src="images/tabby_large.jpg" alt="Profile Picture">
                     <h6 class="small text-muted">Username:</h6>
                     <h5 class="mb-4">Some_Tabby123</h5>
 
                     <h6 class="small text-muted">Email:</h6>
-                    <h5>tabby123@gmail.com</h5>
+                    <h5 class="mb-3">tabby123@gmail.com</h5>
 
-                    <a class="btn btn-primary" href="edit_profile.php" role="button" title="Edit Profile" id="edit-profile">
-                        <i class="material-icons">create</i>
-                    </a>
+                    <div class="row" id="profile-settings">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="edit_profile.php" title="Edit Profile" id="edit-profile">
+                                    <i class="material-icons align-middle">create</i>
+                                    Edit Profile
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" title="Log Out" id="log-out">
+                                    <i class="material-icons align-middle">power_settings_new</i>
+                                    Log Out
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
                 </div>
 
                 <div class="review">
                     <h1 class="display-4">Your Reviews</h1>
+                    <p class="font-italic">Review Count: 2</p>
                     <div>
                         <hr class="review-divider"/>
                         <div class="row review-block">

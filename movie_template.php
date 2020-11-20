@@ -123,7 +123,18 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div id="leave-review">
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <label for="review">Leave a Review</label>
+                            <input required class="form-control col-5" type="text" placeholder="Enter a title" id="review" name="review_title" maxlength="50">
+                            <textarea required class="form-control" rows="2" placeholder="Enter your review here" id="review" name="review_writeup"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="review">
                     <div>
                         <hr class="review-divider"/>
                         <div class="row review-block">
