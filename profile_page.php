@@ -51,37 +51,51 @@
                                 <h5>Bryan Lam</h5>
                                 <h6 class="small">November 25, 2020</h6>
                             </div>
-                            <div class="col-8 col-md-9 mt-4">
-                                <div>⭐⭐⭐⭐⭐</div>
-                                <h5>Good shit</h5>
-                                <p>
-                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                                    metus scelerisque ante sollicitudin. Cras purus odio,
-                                    vestibulum in vulputate at, tempus viverra turpis.
-                                </p>
-                                <div class="review-movie">
-                                    <h6>Review for <a href="#" title="See more info about the movie you reviewed">Avenger's Endgame</a></h6>
+                            <div class="col-8 col-md-9">
+                                <div>
+                                    <button type="button" class="close" aria-label="Delete Review" title="Delete Review">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="mt-4">
+                                    <div>⭐⭐⭐⭐⭐</div>
+                                    <h5>Good shit</h5>
+                                    <p>
+                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel
+                                        metus scelerisque ante sollicitudin. Cras purus odio,
+                                        vestibulum in vulputate at, tempus viverra turpis.
+                                    </p>
+                                    <div class="review-movie">
+                                        <h6>Review for <a href="#" title="See more info about the movie you reviewed">Avenger's Endgame</a></h6>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
+
                         <hr class="review-divider"/>
                         <div class="row review-block">
                             <div class="col-4 col-md-3">
                                 <img class="avatar" src="images/tabby_small.jpg" alt="Reviewer Profile Picture">
-                                <h5>Yong Jun</h5>
+                                <h5>Bryan Lam</h5>
                                 <h6 class="small">November 23, 2020</h6>
                             </div>
-                            <div class="col-8 col-md-9 mt-4">
-                                <div>⭐⭐⭐⭐</div>
-                                <h5>Decent but can be improved</h5>
-                                <p>
-                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                                    metus scelerisque ante sollicitudin. Cras purus odio,
-                                    vestibulum in vulputate at, tempus viverra turpis.
-                                </p>
-                                <div class="review-movie">
-                                    <h6>Review for <a href="#" title="See more info about the movie you reviewed">The Ring</a></h6>
+                            <div class="col-8 col-md-9">
+                                <div>
+                                    <button type="button" class="close" aria-label="Delete Review" title="Delete Review">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="mt-4">
+                                    <div>⭐⭐⭐⭐</div>
+                                    <h5>Decent but can be improved</h5>
+                                    <p>
+                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel
+                                        metus scelerisque ante sollicitudin. Cras purus odio,
+                                        vestibulum in vulputate at, tempus viverra turpis.
+                                    </p>
+                                    <div class="review-movie">
+                                        <h6>Review for <a href="#" title="See more info about the movie you reviewed">The Ring</a></h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
