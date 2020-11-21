@@ -7,6 +7,8 @@
         ?>
         <title>Individual Movie Review Template</title>
         <link rel="stylesheet" href="css/movie_template.css">
+        <!-- Custom JS -->
+        <script defer src="js/movie_template.js"></script>
     </head>
     <body>
         <?php
@@ -65,7 +67,7 @@
                         <div class="col-xs-9 col-sm-8 col-md-9">
                             <div class="row">
                                 <!-- 5 Star Ratings -->
-                                <div class="col-xs-1 col-md-2 text-right">5 ⭐</div>
+                                <div class="col-xs-1 col-md-2 text-right">5 ★</div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-success" role="progressbar" style="width: 80%"
@@ -76,7 +78,7 @@
                                 </div>
 
                                 <!-- 4 Star Ratings -->
-                                <div class="col-xs-1 col-md-2 text-right">4 ⭐</div>
+                                <div class="col-xs-1 col-md-2 text-right">4 ★</div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60"
@@ -87,7 +89,7 @@
                                 </div>
 
                                 <!-- 3 Star Ratings -->
-                                <div class="col-xs-1 col-md-2 text-right">3 ⭐</div>
+                                <div class="col-xs-1 col-md-2 text-right">3 ★</div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-info" role="progressbar" aria-valuenow="40"
@@ -98,7 +100,7 @@
                                 </div>
 
                                 <!-- 2 Star Ratings -->
-                                <div class="col-xs-1 col-md-2 text-right">2 ⭐</div>
+                                <div class="col-xs-1 col-md-2 text-right">2 ★</div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="20"
@@ -109,7 +111,7 @@
                                 </div>
 
                                 <!-- 1 Star Ratings -->
-                                <div class="col-xs-1 col-md-2 text-right">1 ⭐</div>
+                                <div class="col-xs-1 col-md-2 text-right">1 ★</div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="15"
@@ -126,23 +128,22 @@
                 <div id="leave-review">
                     <form action="" method="post">
                         <h3>Leave a review</h3>
-                        <div class="form-group rating">
-                            <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="rating_options" id="rating_1" value="1">
-                            <label class="form-check-label" for="inlineRadio1">1</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="rating_options" id="rating_2" value="2">
-                            <label class="form-check-label" for="rating_2">2</label>
-                            </div>
+                        <div class="form-group rating star-rating">
+                            <!-- Remove whitespaces between stars -->
+                            <input type="hidden" name="rating" id="rating">
+                            <span data-score="1">★</span
+                            ><span data-score="2">★</span
+                            ><span data-score="3">★</span
+                            ><span data-score="4">★</span
+                            ><span data-score="5">★</span>
                         </div>
                         <div class="form-group">
-                            <label class="visually_hidden" for="review_title">Title</label>
-                            <input required class="form-control col-5" type="text" placeholder="Enter a title" id="review_title" name="review_title" maxlength="50">
+                            <label class="visually-hidden" for="review-title">Title</label>
+                            <input required class="form-control col-5" type="text" placeholder="Enter a title" id="review-title" name="review_title" maxlength="50">
                         </div>
                         <div class="form-group">
-                            <label class="visually_hidden" for="review_writeup">Message</label>
-                            <textarea required class="form-control" rows="2" placeholder="Enter your review here" id="review_writeup" name="review_writeup"></textarea>
+                            <label class="visually-hidden" for="review-writeup">Message</label>
+                            <textarea required class="form-control" rows="2" placeholder="Enter your review here" id="review-writeup" name="review_writeup"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary mb-2">Post review</button>
                     </form>
@@ -158,7 +159,7 @@
                                 <h6 class="small">November 25, 2020</h6>
                             </div>
                             <div class="col-8 col-md-9 mt-4">
-                                <div>⭐⭐⭐⭐⭐</div>
+                                <div class="star-rating">★★★★★</div>
                                 <h5>Good shit</h5>
                                 <p>
                                     Cras sit amet nibh libero, in gravida nulla. Nulla vel
@@ -175,7 +176,7 @@
                                 <h6 class="small">November 23, 2020</h6>
                             </div>
                             <div class="col-8 col-md-9 mt-4">
-                                <div>⭐⭐⭐⭐</div>
+                                <div class="star-rating">★★★★</div>
                                 <h5>Decent but can be improved</h5>
                                 <p>
                                     Cras sit amet nibh libero, in gravida nulla. Nulla vel
