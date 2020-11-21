@@ -1,11 +1,5 @@
 <?php
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-$fname = $lname = $email = $pwd_hashed = $errorMsg = "";
+$email = $pwd_hashed = $errorMsg = "";
 $success = true;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
@@ -58,12 +52,11 @@ function sanitize_input($data)
 //Helper function to authenticate the login.
 function authenticateUser()
 {
-    global $fname, $lname, $email, $pwd_hashed, $errorMsg, $success;
+    global $email, $pwd_hashed, $errorMsg, $success;
     
     // Create database connection.
     $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'],
-            $config['password'], $config['dbname']);
+    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
     
     // Check connection
     if ($conn->connect_error)
@@ -83,11 +76,9 @@ function authenticateUser()
         $result = $stmt->get_result();
         if ($result->num_rows > 0)
         {
-            // Note that email field is unique, so should only have
-            // one row in the result set.
+            // Note that email field is unique, so should only have one row in the result set.
             $row = $result->fetch_assoc();
-            $fname = $row["fname"];
-            $lname = $row["lname"];
+
             $pwd_hashed = $row["password"];
             
             $stmt->close();
@@ -96,21 +87,18 @@ function authenticateUser()
             // Check if the password matches:
             if (!password_verify($_POST["pwd"], $pwd_hashed))
             {
-                // Don't be too specific with the error message - hackers don't
-                // need to know which one they got right or wrong. :)
-                $errorMsg = "Email not found or password doesn't match...";
+                // Error message purposely left vague
+                $errorMsg = "Email not found or password doesn't match.";
                 $success = false;
             }
         }
         else
         {   
-            $errorMsg = "Email not found or password doesn't match...";
+            $errorMsg = "Email not found or password doesn't match.";
             $success = false;
         }
     }
-    
-    unset($fname);
-    unset($lname);
+
     unset($email);
     unset($pwd_hashed);
     unset($errorMsg);
@@ -135,7 +123,7 @@ function authenticateUser()
             if ($success)
             {
                 echo "<h2>Login successful!</h2>";
-                echo "<p>Welcome back, " . $fname . " " . $lname . "</p>";
+                echo "<p>Welcome back, </p>";
                 echo '<a class="btn btn-success mb-3" href="index.php" role="button">Return to Home</a>';
                 echo "<br>";
             }

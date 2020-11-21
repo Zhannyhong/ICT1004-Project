@@ -10,7 +10,6 @@ and open the template in the editor.
 body{
     padding: 0;
     margin: 0;
-    background: #add8e6 !important;
 }
 
 nav img {
@@ -82,19 +81,57 @@ footer {
     margin: 1rem auto;
 }
 
-.spacing {
-    margin-top: 20px;
-    margin-bottom: 10px;
+.profile {
+    padding: 2rem;
+    background-color: white;
+    text-align: center;
 }
 
-.textstyle {
-    background-color: blanchedalmond; 
-    border-radius: 20px; 
-    width: auto; 
-    height: auto; 
-    padding: 5px 30px 5px 30px; /* Making space around letters */
-    font-size: 18px; 
-    text-align: center;
+.review {
+    margin-top: 4rem;
+}
+
+.review-divider {
+    border-color: lightgray;
+}
+
+.review-block {
+    padding: 0 3px;
+}
+
+.review-movie {
+    text-align: right;
+    padding-right: 5px;
+}
+
+.card-background {
+    background: #fff2ec;
+}
+
+#profile-settings {
+    position: relative;
+    padding: 1rem;
+}
+
+#edit-profile {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+}
+
+#log-out{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#leave-review {
+    margin-top: 2rem;
+}
+
+#change-pic {
+    margin: auto;
+    padding-left: 1rem;
 }
 
 /*-----Slider-----*/
@@ -164,7 +201,7 @@ footer {
 
 
 main > .container{
-   background: white !important;
+    background: white !important;
 }
 
 .content {
@@ -183,3 +220,18 @@ main > .container{
 #star-rating {
     font-size: 2em;
 }
+
+
+/* From https://www.w3.org/WAI/tutorials/forms/labels/ */
+.visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+

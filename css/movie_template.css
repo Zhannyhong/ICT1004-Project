@@ -3,19 +3,40 @@ div.col-sm-4 img {
     margin-top: 0.5rem;
 }
 
-img.avatar.mr-3 {
-    width: 64px;
-    height: 64px;
+img.avatar {
+    width: 96px;
+    height: 96px;
 }
 
 .card-img-top {
     max-height: 500px;
 }
 
-#review {
-    margin-top: 5rem;
+.star-rating {
+    color: #FF9500;
+    font-size: 2rem;
 }
 
-.review-block {
-    margin: 1rem;
+/* Before hovering */
+.star-rating span {
+    color: #BFBFBF;
 }
+
+.star-rating span.is-active, .star-rating span.is-highlighted {
+    color: #FF9500;
+}
+
+.star-rating span:hover {
+    text-shadow: 0 0.1rem 0.1rem #000000;
+}
+
+/* Highlight all when hovering */
+.star-rating:hover > span {
+    color: #FF9500;
+}
+
+/* Change all stars after hovered star back to normal */
+.star-rating:hover > span:hover ~ span {
+    color: #BFBFBF;
+}
+
