@@ -173,3 +173,13 @@ main > .container{
   background: white;
   padding: 10px;
 }
+
+/*-----search_result.php-----*/
+.mini-movie-poster {
+    height: 200px;
+    width: 350px;
+}
+
+#star-rating {
+    font-size: 2em;
+}
