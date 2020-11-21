@@ -14,7 +14,7 @@
             <hr>
            
             <div>
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-sm-5 col-md-3 text-center" id="change-pic">
                             <img src="images/tabby_large.jpg" class="avatar" alt="Profile Picture">
@@ -28,7 +28,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="username">New Username</label>
-                                <input class="form-control" type="text" id="username" maxlength="45" name="username" placeholder="Enter username">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">@</div>
+                                    </div>
+                                    <input required class="form-control" type="text" id="username" name="username" placeholder="Enter new username" maxlength="30">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="old_pwd">Old Password</label>

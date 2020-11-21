@@ -15,7 +15,7 @@
         <header class="jumbotron text-center">
             <h1 class="display-4">About Us</h1>
             <p class="lead">
-                We are the world's most trusted recommendation resource for quality entertainment. At MovieReview,
+                We are the world's most trusted recommendation resource for quality entertainment. At Popcorn,
                 you can find the stuff you love, or share your opinions with other avid movie watchers. If you are just
                 a casual movie binger, or a serious movie critic, you have come to the right place!
             </p>

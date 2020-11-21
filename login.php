@@ -18,7 +18,7 @@ and open the template in the editor.
         <main class="container">
             <div class="my-5">
                 <h1 class="display-4">Member Login</h1>
-                <h6 class="lead">Need a MovieReview account? <a href="register.php">Create an account</a>.</h6>
+                <h6 class="lead">Need a Popcorn account? <a href="register.php">Create an account</a>.</h6>
             </div>
 
             <form action="process_login.php" method="post">
@@ -29,7 +29,7 @@ and open the template in the editor.
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password</label>
-                    <input required class="form-control" type="password" id="pwd" name="pwd" placeholder="Enter password">
+                    <input required class="form-control" type="password" id="pwd" name="pwd" minlength="8" placeholder="Enter password">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Login</button>

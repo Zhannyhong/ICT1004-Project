@@ -1,31 +1,9 @@
 <?php
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-$fname = $lname = $email = $pwd_hashed = $errorMsg = "";
+$email = $username = $file_upload = $pwd_hashed = $errorMsg = "";
 $success = true;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
-    // if first name not empty
-    if (!empty($_POST["fname"]))
-    {
-        $fname = sanitize_input($_POST["fname"]);
-    }
-    
-    if (empty($_POST["lname"]))
-    {
-        $errorMsg .= "Last name is required.<br>";
-        $success = false;
-    }
-    else
-    {
-        $lname = sanitize_input($_POST["lname"]);
-    }
-    
     if (empty($_POST["email"]))
     {
         $errorMsg .= "Email is required.<br>";
@@ -42,10 +20,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $success = false;
         }
     }
-    
+
+    if (empty($_POST["username"]))
+    {
+        $errorMsg .= "Username is required.<br>";
+        $success = false;
+    }
+    else
+    {
+        $username = sanitize_input($_POST["username"]);
+        if (!ctype_alnum($username))
+        {
+            $errorMsg .= "Username contains non-alphanumeric characters.<br>";
+            $success = false;
+        }
+
+        if (strlen($username) > 30)
+        {
+            $errorMsg .= "Username contains more than 30 characters.<br>";
+            $success = false;
+        }
+    }
+
+
+    // Use default profile picture if user did not upload any image
+    if (($_FILES['file_upload']["error"] == 4))
+    {
+        $file_upload = "images/profile_pics/default_profile_pic.png";
+    }
+    // Error occurred during uploading process
+    elseif (($_FILES['file_upload']['error']) != 0)
+    {
+        $file_err_num = $_FILES['file_upload']['error'];
+        $errorMsg .= "File upload error [error $file_err_num].<br>";
+        $success = false;
+    }
+    else
+    {
+        $allowed_extensions = array("jpeg", "jpg", "png");
+        $file_extension = strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
+
+        // Checks the file signature to ensure that it is an image
+        if (exif_imagetype($_FILES['image_upload']['tmp_name']) == false)
+        {
+            $errorMsg .= "File uploaded is not an image.<br>";
+            $success = false;
+        }
+
+        // Checks that file uploaded is only of the allowed extensions
+        if (!in_array($file_extension, $allowed_extensions))
+        {
+            $errorMsg .= "File uploaded is not a JPEG, JPG, or PNG file.<br>";
+            $success = false;
+        }
+
+        // Checks that file uploaded is not more than 2MB
+        if ($_FILES['file_upload']['size'] > 2097152)
+        {
+            $errorMsg .= "File uploaded is more than 2MB.<br>";
+            $success = false;
+        }
+    }
+
+
     if (empty($_POST["pwd"]) || empty($_POST["pwd_confirm"])) 
     {
-        $errorMsg .= "Password and confirmation required.<br>";
+        $errorMsg .= "Password and confirmation is required.<br>";
         $success = false;
     }
     else 
@@ -57,15 +97,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         }
         else
         {
-            $pwd_hashed = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
+            if (strlen($_POST["pwd"]) < 8)
+            {
+                $errorMsg .= "Password must contain at least 8 characters.<br>";
+                $success = false;
+            }
+            if (!preg_match("#[0-9]+#", $_POST["pwd"]))
+            {
+                $errorMsg .= "Password must contain at least 1 number.<br>";
+                $success = false;
+            }
+            if (!preg_match("#[a-z]+#", $_POST["pwd"]))
+            {
+                $errorMsg .= "Password must contain at least 1 lowercase letter.<br>";
+                $success = false;
+            }
+            if (!preg_match("#[A-Z]+#", $_POST["pwd"]))
+            {
+                $errorMsg .= "Password must contain at least 1 uppercase letter.<br>";
+                $success = false;
+            }
         }
     }
-    
-    if (!isset($_POST["agree_check"]))
-    {
-        $errorMsg .= "Agreeing to terms and conditions is required.<br>";
-        $success = false;
-    }
+    $pwd_hashed = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
+
     
     if ($success)
     {
@@ -92,12 +147,11 @@ function sanitize_input($data)
 //Helper function to write the member data to the DB
 function saveMemberToDB()
 {
-    global $fname, $lname, $email, $pwd_hashed, $errorMsg, $success;
+    global $email, $username, $pwd_hashed, $errorMsg, $success;
     
     // Create database connection.
     $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'],
-    $config['password'], $config['dbname']);
+    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
     
     // Check connection
     if ($conn->connect_error)
@@ -107,17 +161,52 @@ function saveMemberToDB()
     }
     else
     {
-        // Prepare the statement:
-        $stmt = $conn->prepare("INSERT INTO world_of_pets_members (fname, lname, email, password) VALUES (?, ?, ?, ?)");
-        
-        // Bind & execute the query statement:
-        $stmt->bind_param("ssss", $fname, $lname, $email, $pwd_hashed);
-        if (!$stmt->execute())
-        {   
-            $errorMsg = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+        // Check if email has already been used
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email=?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows == 1)
+        {
+            $errorMsg .= "Popcorn account already exists.<br>";
             $success = false;
         }
         $stmt->close();
+
+        // Check if username has already been used
+        $stmt = $conn->prepare("SELECT * FROM users WHERE username=?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows == 1)
+        {
+            $errorMsg .= "Username is already taken.<br>";
+            $success = false;
+        }
+        $stmt->close();
+
+
+        if ($success)
+        {
+            // User profile pics will be saved under images/profile_pics/<username>.<file_extension>
+            $target_dir = "images/profile_pics/";
+            $filename = $username . strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
+            $profile_pic_path = $target_dir . $filename;
+
+            // Get current datetime in UNIX format
+            date_default_timezone_set('Asia/Singapore');
+            $curr_datetime = date('Y-m-d H:i:s');
+
+            // Saves new user to database
+            $stmt = $conn->prepare("INSERT INTO users (email, username, profilePic, password, joinDate) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssss", $email, $username, $profile_pic_path, $pwd_hashed, $curr_datetime);
+            if (!$stmt->execute())
+            {
+                $errorMsg = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+                $success = false;
+            }
+            $stmt->close();
+        }
     }
     
     $conn->close();
@@ -136,13 +225,13 @@ function saveMemberToDB()
             include "nav.inc.php";
         ?>
         <main class="container">
-            <hr>
+            <hr/>
             <?php
             if ($success)
             {
                 echo "<h2>Registration successful!</h2>";
-                echo "<p>Email: " . $email;
-                echo "<p>Thank you for signing up, " . $fname . " " . $lname . "</p>";
+                echo "<p>Email: $email</p>";
+                echo "<p>Thank you for signing up, </p>";
                 echo '<a class="btn btn-success mb-3" href="login.php" role="button">Login</a>';
                 echo "<br>";
             }

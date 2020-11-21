@@ -139,7 +139,7 @@
                         </div>
                         <div class="form-group">
                             <label class="visually-hidden" for="review-title">Title</label>
-                            <input required class="form-control col-5" type="text" placeholder="Enter a title" id="review-title" name="review_title" maxlength="50">
+                            <input required class="form-control col-5" type="text" placeholder="Enter title" id="review-title" name="review_title" maxlength="50">
                         </div>
                         <div class="form-group">
                             <label class="visually-hidden" for="review-writeup">Message</label>
