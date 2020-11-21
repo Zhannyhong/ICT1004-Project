@@ -125,14 +125,28 @@
 
                 <div id="leave-review">
                     <form action="" method="post">
-                        <div class="form-group">
-                            <label for="review">Leave a Review</label>
-                            <input required class="form-control col-5" type="text" placeholder="Enter a title" id="review" name="review_title" maxlength="50">
-                            <textarea required class="form-control" rows="2" placeholder="Enter your review here" id="review" name="review_writeup"></textarea>
+                        <h3>Leave a review</h3>
+                        <div class="form-group rating">
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="rating_options" id="rating_1" value="1">
+                            <label class="form-check-label" for="inlineRadio1">1</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="rating_options" id="rating_2" value="2">
+                            <label class="form-check-label" for="rating_2">2</label>
+                            </div>
                         </div>
+                        <div class="form-group">
+                            <label class="visually_hidden" for="review_title">Title</label>
+                            <input required class="form-control col-5" type="text" placeholder="Enter a title" id="review_title" name="review_title" maxlength="50">
+                        </div>
+                        <div class="form-group">
+                            <label class="visually_hidden" for="review_writeup">Message</label>
+                            <textarea required class="form-control" rows="2" placeholder="Enter your review here" id="review_writeup" name="review_writeup"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Post review</button>
                     </form>
                 </div>
-
 
                 <div class="review">
                     <div>
