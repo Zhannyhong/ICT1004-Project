@@ -37,7 +37,7 @@ and open the template in the editor.
                                 <img src="images/coming-soon-slider.jpg" class="d-block w-100" alt="...">
                             </div>
                             <div class="carousel-item">
-                                <img src="images/coming-soon-slider.jpg" class="d-block w-100" alt="...">
+                                <img src="images/movies/avengers-endgame-poster-square-crop.jpg" class="d-block w-100" alt="...">
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#homeSlider" role="button" data-slide="prev">
@@ -51,8 +51,8 @@ and open the template in the editor.
                     </div>
                 </div>
                 <!-----Top Rated Movies----->
-                <div class="container text-center my-3">
-                    <h2 class="font-weight-light ml-auto">Top Rated movies</h2>
+                <div id="topRatedSec" class="container text-center my-3">
+                    <h2 class="font-weight-light ml-auto style-line">Top Rated movies</h2>
                     <div class="row mx-auto my-auto">
                         <div id="topCarousel" class="carousel slide w-auto" data-ride="carousel">
                             <div class="carousel-inner w-100" role="listbox">
@@ -91,11 +91,10 @@ and open the template in the editor.
                             </a>
                         </div>
                     </div>
-                    <h5 class="mt-2">Advances one slide at a time</h5>
                 </div>
                 <!-----Latest Movies----->
-                <div class="container text-center my-3">
-                    <h2 class="font-weight-light mr-auto">Latest movies</h2>
+                <div id="latestSec" class="container text-center my-3">
+                    <h2 class="font-weight-light mr-auto style-line">Latest movies</h2>
                     <div class="row mx-auto my-auto">
                         <div id="latestCarousel" class="carousel slide w-auto" data-ride="carousel">
                             <div class="carousel-inner w-100" role="listbox">
@@ -134,7 +133,6 @@ and open the template in the editor.
                             </a>
                         </div>
                     </div>
-                    <h5 class="mt-2">Advances one slide at a time</h5>
                 </div>
             </div>
         </main>

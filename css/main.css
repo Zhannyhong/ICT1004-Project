@@ -136,9 +136,8 @@ footer {
 
 /*-----Slider-----*/
 #slide{
-    width: 2000px;
-    margin: 0;
-    margin-left: -445px;
+    width: auto;
+    margin: auto;
 }
 
 /*-----Carousel Movies-----*/
@@ -234,4 +233,24 @@ main > .container{
     width: 1px;
 }
 
+/*-----Top Rated Movie-----*/
+#topRatedSec{
+    margin-top: 80px !important;
+    text-align: left !important;
+}
+.style-line{
+    border-bottom: 1px solid;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
 
+/*-----Latest Movie-----*/
+#latestSec{
+    margin-top: 100px !important;
+    text-align: left !important;
+}
+
+#homeSlider img{
+    width: 1150px !important;
+    height: 400px !important;
+}
