@@ -56,9 +56,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
             $success = false;
         }
 
-        // User profile pics will be saved under images/profile_pics/<username>.<file_extension>
+        // User profile pics will be saved under images/profile_pics/<userID>.<file_extension>
         $target_dir = "images/profile_pics/";
-        $filename = $username . strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
+        $filename = $userID . '.' . strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
         $file_upload = $target_dir . $filename;
     }
 
@@ -195,13 +195,16 @@ function saveProfileChanges()
             $errorMsg = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
             $success = false;
         }
-        // If user data successfully updated in database
-        else
+        // If user successfully saved to database and user uploaded their own profile picture
+        elseif ($_FILES["file_upload"]["error"] == 0)
         {
-            // If user wants to change their profile picture
-            if ($file_upload)
+            // Save user's new profile picture to server
+            if (!copy($_FILES["file_upload"]["tmp_name"], $file_upload))
+            {
+                $errorMsg = "File upload failed.";
+                $success = false;
+            }
         }
-
 
         $stmt->close();
     }

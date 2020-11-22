@@ -120,11 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $errorMsg .= "File uploaded is more than 2MB.<br>";
             $success = false;
         }
-
-        // User profile pics will be saved under images/profile_pics/<username>.<file_extension>
-        $target_dir = "images/profile_pics/";
-        $filename = $username . strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
-        $file_upload = $target_dir . $filename;
+        // If user uploaded their own file, file_upload will remain empty
     }
 
 
@@ -210,13 +206,34 @@ function saveMemberToDB()
             $success = false;
         }
         // If user successfully saved to database and user uploaded their own profile picture
-        elseif ($_FILES['file_upload']["error"] != 4)
+        elseif ($file_upload == "")
         {
-            // Save user's new profile picture to database
-            if (!copy($_FILES["file_upload"]["tmp_name"], $file_upload))
+            // Get userID of the newly registered user
+            $userID = $stmt->insert_id;
+            $stmt->close();
+
+            // User profile pics will be saved under images/profile_pics/<userID>.<file_extension>
+            $target_dir = "images/profile_pics/";
+            $filename = $userID . '.' . strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
+            $file_upload = $target_dir . $filename;
+
+            // Update database with file path of user's profile picture
+            $stmt = $conn->prepare("UPDATE users SET profilePic=? WHERE userID=?");
+            $stmt->bind_param("ss", $file_upload, $userID);
+
+            if (!$stmt->execute())
             {
-                $errorMsg = "File upload failed.";
+                $errorMsg = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
                 $success = false;
+            }
+            else
+            {
+                // Save user's new profile picture to server
+                if (!copy($_FILES["file_upload"]["tmp_name"], $file_upload))
+                {
+                    $errorMsg = "File upload failed.";
+                    $success = false;
+                }
             }
         }
 
