@@ -134,6 +134,11 @@ footer {
     padding-left: 1rem;
 }
 
+.star-rating {
+    color: #FF9500;
+    font-size: 2rem;
+}
+
 /*-----Slider-----*/
 #slide{
     width: auto;

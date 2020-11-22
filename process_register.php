@@ -1,4 +1,17 @@
 <?php
+
+// Create database connection
+$config = parse_ini_file('../../private/db-config.ini');
+$conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
+
+// Check connection
+if ($conn->connect_error)
+{
+    $errorMsg = "Connection failed: " . $conn->connect_error;
+    $success = false;
+}
+
+
 $email = $username = $file_upload = $pwd_hashed = $errorMsg = "";
 $success = true;
 
@@ -13,8 +26,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         $email = sanitize_input($_POST["email"]);
         $email_pattern = '/^[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|edu|sg)$/m';
+
+        // Check if email has already been used
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email=?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        if ($result->num_rows == 1)
+        {
+            $errorMsg .= "Popcorn account already exists.<br>";
+            $success = false;
+        }
+
         // Additional check to make sure e-mail address is well-formed.
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match($email_pattern, $email))
+        elseif (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match($email_pattern, $email))
         {
             $errorMsg .= "Invalid email format.";
             $success = false;
@@ -29,16 +55,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     else
     {
         $username = sanitize_input($_POST["username"]);
-        if (!ctype_alnum($username))
+
+        // Check if username has already been used
+        $stmt = $conn->prepare("SELECT * FROM users WHERE username=?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        if ($result->num_rows == 1)
         {
-            $errorMsg .= "Username contains non-alphanumeric characters.<br>";
+            $errorMsg .= "Username is already taken.<br>";
             $success = false;
         }
-
-        if (strlen($username) > 30)
+        else
         {
-            $errorMsg .= "Username contains more than 30 characters.<br>";
-            $success = false;
+            if (!ctype_alnum($username))
+            {
+                $errorMsg .= "Username contains non-alphanumeric characters.<br>";
+                $success = false;
+            }
+            if (strlen($username) > 30)
+            {
+                $errorMsg .= "Username contains more than 30 characters.<br>";
+                $success = false;
+            }
         }
     }
 
@@ -80,6 +120,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $errorMsg .= "File uploaded is more than 2MB.<br>";
             $success = false;
         }
+
+        // User profile pics will be saved under images/profile_pics/<username>.<file_extension>
+        $target_dir = "images/profile_pics/";
+        $filename = $username . strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
+        $file_upload = $target_dir . $filename;
     }
 
 
@@ -123,9 +168,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     
     if ($success)
-    {
         saveMemberToDB();
-    }
+
+    $conn->close();
 }
 else
 {
@@ -147,69 +192,36 @@ function sanitize_input($data)
 //Helper function to write the member data to the DB
 function saveMemberToDB()
 {
-    global $email, $username, $pwd_hashed, $errorMsg, $success;
-    
-    // Create database connection.
-    $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-    
-    // Check connection
-    if ($conn->connect_error)
+    global $conn, $email, $username, $file_upload, $pwd_hashed, $errorMsg, $success;
+
+    if ($success)
     {
-        $errorMsg = "Connection failed: " . $conn->connect_error;
-        $success = false;
-    }
-    else
-    {
-        // Check if email has already been used
-        $stmt = $conn->prepare("SELECT * FROM users WHERE email=?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows == 1)
+        // Get current datetime in UNIX format
+        date_default_timezone_set('Asia/Singapore');
+        $curr_datetime = date('Y-m-d H:i:s');
+
+        // Saves new user to database
+        $stmt = $conn->prepare("INSERT INTO users (email, username, profilePic, password, joinDate) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $email, $username, $file_upload, $pwd_hashed, $curr_datetime);
+
+        if (!$stmt->execute())
         {
-            $errorMsg .= "Popcorn account already exists.<br>";
+            $errorMsg = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
             $success = false;
         }
-        $stmt->close();
-
-        // Check if username has already been used
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username=?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows == 1)
+        // If user successfully saved to database and user uploaded their own profile picture
+        elseif ($_FILES['file_upload']["error"] != 4)
         {
-            $errorMsg .= "Username is already taken.<br>";
-            $success = false;
-        }
-        $stmt->close();
-
-
-        if ($success)
-        {
-            // User profile pics will be saved under images/profile_pics/<username>.<file_extension>
-            $target_dir = "images/profile_pics/";
-            $filename = $username . strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
-            $profile_pic_path = $target_dir . $filename;
-
-            // Get current datetime in UNIX format
-            date_default_timezone_set('Asia/Singapore');
-            $curr_datetime = date('Y-m-d H:i:s');
-
-            // Saves new user to database
-            $stmt = $conn->prepare("INSERT INTO users (email, username, profilePic, password, joinDate) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssss", $email, $username, $profile_pic_path, $pwd_hashed, $curr_datetime);
-            if (!$stmt->execute())
+            // Save user's new profile picture to database
+            if (!copy($_FILES["file_upload"]["tmp_name"], $file_upload))
             {
-                $errorMsg = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+                $errorMsg = "File upload failed.";
                 $success = false;
             }
-            $stmt->close();
         }
+
+        $stmt->close();
     }
-    
-    $conn->close();
 }
 ?>
 
@@ -231,7 +243,7 @@ function saveMemberToDB()
             {
                 echo "<h2>Registration successful!</h2>";
                 echo "<p>Email: $email</p>";
-                echo "<p>Thank you for signing up, </p>";
+                echo "<p>Thank you for signing up, $username</p>";
                 echo '<a class="btn btn-success mb-3" href="login.php" role="button">Login</a>';
                 echo "<br>";
             }

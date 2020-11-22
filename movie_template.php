@@ -131,11 +131,11 @@
                         <div class="form-group rating star-rating">
                             <!-- Remove whitespaces between stars -->
                             <input type="hidden" name="rating" id="rating">
-                            <span data-score="1">★</span
-                            ><span data-score="2">★</span
-                            ><span data-score="3">★</span
-                            ><span data-score="4">★</span
-                            ><span data-score="5">★</span>
+                            <span data-score="1">★</span>
+                            <span data-score="2">★</span>
+                            <span data-score="3">★</span>
+                            <span data-score="4">★</span>
+                            <span data-score="5">★</span>
                         </div>
                         <div class="form-group">
                             <label class="visually-hidden" for="review-title">Title</label>

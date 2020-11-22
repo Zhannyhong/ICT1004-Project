@@ -1,4 +1,23 @@
-<html lang="en">    
+<?php
+session_start();
+
+// Checks if the user is logged in
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
+{
+    // Redirects user back to sign in page
+    echo "<h2>This page is not to be run directly.</h2>";
+    echo "<h2>Please<a href='login.php'> sign in </a>first</h2>";
+    exit();
+}
+
+$userID = $_SESSION["userID"];
+$username = $_SESSION["username"];
+$email = $_SESSION["email"];
+$profile_pic = $_SESSION["profile_pic"];
+
+?>
+
+<html lang="en">
     <head>
         <?php
             include "head.inc.php";
@@ -14,17 +33,17 @@
             <hr>
            
             <div>
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="process_edit_profile.php" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-sm-5 col-md-3 text-center" id="change-pic">
-                            <img src="images/tabby_large.jpg" class="avatar" alt="Profile Picture">
-                            <h5>Bryan Lam</h5>
-                            <h6>tabby123@gmail.com</h6>
+                            <img src="<?=$profile_pic?>" class="avatar" alt="Profile Picture">
+                            <h5><?=$username?></h5>
+                            <h6><?=$email?></h6>
                         </div>
                         <div class="col-sm-7 col-md-9 my-4">
                             <div class="form-group">
                                 <label for="file_upload">Change Profile Picture</label>
-                                <input type="file" class="form-control-file" name="file_upload">
+                                <input type="file" class="form-control-file" name="file_upload" accept=".jpeg, .jpg, .png">
                             </div>
                             <div class="form-group">
                                 <label for="username">New Username</label>
@@ -32,20 +51,29 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">@</div>
                                     </div>
-                                    <input required class="form-control" type="text" id="username" name="username" placeholder="Enter new username" maxlength="30">
+                                    <input class="form-control" type="text" id="username" name="username" placeholder="Enter new username" maxlength="30">
                                 </div>
+                                <small class="form-text text-muted">
+                                    Username must be unique and contain no more than 30 alphanumeric characters.
+                                </small>
                             </div>
                             <div class="form-group">
                                 <label for="old_pwd">Old Password</label>
-                                <input required class="form-control" type="password" id="old_pwd" name="old_pwd" placeholder="Enter old password">
+                                <input class="form-control" type="password" id="old_pwd" name="old_pwd" minlength="8" placeholder="Enter old password">
+                                <small class="form-text text-muted">
+                                    You have to enter your old password before you can change your password.
+                                </small>
                             </div>
                             <div class="form-group">
                                 <label for="pwd">New Password</label>
-                                <input required class="form-control" type="password" id="pwd" name="new_pwd" placeholder="Enter new password">
+                                <input class="form-control" type="password" id="pwd" name="new_pwd" minlength="8" placeholder="Enter new password">
+                                <small class="form-text text-muted">
+                                    Your password must be at least 8 characters long, contain upper and lowercase letters, and include numbers.
+                                </small>
                             </div>
                             <div class="form-group">
                                 <label for="pwd_confirm">Confirm Password</label>
-                                <input required class="form-control" type="password" id="pwd_confirm" name="pwd_confirm" placeholder="Re-enter new password">
+                                <input class="form-control" type="password" id="pwd_confirm" name="pwd_confirm" minlength="8" placeholder="Re-enter new password">
                             </div>
 
                             <div class="form-group">

@@ -1,5 +1,16 @@
 <?php
-$email = $pwd_hashed = $errorMsg = "";
+session_start();
+
+// Checks if the user is logged in
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
+{
+    // Redirects user to their profile page
+    header("location: profile_page.php");
+    exit();
+}
+
+
+$email = $pwd_hashed = $username = $profile_pic = $userID = $errorMsg = "";
 $success = true;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
@@ -52,7 +63,7 @@ function sanitize_input($data)
 //Helper function to authenticate the login.
 function authenticateUser()
 {
-    global $email, $pwd_hashed, $errorMsg, $success;
+    global $email, $username, $userID, $profile_pic, $pwd_hashed, $errorMsg, $success;
     
     // Create database connection.
     $config = parse_ini_file('../../private/db-config.ini');
@@ -67,27 +78,24 @@ function authenticateUser()
     }
     else
     {
-        // Prepare the statement:
-        $stmt = $conn->prepare("SELECT * FROM world_of_pets_members WHERE email=?");
-        
-        // Bind & execute the query statement:
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email=?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
-        if ($result->num_rows > 0)
-        {
-            // Note that email field is unique, so should only have one row in the result set.
-            $row = $result->fetch_assoc();
 
+        // Note that email field is unique, so should only have one row in the result set.
+        if ($result->num_rows == 1)
+        {
+            $row = $result->fetch_assoc();
+            $userID = $row["userID"];
+            $username = $row["username"];
+            $profile_pic = $row["profilePic"];
             $pwd_hashed = $row["password"];
-            
             $stmt->close();
-            $conn->close();
             
-            // Check if the password matches:
+            // Check if the password matches
             if (!password_verify($_POST["pwd"], $pwd_hashed))
             {
-                // Error message purposely left vague
                 $errorMsg = "Email not found or password doesn't match.";
                 $success = false;
             }
@@ -97,16 +105,26 @@ function authenticateUser()
             $errorMsg = "Email not found or password doesn't match.";
             $success = false;
         }
-    }
 
-    unset($email);
-    unset($pwd_hashed);
-    unset($errorMsg);
-    unset($success);
+        // Log user in
+        if ($success)
+        {
+            require 'Zebra_Session.php';
+            $session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
+
+            $_SESSION["loggedin"] = true;
+            $_SESSION["email"] = $email;
+            $_SESSION["username"] = $username;
+            $_SESSION["profile_pic"] = $profile_pic;
+            $_SESSION["userID"] = $userID;
+        }
+
+        $conn->close();
+    }
 }
 ?>
 
-<html>
+<html lang="en">
     <head>
         <title>Registration Results</title>
         <?php
@@ -123,7 +141,7 @@ function authenticateUser()
             if ($success)
             {
                 echo "<h2>Login successful!</h2>";
-                echo "<p>Welcome back, </p>";
+                echo "<p>Welcome back, $username</p>";
                 echo '<a class="btn btn-success mb-3" href="index.php" role="button">Return to Home</a>';
                 echo "<br>";
             }
@@ -133,6 +151,12 @@ function authenticateUser()
                 echo "<p>" . $errorMsg . "</p>";
                 echo '<a class="btn btn-danger mb-3" href="login.php" role="button">Return to Login page</a>';
             }
+
+            unset($email);
+            unset($profile_pic);
+            unset($pwd_hashed);
+            unset($errorMsg);
+            unset($success);
             ?>
         </main>
         <?php
