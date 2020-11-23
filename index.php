@@ -1,9 +1,16 @@
+<?php
+/*
+require 'Zebra_Session.php';
+$config = parse_ini_file('../../private/db-config.ini');
+$conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
+$session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
+*/
+session_start();
+print_r($_SESSION);
+
+?>
+
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html lang="en">
     <head>
         <title>World of Pets</title>

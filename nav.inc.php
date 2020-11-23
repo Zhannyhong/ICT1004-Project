@@ -95,14 +95,10 @@
                     <input type="text" class="form-control" placeholder="Search for movie title" aria-label="Search" aria-describedby="basic-addon1">
                 </div>
             </form>
-                        <li class="nav-item">
-                <a class="nav-link" title="Register" href="register.php">
-                    <i class="material-icons" style="font-size:2em;">account_circle</i>
-                </a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" title="Login" href="login.php">
-                   <i class="material-icons" style="font-size:2em;">input</i>
+                    <i class="material-icons" style="font-size:2em;">account_circle</i>
                 </a>
             </li>
         </ul>

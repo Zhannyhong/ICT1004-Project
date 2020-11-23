@@ -258,16 +258,16 @@ function saveMemberToDB()
             <?php
             if ($success)
             {
-                echo "<h2>Registration successful!</h2>";
-                echo "<p>Email: $email</p>";
-                echo "<p>Thank you for signing up, $username</p>";
+                echo "<h1 class='display-4'>Registration successful</h1>";
+                echo "<h5>Email: $email</h5>";
+                echo "<h5>Thank you for signing up, $username.</h5>";
                 echo '<a class="btn btn-success mb-3" href="login.php" role="button">Login</a>';
-                echo "<br>";
             }
             else
             {
-                echo "<h4>The following input errors were detected:</h4>";
-                echo "<p>" . $errorMsg . "</p>";
+                echo "<h1 class='display-4'>Oops!</h1>";
+                echo "<h3>The following errors were detected:</h3>";
+                echo "<p class='text-secondary'>" . $errorMsg . "</p>";
                 echo '<a class="btn btn-danger mb-3" href="register.php" role="button">Return to Register page</a>';
             }
             ?>

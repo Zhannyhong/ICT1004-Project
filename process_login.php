@@ -1,14 +1,4 @@
 <?php
-session_start();
-
-// Checks if the user is logged in
-if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
-{
-    // Redirects user to their profile page
-    header("location: profile_page.php");
-    exit();
-}
-
 
 $email = $pwd_hashed = $username = $profile_pic = $userID = $errorMsg = "";
 $success = true;
@@ -88,10 +78,6 @@ function authenticateUser()
         {
             $row = $result->fetch_assoc();
             $userID = $row["userID"];
-            $username = $row["username"];
-            $profile_pic = $row["profilePic"];
-            $pwd_hashed = $row["password"];
-            $stmt->close();
             
             // Check if the password matches
             if (!password_verify($_POST["pwd"], $pwd_hashed))
@@ -109,16 +95,18 @@ function authenticateUser()
         // Log user in
         if ($success)
         {
+            /*
             require 'Zebra_Session.php';
             $session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
+            */
+            session_start();
 
             $_SESSION["loggedin"] = true;
-            $_SESSION["email"] = $email;
-            $_SESSION["username"] = $username;
-            $_SESSION["profile_pic"] = $profile_pic;
             $_SESSION["userID"] = $userID;
+            print_r($_SESSION);
         }
 
+        $stmt->close();
         $conn->close();
     }
 }
@@ -140,23 +128,17 @@ function authenticateUser()
             <?php
             if ($success)
             {
-                echo "<h2>Login successful!</h2>";
-                echo "<p>Welcome back, $username</p>";
+                echo "<h1 class='display-4'>Login successful</h1>";
+                echo "<h4>Welcome back, $username.</h4>";
                 echo '<a class="btn btn-success mb-3" href="index.php" role="button">Return to Home</a>';
-                echo "<br>";
             }
             else
             {
-                echo "<h4>The following input errors were detected:</h4>";
-                echo "<p>" . $errorMsg . "</p>";
+                echo "<h1 class='display-4'>Oops!</h1>";
+                echo "<h3>The following input errors were detected:</h3>";
+                echo "<p class='text-secondary'>" . $errorMsg . "</p>";
                 echo '<a class="btn btn-danger mb-3" href="login.php" role="button">Return to Login page</a>';
             }
-
-            unset($email);
-            unset($profile_pic);
-            unset($pwd_hashed);
-            unset($errorMsg);
-            unset($success);
             ?>
         </main>
         <?php

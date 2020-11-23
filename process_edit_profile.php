@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
 {
@@ -14,14 +15,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
     }
 
     $userID = $_SESSION["userID"];
-    $username = $_SESSION["username"];
+
+    // Retrieves user info from database
+    $stmt = $conn->prepare("SELECT * FROM users WHERE userID=?");
+    $stmt->bind_param("s", $userID);
+
+    if (!$stmt->execute())
+    {
+        echo "<h2>Execute failed: (' . $stmt->errno . ') ' . $stmt->error</h2>";
+        exit();
+    }
+
+    $user_details = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
+    $stmt->close();
+    $username = $user_details["username"];
     $pwd_hashed = $errorMsg = "";
     $success = true;
 
     // Use back profile picture if user did not upload any image
     if (($_FILES['file_upload']["error"] == 4))
     {
-        $file_upload = $_SESSION["profile_pic"];
+        $file_upload = $user_details["profilePic"];
     }
     // Error occurred during uploading process
     elseif (($_FILES['file_upload']['error']) != 0)
@@ -227,14 +241,14 @@ function saveProfileChanges()
                 <?php
                 if ($success)
                 {
-                    echo "<h2>Profile updated!</h2>";
+                    echo "<h1 class='display-4'>Profile Updated</h1><br>";
                     echo '<a class="btn btn-success mb-3" href="profile_page.php" role="button">Return to Profile page</a>';
-                    echo "<br>";
                 }
                 else
                 {
-                    echo "<h4>The following input errors were detected:</h4>";
-                    echo "<p>" . $errorMsg . "</p>";
+                    echo "<h1 class='display-4'>Oops!</h1>";
+                    echo "<h3>The following input errors were detected:</h3>";
+                    echo "<p class='text-secondary'>" . $errorMsg . "</p>";
                     echo '<a class="btn btn-danger mb-3" href="profile_page.php" role="button">Return to Profile page</a>';
                 }
                 ?>

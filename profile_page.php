@@ -10,29 +10,50 @@ if ($conn->connect_error)
     exit();
 }
 
-// Establish session
+/*
 require 'Zebra_Session.php';
 $session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
+*/
+session_start();
+print_r($_SESSION);
 
 
 $userID = $_SESSION["userID"];
-$username = $_SESSION["username"];
-$email = $_SESSION["email"];
-$profile_pic = $_SESSION["profile_pic"];
+
+// Retrieves user info from database
+$stmt = $conn->prepare("SELECT * FROM users WHERE userID=?");
+$stmt->bind_param("s", $userID);
+
+if (!$stmt->execute())
+{
+    echo "<h2>Execute failed: (' . $stmt->errno . ') ' . $stmt->error</h2>";
+    exit();
+}
+
+$user_details = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
+$username = $user_details["username"];
+$email = $user_details["email"];
+$profile_pic = $user_details["profilePic"];
+
 
 // Retrieves user's reviews from database
 $stmt = $conn->prepare("SELECT U.profilePic, U.username, R.reviewID, R.reviewDate, R.reviewRating, R.reviewTitle, R.writeUp, M.movieTitle
                         FROM users U, reviews R, movies M 
-                        WHERE userID=? AND U.userID=R.userID AND R.movieID=M.movieID");
+                        WHERE R.userID=? AND R.userID=U.userID AND R.movieID=M.movieID");
 $stmt->bind_param("s", $userID);
-$stmt->execute();
+
+if (!$stmt->execute())
+{
+    echo "<h2>Execute failed: (' . $stmt->errno . ') ' . $stmt->error</h2>";
+    exit();
+}
+
 $result = $stmt->get_result();
-$review_count = $stmt->num_rows();
+$review_count = $result->num_rows;
+$stmt->close();
 
 ?>
 
-
-<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>World of Pets</title>
@@ -76,11 +97,11 @@ $review_count = $stmt->num_rows();
                 <h1 class="display-4">Your Reviews</h1>
                 <p class="font-italic">Review Count: <?=$review_count?></p>
                 <div>
+                    <hr class="review-divider"/>
                     <?php
                     while ($row = $result->fetch_assoc()) {
                     ?>
 
-                    <hr class="review-divider"/>
                     <div class="row review-block">
                         <div class="col-4 col-md-3">
                             <img class="avatar" src="<?=$row['profilePic']?>" alt="Reviewer Profile Picture">
