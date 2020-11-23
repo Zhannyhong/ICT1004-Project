@@ -84,7 +84,7 @@ $stmt->close();
                         </li>
 
                         <li>
-                            <a href="login.php" title="Log Out" id="log-out">
+                            <a href="logout.php" title="Log Out" id="log-out">
                                 <i class="material-icons align-middle">power_settings_new</i>
                                 Log Out
                             </a>
