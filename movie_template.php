@@ -1,3 +1,65 @@
+<?php
+
+$movieID = $movieTitle = $description = $genre = $director = $producer = $actors = $length = $releaseDate = $maturityRating = "";
+$success = true;
+// Testing Avengers
+$movieID = 1;
+
+if ($_SERVER["REQUEST_METHOD"] == "GET")
+{
+    fetchMovieData();
+}
+
+
+//Helper function to fetch movie data.
+function fetchMovieData()
+{
+    global $movieID, $movieTitle, $description, $genre, $director, $producer, $actors, $length, $releaseDate, $maturityRating;
+    
+    // Create database connection.
+    $config = parse_ini_file('../../private/db-config.ini');
+    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
+    
+    // Check connection
+    if ($conn->connect_error)
+    {
+        $conn->close();
+        $errorMsg = "Connection failed: " . $conn->connect_error;
+        $success = false;
+    }
+    else
+    {
+        $stmt = $conn->prepare("SELECT * FROM movies WHERE movieID=?");
+        $stmt->bind_param("s", $movieID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Note that email field is unique, so should only have one row in the result set.
+        if ($result->num_rows == 1)
+        {
+            $row = $result->fetch_assoc();
+            $movieTitle = $row["movieTitle"];
+            $description = $row["description"];
+            $genre = $row["genre"];
+            $director = $row["director"];
+            $producer = $row["producer"];
+            $actors = $row["actors"];
+            $length = $row["length"];
+            $releaseDate = $row["releaseDate"];
+            $maturityRating = $row["maturityRating"];
+        }
+        else
+        {   
+            $errorMsg = "Movie not found";
+            $success = false;
+        }
+        
+        $stmt->close();
+        $conn->close();
+    }
+}
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -20,38 +82,29 @@
                 <div class="row card-body">
                     <div class="col-7">
                         <div class="row col-7 card-title">
-                            <h3 class="display-4">Movie Title</h3>
+                            <h3 class="display-4"><?=$movieTitle?></h3>
 
                         </div>
                         <p class="card-text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Duis eget euismod mauris. Cras vitae tincidunt massa,
-                            sed tincidunt enim. Quisque rhoncus porta libero quis
-                            vulputate. Fusce ac viverra ex, ac rutrum libero.
-                            Mauris ac ipsum dui. Maecenas quis mi vulputate,
-                            convallis massa vitae, vehicula tellus. Morbi sit amet
-                            nisl quis lectus commodo laoreet. Nam sagittis quis diam
-                            at aliquam. Mauris elit leo, efficitur nec erat ac,
-                            feugiat ullamcorper diam. Donec molestie quam a arcu
-                            mollis placerat.
+                            <?=$description?>
                         </p>
-                        <p class="card-text text-muted small">Released on 1 November 2020</p>
-                        <span class="btn-static">PG13</span>
-                        <span class="btn-static">138 mins</span>
+                        <p class="card-text text-muted small">Released on <?=$releaseDate?></p>
+                        <span class="btn-static"><?=$maturityRating?></span>
+                        <span class="btn-static"><?=$length?>min</span>
                     </div>
 
                     <div class="col-5 card-text">
                         <h6 class="text-muted">Director:</h6>
-                        <h6>Quentin Tarantino</h6>
+                        <h6><?=$director?></h6>
 
                         <h6 class="text-muted">Producer:</h6>
-                        <h6>Steven Spielberg</h6>
+                        <h6><?=$producer?></h6>
 
                         <h6 class="text-muted">Cast:</h6>
-                        <h6>Matt Damon, Luke Evans, Rami Malek, Angelina Jolie</h6>
+                        <h6><?=$actors?></h6>
 
                         <h6 class="mt-5 text-muted">Genre:</h6>
-                        <h6>Thriller, Crime</h6>
+                        <h6><?=$genre?></h6>
                     </div>
                 </div>
             </div>
