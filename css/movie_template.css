@@ -17,7 +17,7 @@ img.avatar {
     color: #BFBFBF;
 }
 
-.star-rating span.is-active, .star-rating span.is-highlighted {
+.star-rating span.is-active, .star-rating span.is-highlighted, .star-rating-small {
     color: #FF9500;
 }
 

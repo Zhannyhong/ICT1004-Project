@@ -67,7 +67,7 @@
                         <div class="col-xs-9 col-sm-8 col-md-9">
                             <div class="row">
                                 <!-- 5 Star Ratings -->
-                                <div class="col-xs-1 col-md-2 text-right">5 ★</div>
+                                <div class="col-xs-1 col-md-2 text-right">5 <span class="star-rating-small">★</span></div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-success" role="progressbar" style="width: 80%"
@@ -78,7 +78,7 @@
                                 </div>
 
                                 <!-- 4 Star Ratings -->
-                                <div class="col-xs-1 col-md-2 text-right">4 ★</div>
+                                <div class="col-xs-1 col-md-2 text-right">4 <span class="star-rating-small">★</span></div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60"
@@ -89,7 +89,7 @@
                                 </div>
 
                                 <!-- 3 Star Ratings -->
-                                <div class="col-xs-1 col-md-2 text-right">3 ★</div>
+                                <div class="col-xs-1 col-md-2 text-right">3 <span class="star-rating-small">★</span></div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-info" role="progressbar" aria-valuenow="40"
@@ -100,7 +100,7 @@
                                 </div>
 
                                 <!-- 2 Star Ratings -->
-                                <div class="col-xs-1 col-md-2 text-right">2 ★</div>
+                                <div class="col-xs-1 col-md-2 text-right">2 <span class="star-rating-small">★</span></div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="20"
@@ -111,7 +111,7 @@
                                 </div>
 
                                 <!-- 1 Star Ratings -->
-                                <div class="col-xs-1 col-md-2 text-right">1 ★</div>
+                                <div class="col-xs-1 col-md-2 text-right">1 <span class="star-rating-small">★</span></div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="15"
