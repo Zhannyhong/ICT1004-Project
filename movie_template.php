@@ -1,12 +1,12 @@
 <?php
 
-$movieID = $movieTitle = $description = $genre = $director = $producer = $actors = $length = $releaseDate = $maturityRating = "";
+$movieTitle = $description = $genre = $director = $producer = $actors = $length = $releaseDate = $maturityRating = $poster_landscape = "";
 $success = true;
-// Testing Avengers
-$movieID = 1;
 
-if ($_SERVER["REQUEST_METHOD"] == "GET")
+// FILTER_SANITIZE_NUMBER_INT to prevent code injection
+if ($_SERVER["REQUEST_METHOD"] == "GET" && filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT))
 {
+    $movieID = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
     fetchMovieData();
 }
 
@@ -14,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
 //Helper function to fetch movie data.
 function fetchMovieData()
 {
-    global $movieID, $movieTitle, $description, $genre, $director, $producer, $actors, $length, $releaseDate, $maturityRating;
-    
+    global $movieID, $movieTitle, $description, $genre, $director, $producer, $actors, $length, $releaseDate, $maturityRating, $poster_landscape;
+
     // Create database connection.
     $config = parse_ini_file('../../private/db-config.ini');
     $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
@@ -34,10 +34,10 @@ function fetchMovieData()
         $stmt->execute();
         $result = $stmt->get_result();
 
-        // Note that email field is unique, so should only have one row in the result set.
         if ($result->num_rows == 1)
         {
             $row = $result->fetch_assoc();
+            $movieID = $row["movieID"];
             $movieTitle = $row["movieTitle"];
             $description = $row["description"];
             $genre = $row["genre"];
@@ -47,6 +47,7 @@ function fetchMovieData()
             $length = $row["length"];
             $releaseDate = $row["releaseDate"];
             $maturityRating = $row["maturityRating"];
+            $poster_landscape = $row["poster_landscape"];
         }
         else
         {   
@@ -67,7 +68,7 @@ function fetchMovieData()
         <?php
             include "head.inc.php";
         ?>
-        <title>Individual Movie Review Template</title>
+        <title><?=utf8_decode($movieTitle)?></title>
         <link rel="stylesheet" href="css/movie_template.css">
         <!-- Custom JS -->
         <script defer src="js/movie_template.js"></script>
@@ -78,15 +79,15 @@ function fetchMovieData()
         ?>
         <main class="container">
             <div class="card">
-                <img src="images/chihuahua_large.jpg" class="card-img-top" alt="Movie Poster">
+                <img src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_landscape))?>" class="card-img-top" alt="Movie Poster">
                 <div class="row card-body">
                     <div class="col-7">
                         <div class="row col-7 card-title">
-                            <h3 class="display-4"><?=$movieTitle?></h3>
+                            <h3 class="display-4"><?=utf8_decode($movieTitle)?></h3>
 
                         </div>
                         <p class="card-text">
-                            <?=$description?>
+                            <?=utf8_decode($description)?>
                         </p>
                         <p class="card-text text-muted small">Released on <?=$releaseDate?></p>
                         <span class="btn-static"><?=$maturityRating?></span>
@@ -95,16 +96,16 @@ function fetchMovieData()
 
                     <div class="col-5 card-text">
                         <h6 class="text-muted">Director:</h6>
-                        <h6><?=$director?></h6>
+                        <h6><?=utf8_decode($director)?></h6>
 
                         <h6 class="text-muted">Producer:</h6>
-                        <h6><?=$producer?></h6>
+                        <h6><?=utf8_decode($producer)?></h6>
 
                         <h6 class="text-muted">Cast:</h6>
-                        <h6><?=$actors?></h6>
+                        <h6><?=utf8_decode($actors)?></h6>
 
                         <h6 class="mt-5 text-muted">Genre:</h6>
-                        <h6><?=$genre?></h6>
+                        <h6><?=utf8_decode($genre)?></h6>
                     </div>
                 </div>
             </div>
