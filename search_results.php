@@ -42,8 +42,17 @@ function getSearchResults()
     }
     else
     {
-        $stmt = $conn->prepare("SELECT * FROM movies WHERE movieTitle=?");
-        $stmt->bind_param("s", $search_input);
+        // lowercase search input
+        $search_input = strtolower($search_input);
+        // split input by space into array 
+        $array_of_words = explode(" ", $search_input);
+        
+        $stmt = $conn->prepare("SELECT * FROM movies
+                                WHERE (LOWER(movieTitle) LIKE '%?%')
+                                OR (LOWER(movieTitle) LIKE '%?%'
+                                OR (LOWER(movieTitle) LIKE '%?%'");
+        
+        $stmt->bind_param("sss", $array_of_words[0], $array_of_words[1], $array_of_words[2]);
         $stmt->execute();
         $result = $stmt->get_result();
 
