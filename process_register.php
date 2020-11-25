@@ -7,6 +7,7 @@ $conn = new mysqli($config['servername'], $config['username'], $config['password
 // Check connection
 if ($conn->connect_error)
 {
+    $conn->close();
     $errorMsg = "Connection failed: " . $conn->connect_error;
     $success = false;
 }
