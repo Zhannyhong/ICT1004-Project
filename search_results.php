@@ -47,17 +47,7 @@ function getSearchResults()
         $stmt->execute();
         $result = $stmt->get_result();
 
-        if ($result->num_rows == 1)
-        {
-            $row = $result->fetch_assoc();
-            $movieID = $row["movieID"];
-            $movieTitle = $row["movieTitle"];
-            $genre = $row["genre"];
-            $actors = $row["actors"];
-            $releaseDate = $row["releaseDate"];
-            $poster_landscape = $row["poster_landscape"];
-        }
-        else
+        if ($result->num_rows < 1)
         {   
             $errorMsg = "Movie not found";
             $success = false;
@@ -97,46 +87,47 @@ function sanitize_input($data)
             
             <section id="review">
                 <h1>Search Results</h1>
-
+                
+                <?php
+                if ($success) {
+                    while ($row = $result->fetch_assoc()) {
+                ?>
+                
+                
                 <div class="row">
                     <div class="review-block">
                         <hr/>
                         <div class="row">
                             <div class="col-3">
-                                <img class="mini-movie-poster" src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_landscape))?>" alt="Movie Poster">
+                                <img class="mini-movie-poster" src="<?=$row['poster_landscape']?>" alt="Movie Poster">
 
                             </div>
                             <div class="col-9 mt-4">
                                 <div id="star-rating">⭐⭐⭐⭐⭐</div>
-                                <h5><?=utf8_decode($movieTitle)?></h5>
-                                <h6 class="small text-muted">Release date: <?=$releaseDate?></h6>
+                                <h5><?=$row['movieTitle']?></h5>
+                                <h6 class="small text-muted">Release date: <?=$row['releaseDate']?></h6>
                                 
-                                <h6> Movie Genre: <?=utf8_decode($genre)?> </h6>
+                                <h6> Movie Genre: <?=$row['genre']?> </h6>
                                 <p>
-                                    Cast: <?=utf8_decode($actors)?>
-                                </p>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="row">
-                           <div class="col-3">
-                                <img class="mini-movie-poster" src="images/movies/Avengers_Endgame_Portrait_cited.jpg" alt="Movie Poster">
-
-                            </div>
-                            <div class="col-9 mt-4">
-                                <div id="star-rating">⭐⭐⭐⭐⭐</div>
-                                <h5>Movie Title</h5>
-                                <h6 class="small text-muted">Movie Release Year</h6>
-                                
-                                <h6> Movie Genre: Action </h6>
-                                <p>
-                                    Cast: Robert Downey Junior, Chris Evans, Chris Hemsworth
+                                    Cast: <?=$row['actors']?>
                                 </p>
                             </div>
                         </div>
                         <hr/>
                     </div>
                 </div>
+                
+                <?php
+                    }
+                }
+                else 
+                {
+                    echo "<h1 class='display-4'>Oops!</h1>";
+                    echo "<h3>The following input errors were detected:</h3>";
+                    echo "<p class='text-secondary'>" . $errorMsg . "</p>";
+                    echo '<a class="btn btn-danger mb-3" href="index.php" role="button">Return to Home page</a>';
+                }
+                ?>
             </section>
         </main>
         
