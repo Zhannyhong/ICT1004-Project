@@ -85,14 +85,14 @@
                     <i class="material-icons d-inline-block align-middle">account_circle</i>
                 </a>
             </li>-->
-<form class="form-inline" action="search_results.php">
+<form class="form-inline" action="search_results.php" method="post">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">
                             <i class="material-icons d-inline-block align-middle">search</i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Search for movie title" aria-label="Search" aria-describedby="basic-addon1">
+                    <input required type="text" id="search_input" name="search_input" maxlength="40" class="form-control" placeholder="Search for movie title" aria-label="Search" aria-describedby="basic-addon1">
                 </div>
             </form>
 
