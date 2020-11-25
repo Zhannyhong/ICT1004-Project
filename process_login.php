@@ -52,61 +52,64 @@ function sanitize_input($data)
 
 //Helper function to authenticate the login.
 function authenticateUser()
-        {     
-            global $fname, $lname, $email, $pwd_hashed, $errorMsg, $success;    
-            
-            // Create database connection.    
-            $config = parse_ini_file('../../private/db-config.ini');    
-            $conn = new mysqli($config['servername'], $config['username'],            
-                    $config['password'], $config['dbname']);   
-            
-            // Check connection    
-            if ($conn->connect_error)    
-            {       
-                $errorMsg = "Connection failed: " . $conn->connect_error;        
-                $success = false;     
-            }    
-            else    
-            {        
-                // Prepare the statement:        
-                $stmt = $conn->prepare("SELECT * FROM users WHERE
-                        email=?");   
+{
+    global $email, $username, $userID, $profile_pic, $pwd_hashed, $errorMsg, $success;
+    
+    // Create database connection.
+    $config = parse_ini_file('../../private/db-config.ini');
+    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
+    
+    // Check connection
+    if ($conn->connect_error)
+    {
+        $conn->close();
+        $errorMsg = "Connection failed: " . $conn->connect_error;
+        $success = false;
+    }
+    else
+    {
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email=?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-                // Bind & execute the query statement:        
-                $stmt->bind_param("s", $email);       
-                $stmt->execute();        
-                $result = $stmt->get_result();        
-                if ($result->num_rows > 0)        
-                {            
-                    // Note that email field is unique, so should only have            
-                    // one row in the result set.            
-                    $row = $result->fetch_assoc();            
-                    $fname = $row["fname"];            
-                    $lname = $row["lname"];            
-                    $pwd_hashed = $row["password"];     
-                    $stmt->close();    
-                    $conn->close();
-                    // Check if the password matches:            
-                    if (!password_verify($_POST["pwd"], $pwd_hashed))            
-                    {                
-                        // Don't be too specific with the error message - hackers don't   
-                        // need to know which one they got right or wrong. :)                
-                        $errorMsg = "Email not found or password doesn't match...";               
-                        $success = false;            
-                       
-                    }       
-                    
-                }        
-                else       
-                {            
-                    $errorMsg = "Email not found or password doesn't match...";            
-                    $success = false;        
-                        
-                }        
-                    
-            }    
+        // Note that email field is unique, so should only have one row in the result set.
+        if ($result->num_rows == 1)
+        {
+            $row = $result->fetch_assoc();
+            $userID = $row["userID"];
+            $pwd_hashed = $row["password"];     
+            $stmt->close();    
+            $conn->close();
             
+            // Check if the password matches
+            if (!password_verify($_POST["pwd"], $pwd_hashed))
+            {
+                $errorMsg = "Email not found or password doesn't match.";
+                $success = false;
+            }
         }
+        else
+        {   
+            $errorMsg = "Email not found or password doesn't match.";
+            $success = false;
+        }
+
+        // Log user in
+        if ($success)
+        {
+            /*
+            require 'Zebra_Session.php';
+            $session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
+            */
+            session_start();
+
+            $_SESSION["loggedin"] = true;
+            $_SESSION["userID"] = $userID;
+            print_r($_SESSION);
+        }
+    }
+}
         $pwd = "";
         $pwd_hashed = "";
         unset($pwd);
