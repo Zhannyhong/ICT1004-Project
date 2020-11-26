@@ -138,7 +138,6 @@ $stmt->close();
                             </div>
                             <div class="mt-4">
                                 <div class="star-rating">
-                                    <?php echo str_repeat("★", $row['reviewRating']) ?>
                                 </div>
                                 <h5><?=$row['reviewTitle']?></h5>
                                 <p><?=$row['writeUp']?></p>

@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     else
     {
         $search_input = sanitize_input($_POST["search_input"]);
+        echo $search_input;
         getSearchResults();
     }
 }
@@ -42,28 +43,32 @@ function getSearchResults()
     }
     else
     {
+        echo "wor<br>";
         // lowercase search input
         $search_input = strtolower($search_input);
         // split input by space into array 
-        $array_of_words = explode(" ", $search_input);
-        
+        $array_of_words = $search_input;
+        echo $array_of_words;
         $stmt = $conn->prepare("SELECT * FROM movies
-                                WHERE (LOWER(movieTitle) LIKE '%?%')
-                                OR (LOWER(movieTitle) LIKE '%?%'
-                                OR (LOWER(movieTitle) LIKE '%?%'");
+                                WHERE (LOWER(movieTitle) LIKE '" . $array_of_words . "%')");
         
-        $stmt->bind_param("sss", $array_of_words[0], $array_of_words[1], $array_of_words[2]);
         $stmt->execute();
         $result = $stmt->get_result();
-
         if ($result->num_rows < 1)
         {   
             $errorMsg = "Movie not found";
             $success = false;
+        } else
+        {
+            $success = true;
         }
         
         $stmt->close();
         $conn->close();
+        
+        while ($row = $result->fetch_assoc()) {
+            echo $row['movieTitle'];
+        }
     }
 }
 
@@ -99,6 +104,7 @@ function sanitize_input($data)
                 
                 <?php
                 if ($success) {
+                    echo $result;
                     while ($row = $result->fetch_assoc()) {
                 ?>
                 

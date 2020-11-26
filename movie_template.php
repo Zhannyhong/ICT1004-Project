@@ -69,9 +69,9 @@ function fetchMovieData()
             include "head.inc.php";
         ?>
         <title><?=utf8_decode($movieTitle)?></title>
-        <link rel="stylesheet" href="css/movie_template.css">
+        <link rel="stylesheet" type="text/css" href="/css/movie_template.css">
         <!-- Custom JS -->
-        <script defer src="js/movie_template.js"></script>
+        <script defer type="text/javascript" src="/js/movie_template.js"></script>
     </head>
     <body>
         <?php
