@@ -1,10 +1,12 @@
 <?php
 
-$email = $pwd_hashed = $username = $profile_pic = $userID = $errorMsg = "";
-$success = true;
-
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
+    // Initialise input variables
+    $email = $pwd_hashed = $userID = $username = $errorMsg = "";
+    $success = true;
+
+    // Sanitise and validate email input
     if (empty($_POST["email"]))
     {
         $errorMsg .= "Email is required.<br>";
@@ -14,17 +16,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         $email = sanitize_input($_POST["email"]);
         $email_pattern = '/^[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|edu|sg)$/m';
+
         // Additional check to make sure e-mail address is well-formed.
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match($email_pattern, $email))
         {
-            $errorMsg .= "Invalid email format.";
+            $errorMsg .= "Invalid email format.<br>";
             $success = false;
         }
     }
-    
+
+    // Ensure that password field is filled up
     if (empty($_POST["pwd"])) 
     {
         $errorMsg .= "Password is required.<br>";
+        $success = false;
+    }
+    elseif (strlen($_POST["pwd"]) < 8)
+    {
+        $errorMsg .= "Password must contain at least 8 characters.<br>";
         $success = false;
     }
 
@@ -32,6 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         authenticateUser();
     }
+
+    unset($email);
+    unset($userID);
+    unset($pwd_hashed);
 }
 else
 {
@@ -53,35 +66,24 @@ function sanitize_input($data)
 //Helper function to authenticate the login.
 function authenticateUser()
 {
-    global $email, $username, $userID, $profile_pic, $pwd_hashed, $errorMsg, $success;
+    global $email, $pwd_hashed, $userID, $username, $errorMsg, $success;
     
-    // Create database connection.
-    $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-    
-    // Check connection
-    if ($conn->connect_error)
-    {
-        $conn->close();
-        $errorMsg = "Connection failed: " . $conn->connect_error;
-        $success = false;
-    }
-    else
+    require_once "connect_database.php";
+
+    if ($success)
     {
         $stmt = $conn->prepare("SELECT * FROM users WHERE email=?");
         $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        require "handle_sql_execute_failure.php";
+        $conn->close();
 
-        // Note that email field is unique, so should only have one row in the result set.
-        if ($result->num_rows == 1)
-        {
+        // Email field is unique so there should only be one row in the result set
+        if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
             $userID = $row["userID"];
-            $pwd_hashed = $row["password"];     
-            $stmt->close();    
-            $conn->close();
-            
+            $pwd_hashed = $row["password"];
+            $username = $row["username"];
+
             // Check if the password matches
             if (!password_verify($_POST["pwd"], $pwd_hashed))
             {
@@ -90,30 +92,27 @@ function authenticateUser()
             }
         }
         else
-        {   
+        {
             $errorMsg = "Email not found or password doesn't match.";
             $success = false;
         }
+    }
 
-        // Log user in
-        if ($success)
-        {
-            /*
-            require 'Zebra_Session.php';
-            $session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
-            */
-            session_start();
+    // Log user in
+    if ($success)
+    {
+        /*
+        require 'Zebra_Session.php';
+        $session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
+        */
+        session_start();
 
-            $_SESSION["loggedin"] = true;
-            $_SESSION["userID"] = $userID;
-            print_r($_SESSION);
-        }
+        $_SESSION["loggedin"] = true;
+        $_SESSION["userID"] = $userID;
+        print_r($_SESSION);
     }
 }
-        $pwd = "";
-        $pwd_hashed = "";
-        unset($pwd);
-        unset($pwd_hashed);
+
 ?>
 
 <html lang="en">

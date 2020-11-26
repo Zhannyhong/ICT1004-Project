@@ -158,10 +158,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         $pwd_hashed = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
     }
 
-
     if ($success)
         saveMemberToDB();
 
+    unset($file_upload);
+    unset($pwd_hashed);
     $conn->close();
 }
 else
@@ -190,7 +191,6 @@ function saveMemberToDB()
     $encoded_file = base64_encode(file_get_contents($file_upload));
     $file_mime = mime_content_type($file_upload);
     $profile_pic = "data: " . $file_mime . ";base64," . $encoded_file;
-    print_r($profile_pic);
 
     // Get current datetime in UNIX format
     date_default_timezone_set('Asia/Singapore');

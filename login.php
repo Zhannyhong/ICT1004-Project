@@ -18,7 +18,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
 
 ?>
 
-<html>
+<html lang="en">
     <head>
         <title>World of Pets</title>
         <?php
