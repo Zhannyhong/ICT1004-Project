@@ -68,8 +68,8 @@ function fetchMovieData()
         <?php
             include "head.inc.php";
         ?>
-        <title><?=utf8_decode($movieTitle)?></title>
-        <link rel="stylesheet" type="text/css" href="/css/movie_template.css">
+        <title><?=$movieTitle?></title>
+        <link rel="stylesheet" href="css/movie_template.css">
         <!-- Custom JS -->
         <script defer type="text/javascript" src="/js/movie_template.js"></script>
     </head>
@@ -83,11 +83,11 @@ function fetchMovieData()
                 <div class="row card-body">
                     <div class="col-7">
                         <div class="row col-7 card-title">
-                            <h3 class="display-4"><?=utf8_decode($movieTitle)?></h3>
+                            <h3 class="display-4"><?=$movieTitle?></h3>
 
                         </div>
                         <p class="card-text">
-                            <?=utf8_decode($description)?>
+                            <?=$description?>
                         </p>
                         <p class="card-text text-muted small">Released on <?=$releaseDate?></p>
                         <span class="btn-static"><?=$maturityRating?></span>
@@ -96,16 +96,16 @@ function fetchMovieData()
 
                     <div class="col-5 card-text">
                         <h6 class="text-muted">Director:</h6>
-                        <h6><?=utf8_decode($director)?></h6>
+                        <h6><?=$director?></h6>
 
                         <h6 class="text-muted">Producer:</h6>
-                        <h6><?=utf8_decode($producer)?></h6>
+                        <h6><?=$producer?></h6>
 
                         <h6 class="text-muted">Cast:</h6>
-                        <h6><?=utf8_decode($actors)?></h6>
+                        <h6><?=$actors?></h6>
 
                         <h6 class="mt-5 text-muted">Genre:</h6>
-                        <h6><?=utf8_decode($genre)?></h6>
+                        <h6><?=$genre?></h6>
                     </div>
                 </div>
             </div>

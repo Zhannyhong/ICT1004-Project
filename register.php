@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
+
+<html lang="en">
     <head>
         <title>World of Pets</title>
         <?php
@@ -35,7 +31,7 @@ and open the template in the editor.
                             <div class="input-group-prepend">
                                 <div class="input-group-text">@</div>
                             </div>
-                            <input required class="form-control" type="text" id="username" name="username" placeholder="Enter username" maxlength="30">
+                            <input required class="form-control" type="text" id="username" name="username" placeholder="Enter username" maxlength="30" pattern="[a-zA-Z0-9]+">
                         </div>
                         <small class="form-text text-muted">
                             Username must be unique and contain no more than 30 alphanumeric characters.
