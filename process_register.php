@@ -1,23 +1,14 @@
 <?php
 
-// Create database connection
-$config = parse_ini_file('../../private/db-config.ini');
-$conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-
-// Check connection
-if ($conn->connect_error)
-{
-    $conn->close();
-    $errorMsg = "Connection failed: " . $conn->connect_error;
-    $success = false;
-}
-
-
-$email = $username = $file_upload = $pwd_hashed = $errorMsg = "";
-$success = true;
-
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
+    require_once "connect_database.php";
+
+    // Initialise input variables
+    $email = $username = $file_upload = $pwd_hashed = $errorMsg = "";
+    $success = true;
+
+    // Sanitise and validate email input
     if (empty($_POST["email"]))
     {
         $errorMsg .= "Email is required.<br>";
@@ -31,23 +22,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         // Check if email has already been used
         $stmt = $conn->prepare("SELECT * FROM users WHERE email=?");
         $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
+        require "handle_sql_execute_failure.php";
+
         if ($result->num_rows == 1)
         {
             $errorMsg .= "Popcorn account already exists.<br>";
             $success = false;
         }
 
-        // Additional check to make sure e-mail address is well-formed.
+        // Additional check to make sure e-mail address is well-formed
         elseif (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match($email_pattern, $email))
         {
-            $errorMsg .= "Invalid email format.";
+            $errorMsg .= "Invalid email format.<br>";
             $success = false;
         }
     }
 
+
+    // Sanitise and validate username input
     if (empty($_POST["username"]))
     {
         $errorMsg .= "Username is required.<br>";
@@ -60,9 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         // Check if username has already been used
         $stmt = $conn->prepare("SELECT * FROM users WHERE username=?");
         $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
+        require "handle_sql_execute_failure.php";
+
         if ($result->num_rows == 1)
         {
             $errorMsg .= "Username is already taken.<br>";
@@ -84,16 +75,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     }
 
 
-    // Use default profile picture if user did not upload any image
-    if (($_FILES['file_upload']["error"] == 4))
+    // Sanitise and validate file uploaded
+    if (($_FILES['file_upload']['error']) == UPLOAD_ERR_NO_FILE)
     {
-        $file_upload = "images/profile_pics/default_profile_pic.png";
+        // If user did not upload any files, use default profile picture
+        $file_upload = "images/default_profile_pic.png";
     }
-    // Error occurred during uploading process
-    elseif (($_FILES['file_upload']['error']) != 0)
+    elseif (($_FILES['file_upload']['error']) != UPLOAD_ERR_OK)
     {
+        // Error occurred during uploading process
         $file_err_num = $_FILES['file_upload']['error'];
-        $errorMsg .= "File upload error [error $file_err_num].<br>";
+        $errorMsg .= "Error uploading file [error $file_err_num].<br>";
         $success = false;
     }
     else
@@ -101,8 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         $allowed_extensions = array("jpeg", "jpg", "png");
         $file_extension = strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
 
-        // Checks the file signature to ensure that it is an image
-        if (exif_imagetype($_FILES['image_upload']['tmp_name']) == false)
+        // Checks the file signature to ensure that it is a JPEG or PNG image
+        if (exif_imagetype($_FILES['image_upload']['tmp_name'] != IMAGETYPE_JPEG) or exif_imagetype($_FILES['image_upload']['tmp_name'] != IMAGETYPE_PNG))
         {
             $errorMsg .= "File uploaded is not an image.<br>";
             $success = false;
@@ -121,10 +113,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $errorMsg .= "File uploaded is more than 2MB.<br>";
             $success = false;
         }
-        // If user uploaded their own file, file_upload will remain empty
+
+        $file_upload = $_FILES["file_upload"]["tmp_name"];
     }
 
 
+    // Sanitise and validate both password inputs
     if (empty($_POST["pwd"]) || empty($_POST["pwd_confirm"])) 
     {
         $errorMsg .= "Password and confirmation is required.<br>";
@@ -160,10 +154,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 $success = false;
             }
         }
-    }
-    $pwd_hashed = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
 
-    
+        $pwd_hashed = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
+    }
+
+
     if ($success)
         saveMemberToDB();
 
@@ -191,59 +186,25 @@ function saveMemberToDB()
 {
     global $conn, $email, $username, $file_upload, $pwd_hashed, $errorMsg, $success;
 
-    if ($success)
-    {
-        // Get current datetime in UNIX format
-        date_default_timezone_set('Asia/Singapore');
-        $curr_datetime = date('Y-m-d H:i:s');
+    // Formats image SRC to be uploaded to database
+    $encoded_file = base64_encode(file_get_contents($file_upload));
+    $file_mime = mime_content_type($file_upload);
+    $profile_pic = "data: " . $file_mime . ";base64," . $encoded_file;
+    print_r($profile_pic);
 
-        // Saves new user to database
-        $stmt = $conn->prepare("INSERT INTO users (email, username, profilePic, password, joinDate) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $email, $username, $file_upload, $pwd_hashed, $curr_datetime);
+    // Get current datetime in UNIX format
+    date_default_timezone_set('Asia/Singapore');
+    $curr_datetime = date('Y-m-d H:i:s');
 
-        if (!$stmt->execute())
-        {
-            $errorMsg = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-            $success = false;
-        }
-        // If user successfully saved to database and user uploaded their own profile picture
-        elseif ($file_upload == "")
-        {
-            // Get userID of the newly registered user
-            $userID = $stmt->insert_id;
-            $stmt->close();
+    // Saves new user to database
+    $stmt = $conn->prepare("INSERT INTO users (email, username, profilePic, password, joinDate) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $email, $username, $profile_pic, $pwd_hashed, $curr_datetime);
+    require "handle_sql_execute_failure.php";
 
-            // User profile pics will be saved under images/profile_pics/<userID>.<file_extension>
-            $target_dir = "images/profile_pics/";
-            $filename = $userID . '.' . strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
-            $file_upload = $target_dir . $filename;
-
-            // Update database with file path of user's profile picture
-            $stmt = $conn->prepare("UPDATE users SET profilePic=? WHERE userID=?");
-            $stmt->bind_param("ss", $file_upload, $userID);
-
-            if (!$stmt->execute())
-            {
-                $errorMsg = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-                $success = false;
-            }
-            else
-            {
-                // Save user's new profile picture to server
-                if (!copy($_FILES["file_upload"]["tmp_name"], $file_upload))
-                {
-                    $errorMsg = "File upload failed.";
-                    $success = false;
-                }
-            }
-        }
-
-        $stmt->close();
-    }
 }
 ?>
 
-<html>
+<html lang="en">
     <head>
         <title>Registration Results</title>
         <?php
