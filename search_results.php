@@ -43,15 +43,11 @@ function getSearchResults()
     }
     else
     {
-        echo "wor<br>";
         // lowercase search input
         $search_input = strtolower($search_input);
-        // split input by space into array 
-        $array_of_words = explode(" ", $search_input);
+        
         $stmt = $conn->prepare("SELECT * FROM movies
-                                WHERE (LOWER(movieTitle) LIKE '%" . $array_of_words[0] . "%')
-                                OR (LOWER(movieTitle) LIKE '%" . $array_of_words[1] . "%')
-                                OR (LOWER(movieTitle) LIKE '%" . $array_of_words[2] . "%')");
+                                WHERE (LOWER(movieTitle) LIKE '%" . $search_input . "%')");
 
         $stmt->execute();
         $result = $stmt->get_result();
