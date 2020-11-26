@@ -54,7 +54,7 @@
             <div class="row text-center">
                 <article class="col-sm-6">
                     <div class="card-background rounded shadow-sm">
-                        <img class="avatar" src="images/tabby_small.jpg" alt="Zhan Hong's Avatar">
+                        <img class="avatar" src="images/ZhanHong.jpg" alt="Zhan Hong's Avatar">
                         <h4 class="mb-0">Lee Zhan Hong</h4>
                         <h6 class="small text-muted">Project Lead</h6>
                         <a href="mailto:2003116@sit.singaporetech.edu.sg" title="Send me an email!">

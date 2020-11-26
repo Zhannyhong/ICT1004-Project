@@ -1,6 +1,6 @@
 <?php
 
-$movieTitle = $description = $genre = $director = $producer = $actors = $length = $releaseDate = $maturityRating = $poster_landscape = "";
+$movieTitle = $description = $genre = $director = $producer = $actors = $length = $releaseDate = $maturityRating = $poster_landscape = $errorMsg = "";
 $success = true;
 
 // FILTER_SANITIZE_NUMBER_INT to prevent code injection
@@ -14,25 +14,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && filter_input(INPUT_GET, "id", FILTER_
 //Helper function to fetch movie data.
 function fetchMovieData()
 {
-    global $movieID, $movieTitle, $description, $genre, $director, $producer, $actors, $length, $releaseDate, $maturityRating, $poster_landscape;
+    global $movieID, $movieTitle, $description, $genre, $director, $producer, $actors, $length, $releaseDate, $maturityRating, $poster_landscape, $errorMsg, $success;
 
-    // Create database connection.
-    $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-    
-    // Check connection
-    if ($conn->connect_error)
-    {
-        $conn->close();
-        $errorMsg = "Connection failed: " . $conn->connect_error;
-        $success = false;
-    }
-    else
+    require_once "connect_database.php";
+
+    if ($success)
     {
         $stmt = $conn->prepare("SELECT * FROM movies WHERE movieID=?");
         $stmt->bind_param("s", $movieID);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        require "handle_sql_execute_failure.php";
 
         if ($result->num_rows == 1)
         {

@@ -1,31 +1,37 @@
 <?php
+session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
+// FILTER_SANITIZE_NUMBER_INT to prevent code injection
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] && filter_input(INPUT_GET, "reviewID", FILTER_SANITIZE_NUMBER_INT))
 {
-    // Create database connection
-    $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
+    // Initialise input variables
+    $reviewID = $errorMsg = "";
+    $success = true;
 
-// Check connection
-    if ($conn->connect_error)
+    require_once "connect_database.php";
+
+    if ($success)
     {
-        echo "<h2>Connection failed: $conn->connect_error</h2>";
-        exit();
+        // FILTER_SANITIZE_NUMBER_INT to prevent code injection
+        $reviewID = filter_input(INPUT_GET, "reviewID", FILTER_SANITIZE_NUMBER_INT);
+
+        // Delete review from database
+        $stmt = $conn->prepare("DELETE FROM reviews WHERE reviewID=?");
+        $stmt->bind_param("s", $reviewID);
+        $stmt->execute();
+
+        if ($stmt->affected_rows == 1)
+        {
+            // Successful deletion, re-directing user back to their profile page
+            $stmt->close();
+            $conn->close();
+            header("location: profile_page.php");
+        }
+        else
+        {
+            echo "<h2>Failed to delete review: (' . $stmt->errno . ') ' . $stmt->error</h2>";
+        }
     }
-
-    // Need to check if this can be abused
-    $reviewID = $_GET["reviewID"];
-
-// Delete review from database
-    $stmt = $conn->prepare("DELETE FROM review WHERE reviewID=?");
-    $stmt->bind_param("s", $reviewID);
-    $stmt->execute();
-
-    if ($stmt->errno != 0)
-        echo "<h2>Failed to delete review: $stmt->error</h2>";
-    else
-        // Re-direct user back to their profile page
-        header("location: profile_page.php");
 
     $stmt->close();
     $conn->close();
