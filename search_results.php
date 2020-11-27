@@ -28,7 +28,7 @@ else
 //Helper function to fetch movie data.
 function getSearchResults()
 {
-    global $movieIDArr, $movieTitleArr, $genreArr, $actorsArr, $releaseDateArr, $poster_portraitArr, $search_input;
+    global $movieIDArr, $movieTitleArr, $genreArr, $actorsArr, $releaseDateArr, $poster_portraitArr, $search_input, $errorMsg, $success;
 
     // Create database connection.
     $config = parse_ini_file('../../private/db-config.ini');
@@ -51,14 +51,10 @@ function getSearchResults()
         $stmt->bind_param("s", $param);
         $stmt->execute();
         $result = $stmt->get_result();
-
         if ($result->num_rows < 1)
         {   
             $errorMsg = "Movie not found";
             $success = false;
-        } else
-        {
-            $success = true;
         }
         
         $stmt->close();
@@ -69,7 +65,7 @@ function getSearchResults()
             array_push($movieTitleArr, $row['movieTitle']);
             array_push($genreArr, $row['genre']);
             array_push($actorsArr, $row['actors']);
-            array_push($releaseDateArr, $row['$releaseDate']);
+            array_push($releaseDateArr, $row['releaseDate']);
             array_push($poster_portraitArr, $row['poster_portrait']);
         }
     }
@@ -103,17 +99,19 @@ function sanitize_input($data)
         <main class="container">
             
             <section id="review">
-                <h1>Search Results</h1>
-                
+                <h1>Search Results for <?=$search_input?> </h1>
                 <?php
-                for ($index = 0; $index < sizeof($movieTitleArr); $index++) {
+                if ($success)
+                {
+                    for ($index = 0; $index < sizeof($movieTitleArr); $index++)
+                    {
                 ?>
                 <div class="row">
                     <div class="review-block">
                         <hr/>
                         <div class="row">
                             <div class="col-3">
-                                <img class="mini-movie-poster" src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_portraitArr[$index]))?>" alt="Movie Poster">
+                                <img class="mini-movie-poster" src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_portraitArr[$index]))?>" alt="Movie Poster for <?=$movieTitleArr[$index]?>">
 
                             </div>
                             <div class="col-9 mt-4">
@@ -132,6 +130,13 @@ function sanitize_input($data)
                     </div>
                 </div>
                 <?php
+                    }
+                } else 
+                {
+                    echo "<h1 class='display-4'>Oops!</h1>";
+                    echo "<h3>The following input errors were detected:</h3>";
+                    echo "<p class='text-secondary'>" . $errorMsg . "</p>";
+                    echo '<a class="btn btn-danger mb-3" href="index.php" role="button">Return to Home page</a>';
                 }
                 ?>
             </section>

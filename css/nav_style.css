@@ -7,10 +7,12 @@ nav a {
     font-size: 18px;
 }
 
+nav img {
+    height: 72px;
+}
+
 .logo {
     border: 1px solid black;
-    width: 70px;
-    height: 70px;
 }
 
 input[nav-item]:hover{
