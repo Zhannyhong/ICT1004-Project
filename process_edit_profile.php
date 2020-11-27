@@ -3,45 +3,34 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
 {
-    // Create database connection
-    $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-
-    // Check connection
-    if ($conn->connect_error)
-    {
-        $errorMsg = "Connection failed: " . $conn->connect_error;
-        $success = false;
-    }
-
+    // Initialise input variables
+    $username = $file_upload = $pwd_hashed = $errorMsg = "";
     $userID = $_SESSION["userID"];
+    $success = true;
+
+    require_once "connect_database.php";
 
     // Retrieves user info from database
     $stmt = $conn->prepare("SELECT * FROM users WHERE userID=?");
     $stmt->bind_param("s", $userID);
+    require "handle_sql_execute_failure.php";
 
-    if (!$stmt->execute())
-    {
-        echo "<h2>Execute failed: (' . $stmt->errno . ') ' . $stmt->error</h2>";
-        exit();
-    }
-
-    $user_details = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
-    $stmt->close();
+    $user_details = $result->fetch_assoc();
     $username = $user_details["username"];
-    $pwd_hashed = $errorMsg = "";
-    $success = true;
+    $pwd_hashed = $user_details["password"];
 
-    // Use back profile picture if user did not upload any image
-    if (($_FILES['file_upload']["error"] == 4))
+
+    // Sanitise and validate file uploaded
+    if (($_FILES['file_upload']['error']) == UPLOAD_ERR_NO_FILE)
     {
-        $file_upload = $user_details["profilePic"];
+        // If user did not upload any files, use default profile picture
+        $file_upload = "images/default_profile_pic.png";
     }
-    // Error occurred during uploading process
-    elseif (($_FILES['file_upload']['error']) != 0)
+    elseif (($_FILES['file_upload']['error']) != UPLOAD_ERR_OK)
     {
+        // Error occurred during uploading process
         $file_err_num = $_FILES['file_upload']['error'];
-        $errorMsg .= "File upload error [error $file_err_num].<br>";
+        $errorMsg .= "Error uploading file [error $file_err_num].<br>";
         $success = false;
     }
     else
@@ -49,8 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
         $allowed_extensions = array("jpeg", "jpg", "png");
         $file_extension = strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
 
-        // Checks the file signature to ensure that it is an image
-        if (exif_imagetype($_FILES['image_upload']['tmp_name']) == false)
+        // Checks the file signature to ensure that it is a JPEG or PNG image
+        if (exif_imagetype($_FILES['image_upload']['tmp_name'] != IMAGETYPE_JPEG) or exif_imagetype($_FILES['image_upload']['tmp_name'] != IMAGETYPE_PNG))
         {
             $errorMsg .= "File uploaded is not an image.<br>";
             $success = false;
@@ -70,23 +59,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
             $success = false;
         }
 
-        // User profile pics will be saved under images/profile_pics/<userID>.<file_extension>
-        $target_dir = "images/profile_pics/";
-        $filename = $userID . '.' . strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
-        $file_upload = $target_dir . $filename;
+        $file_upload = $_FILES["file_upload"]["tmp_name"];
     }
 
 
-    if (!empty($_POST["username"]))
+    // Sanitise and validate username input
+    if (isset($_POST["username"]) && !empty($_POST["username"]))
     {
         $username = sanitize_input($_POST["username"]);
 
-        // Check if new username has already been used
+        // Check if username has already been used
         $stmt = $conn->prepare("SELECT * FROM users WHERE username=?");
         $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
+        require "handle_sql_execute_failure.php";
+
         if ($result->num_rows == 1)
         {
             $errorMsg .= "Username is already taken.<br>";
@@ -120,12 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
         else
         {
             // Check if old password given is correct
-            $stmt = $conn->prepare("SELECT * FROM users WHERE userID=?");
-            $stmt->bind_param("s", $userID);
-            $stmt->execute();
-            $result = $stmt->get_result()->fetch_assoc();
-            $stmt->close();
-            if (!password_verify($_POST["new_pwd"], $result["password"]))
+            if (!password_verify($_POST["new_pwd"], $pwd_hashed))
             {
                 $errorMsg .= "Incorrect password.<br>";
                 $success = false;
@@ -138,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
                     $success = false;
                 }
                 else
-                    // Validate new password
+                // Additional check to make sure new password is well-formed
                 {
                     if (strlen($_POST["new_pwd"]) < 8) {
                         $errorMsg .= "Password must contain at least 8 characters.<br>";
@@ -158,6 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
                     }
                 }
             }
+
             $pwd_hashed = password_hash($_POST["new_pwd"], PASSWORD_DEFAULT);
         }
     }
@@ -189,43 +171,20 @@ function saveProfileChanges()
 {
     global $conn, $userID, $file_upload, $username, $pwd_hashed, $errorMsg, $success;
 
-    if ($success)
+    // Update user profile details in database
+    $stmt = $conn->prepare("UPDATE users SET username=?, profilePic=?, password=? WHERE userID=?");
+    $stmt->bind_param("ssss", $username, $file_upload, $pwd_hashed, $userID);
+    require "handle_sql_execute_failure.php";
+
+    if ($stmt->affected_rows != 1)
     {
-        if ($pwd_hashed == "")
-        {
-            // User does not update password
-            $stmt = $conn->prepare("UPDATE users SET username=?, profilePic=? WHERE userID=?");
-            $stmt->bind_param("sss", $username, $file_upload, $userID);
-        }
-        else
-        {
-            // Update user profile details in database
-            $stmt = $conn->prepare("UPDATE users SET username=?, profilePic=?, password=? WHERE userID=?");
-            $stmt->bind_param("ssss", $username, $file_upload, $pwd_hashed, $userID);
-        }
-
-        if (!$stmt->execute())
-        {
-            $errorMsg = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-            $success = false;
-        }
-        // If user successfully saved to database and user uploaded their own profile picture
-        elseif ($_FILES["file_upload"]["error"] == 0)
-        {
-            // Save user's new profile picture to server
-            if (!copy($_FILES["file_upload"]["tmp_name"], $file_upload))
-            {
-                $errorMsg = "File upload failed.";
-                $success = false;
-            }
-        }
-
-        $stmt->close();
+        $errorMsg .= "Failed to delete review: (' . $stmt->errno . ') ' . $stmt->error<br>";
     }
+
 }
 ?>
 
-<html>
+<html lang="en">
     <head>
         <title>Edit Profile Results</title>
         <?php

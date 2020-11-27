@@ -2,41 +2,37 @@
 session_start();
 
 // Checks if the user is logged in
-if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"])
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
+{
+    // Initialise input variables
+    $email = $username = $profile_pic = $errorMsg = "";
+    $userID = $_SESSION["userID"];
+    $success = true;
+
+    require_once "connect_database.php";
+
+    // Retrieves user info from database
+    $stmt = $conn->prepare("SELECT * FROM users WHERE userID=?");
+    $stmt->bind_param("s", $userID);
+    require "handle_sql_execute_failure.php";
+    $conn->close();
+
+
+    $user_details = $result->fetch_assoc();
+    $username = $user_details["username"];
+    $email = $user_details["email"];
+    $profile_pic = $user_details["profilePic"];
+
+    print_r($user_details);
+
+}
+else
 {
     // Redirects user back to sign in page
     echo "<h2>This page is not to be run directly.</h2>";
     echo "<h2>Please<a href='login.php'> sign in </a>first</h2>";
     exit();
 }
-
-// Create database connection
-$config = parse_ini_file('../../private/db-config.ini');
-$conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-
-// Check connection
-if ($conn->connect_error)
-{
-    echo "<h2>Connection failed: $conn->connect_error</h2>";
-    exit();
-}
-
-$userID = $_SESSION["userID"];
-
-// Retrieves user info from database
-$stmt = $conn->prepare("SELECT * FROM users WHERE userID=?");
-$stmt->bind_param("s", $userID);
-
-if (!$stmt->execute())
-{
-    echo "<h2>Execute failed: (' . $stmt->errno . ') ' . $stmt->error</h2>";
-    exit();
-}
-
-$user_details = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
-$username = $user_details["username"];
-$email = $user_details["email"];
-$profile_pic = $user_details["profilePic"];
 
 ?>
 
