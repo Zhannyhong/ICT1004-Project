@@ -60,10 +60,10 @@ function fetchMovieData()
 
 <html lang="en">
     <head>
+        <title><?=$movieTitle?></title>
         <?php
             include "head.inc.php";
         ?>
-        <title><?=$movieTitle?></title>
         <link rel="stylesheet" href="css/movie_template.css">
         <!-- Custom JS -->
         <script defer src="js/movie_template.js"></script>
@@ -109,6 +109,12 @@ function fetchMovieData()
                 </div>
             </div>
             <?php
+                } else
+                {
+                    echo "<h1 class='display-4'>Oops!</h1>";
+                    echo "<h3>The following input errors were detected:</h3>";
+                    echo "<p class='text-secondary'>" . $errorMsg . "</p>";
+                    echo '<a class="btn btn-danger mb-3" href="index.php" role="button">Return to Home page</a>';
                 }
             ?>
 

@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
     if (empty($_POST["search_input"]))
     {
-        $errorMsg .= "An input is required.<br>";
+        $errorMsg = "An input is required.<br>";
         $success = false;
     }
     else
@@ -86,10 +86,10 @@ function sanitize_input($data)
 
 <html lang="en">
     <head>
+        <title>Search Results for Movie</title>
         <?php
             include "head.inc.php";
         ?>
-        <title>Search Results for Movie</title>
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
