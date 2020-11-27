@@ -210,13 +210,10 @@ main > .container{
 #homeSlider img{
     width: 100% !important;
     height: auto !important;
+    max-height: 450px;
 }
 
 section { display: block; }
 
-/*-----Carousel Indicator-----*/
-.carousel-indicators li { 
-    visibility: hidden; 
-}
 
 

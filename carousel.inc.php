@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 
-$latestMovieIDArr = $latestMovieTitleArr = $latestPoster_portraitArr = array();
+$latestMovieIDArr = $latestMovieTitleArr = $latestPoster_portraitArr = $latestPoster_LandArr = array();
 $movieIDArr = $movieTitleArr = $poster_portraitArr = array();
 $search_input = $errorMsg = "";
 $success = true;
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 //Helper function to fetch latest movies.
 function fetchLatestMovies() {
-    global $latestMovieIDArr, $latestMovieTitleArr, $latestPoster_portraitArr, $errorMsg, $success;
+    global $latestMovieIDArr, $latestMovieTitleArr, $latestPoster_portraitArr, $latestPoster_LandArr, $errorMsg, $success;
 
     // Create database connection.
     $config = parse_ini_file('../../private/db-config.ini');
@@ -45,6 +45,7 @@ function fetchLatestMovies() {
         $count = 0;
         while ($row = $result->fetch_assoc()) {
             if ($count < 8) {
+                array_push($latestPoster_LandArr, $row['poster_landscape']);
                 array_push($latestMovieIDArr, $row['movieID']);
                 array_push($latestMovieTitleArr, $row['movieTitle']);
                 array_push($latestPoster_portraitArr, $row['poster_portrait']);
@@ -102,333 +103,356 @@ on m.movieID in (x.id)");
 
 <div class="container">
     <!-----Slider----->
-    <div id="slide">
-        <div id="homeSlider" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#homeSlider" data-slide-to="0" class="active"></li>
-                <li data-target="#homeSlider" data-slide-to="1"></li>
-                <li data-target="#homeSlider" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="images/coming-soon-slider.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="images/coming-soon-slider.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="images/movies/avengers-endgame-poster-square-crop.jpg" class="d-block w-100" alt="...">
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#homeSlider" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#homeSlider" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-    <!-----Top Rated Movies----->
     <?php
     if ($success) {
         ?>
-        <div id="topRatedSec" class="container text-center my-3">
-            <h2 class="font-weight-light ml-auto style-line">Top Rated movies</h2>
-            <div class="row mx-auto my-auto">
-                <div id="topRated" class="carousel slide carousel-multi-item" data-ride="carousel">
-
-                    <!--Slides-->
-                    <div class="carousel-inner" role="listbox">
-
-                        <?php
-                        for ($x = 0; $x < 8; $x++) {
-                            if ($x === 0) {
-                                ?>
-
-                                <!--First slide-->
-                                <div class="carousel-item active">
-
-                                    <div class="row">
-
-                                        <div class="col-md-3">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                    <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <?php
-                                    } else if ($x === 1) {
-                                        ?>
-
-                                        <div class="col-md-3">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                    <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <?php
-                                    } else if ($x === 2) {
-                                        ?>
-
-                                        <div class="col-md-3">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                    <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <?php
-                                    } else if ($x === 3) {
-                                        ?>
-
-                                        <div class="col-md-3">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                    <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
-                                                </a>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-                                <!--/.First slide-->
-
-                                <!--Second slide-->
-                                <div class="carousel-item">
-
-                                    <div class="row">
-
-                                        <?php
-                                    } else if ($x === 4) {
-                                        ?>
-
-                                        <div class="col-md-3 d-none d-md-block">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                    <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <?php
-                                    } else if ($x === 5) {
-                                        ?>
-
-                                        <div class="col-md-3 d-none d-md-block">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                    <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <?php
-                                    } else if ($x === 6) {
-                                        ?>
-
-                                        <div class="col-md-3 d-none d-md-block">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                    <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <?php
-                                    } else {
-                                        ?>
-
-                                        <div class="col-md-3">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                    <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!--/.Second slide-->
-
-
+        <div id="slide">
+            <div id="homeSlider" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#homeSlider" data-slide-to="0" class="active"></li>
+                    <li data-target="#homeSlider" data-slide-to="1"></li>
+                    <li data-target="#homeSlider" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <?php
+                    for ($i = 0; $i < 3; $i++) {
+                        if ($i === 0) {
+                            ?>
+                            <div class="carousel-item active">
+                                <a href="movie_template.php?id=<?= $movieIDArr[$i] ?>">
+                                    <img class="d-block w-100" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_LandArr[$i])) ?>" title="<?= $movieTitleArr[$i] ?>" width="100%" height="auto">
+                                </a>
+                            </div>
+                            <div class="carousel-item">
                                 <?php
-                            }
+                            } else if ($i === 1) {
+                                ?>
+                                <a href="movie_template.php?id=<?= $movieIDArr[$i] ?>">
+                                    <img class="d-block w-100" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_LandArr[$i])) ?>" title="<?= $movieTitleArr[$i] ?>" width="100%" height="auto">
+                                </a>
+                            </div>
+                            <div class="carousel-item">
+                                <?php
+                            } else {
+                                ?>
+                                <a href="movie_template.php?id=<?= $movieIDArr[$i] ?>">
+                                    <img class="d-block w-100" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_LandArr[$i])) ?>" title="<?= $movieTitleArr[$i] ?>" width="100%" height="auto">
+                                </a>
+                            </div>
+                            <?php
                         }
                     }
-                    ?>
-
-                </div>
-                <!--/.Slides-->
-                <a class="carousel-control-prev w-auto" href="#topRated" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                }
+                ?>
+                <a class="carousel-control-prev" href="#homeSlider" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next w-auto" href="#topRated" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                <a class="carousel-control-next" href="#homeSlider" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
             </div>
         </div>
-    </div>
+        <!-----Top Rated Movies----->
+        <?php
+        if ($success) {
+            ?>
+            <div id="topRatedSec" class="container text-center my-3">
+                <h2 class="font-weight-light ml-auto style-line">Top Rated movies</h2>
+                <div class="row mx-auto my-auto">
+                    <div id="topRated" class="carousel slide carousel-multi-item" data-ride="carousel">
 
-    <!-----Latest Movies----->       
-    <?php
-    if ($success) {
-        ?>
-        <div id="latestSec" class="container text-center my-3">
-            <h2 class="font-weight-light ml-auto style-line">Latest movies</h2>
-            <div class="row mx-auto my-auto">
-                <div id="latestMovie" class="carousel slide carousel-multi-item" data-ride="carousel">
+                        <!--Slides-->
+                        <div class="carousel-inner" role="listbox">
 
-                    <!--Slides-->
-                    <div class="carousel-inner" role="listbox">
+                            <?php
+                            for ($x = 0; $x < 8; $x++) {
+                                if ($x === 0) {
+                                    ?>
 
-                        <?php
-                        for ($index = 0; $index < 8; $index++) {
-                            if ($index === 0) {
-                                ?>
+                                    <!--First slide-->
+                                    <div class="carousel-item active">
 
-                                <!--First slide-->
-                                <div class="carousel-item active">
+                                        <div class="row">
 
-                                    <div class="row">
-
-                                        <div class="col-md-3">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                    <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
-                                                </a>
+                                            <div class="col-md-3">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <?php
-                                    } else if ($index === 1) {
-                                        ?>
+                                            <?php
+                                        } else if ($x === 1) {
+                                            ?>
 
-                                        <div class="col-md-3">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                    <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
-                                                </a>
+                                            <div class="col-md-3">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <?php
-                                    } else if ($index === 2) {
-                                        ?>
+                                            <?php
+                                        } else if ($x === 2) {
+                                            ?>
 
-                                        <div class="col-md-3">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                    <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
-                                                </a>
+                                            <div class="col-md-3">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <?php
-                                    } else if ($index === 3) {
-                                        ?>
+                                            <?php
+                                        } else if ($x === 3) {
+                                            ?>
 
-                                        <div class="col-md-3">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                    <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
-                                                </a>
+                                            <div class="col-md-3">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
 
 
-                                    </div>
-
-                                </div>
-                                <!--/.First slide-->
-
-                                <!--Second slide-->
-                                <div class="carousel-item">
-
-                                    <div class="row">
-
-                                        <?php
-                                    } else if ($index === 4) {
-                                        ?>
-
-                                        <div class="col-md-3 d-none d-md-block">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                    <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <?php
-                                    } else if ($index === 5) {
-                                        ?>
-
-                                        <div class="col-md-3 d-none d-md-block">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                    <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <?php
-                                    } else if ($index === 6) {
-                                        ?>
-
-                                        <div class="col-md-3 d-none d-md-block">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                    <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <?php
-                                    } else {
-                                        ?>
-
-                                        <div class="col-md-3">
-                                            <div class="card mb-2">
-                                                <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                    <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
-                                                </a>
-                                            </div>
                                         </div>
 
                                     </div>
-                                </div>
-                                <!--/.Second slide-->
+                                    <!--/.First slide-->
+
+                                    <!--Second slide-->
+                                    <div class="carousel-item">
+
+                                        <div class="row">
+
+                                            <?php
+                                        } else if ($x === 4) {
+                                            ?>
+
+                                            <div class="col-md-3 d-none d-md-block">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
+                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <?php
+                                        } else if ($x === 5) {
+                                            ?>
+
+                                            <div class="col-md-3 d-none d-md-block">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
+                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <?php
+                                        } else if ($x === 6) {
+                                            ?>
+
+                                            <div class="col-md-3 d-none d-md-block">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
+                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <?php
+                                        } else {
+                                            ?>
+
+                                            <div class="col-md-3">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!--/.Second slide-->
 
 
-                                <?php
+                                    <?php
+                                }
                             }
                         }
                         ?>
 
                     </div>
                     <!--/.Slides-->
-                    <a class="carousel-control-prev w-auto" href="#latestMovie" role="button" data-slide="prev">
+                    <a class="carousel-control-prev w-auto" href="#topRated" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next w-auto" href="#latestMovie" role="button" data-slide="next">
+                    <a class="carousel-control-next w-auto" href="#topRated" role="button" data-slide="next">
                         <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
             </div>
         </div>
+
+        <!-----Latest Movies----->       
         <?php
-    }
-    ?>
-</div>
+        if ($success) {
+            ?>
+            <div id="latestSec" class="container text-center my-3">
+                <h2 class="font-weight-light ml-auto style-line">Latest movies</h2>
+                <div class="row mx-auto my-auto">
+                    <div id="latestMovie" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+                        <!--Slides-->
+                        <div class="carousel-inner" role="listbox">
+
+                            <?php
+                            for ($index = 0; $index < 8; $index++) {
+                                if ($index === 0) {
+                                    ?>
+
+                                    <!--First slide-->
+                                    <div class="carousel-item active">
+
+                                        <div class="row">
+
+                                            <div class="col-md-3">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <?php
+                                        } else if ($index === 1) {
+                                            ?>
+
+                                            <div class="col-md-3">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <?php
+                                        } else if ($index === 2) {
+                                            ?>
+
+                                            <div class="col-md-3">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <?php
+                                        } else if ($index === 3) {
+                                            ?>
+
+                                            <div class="col-md-3">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <!--/.First slide-->
+
+                                    <!--Second slide-->
+                                    <div class="carousel-item">
+
+                                        <div class="row">
+
+                                            <?php
+                                        } else if ($index === 4) {
+                                            ?>
+
+                                            <div class="col-md-3 d-none d-md-block">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
+                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <?php
+                                        } else if ($index === 5) {
+                                            ?>
+
+                                            <div class="col-md-3 d-none d-md-block">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
+                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <?php
+                                        } else if ($index === 6) {
+                                            ?>
+
+                                            <div class="col-md-3 d-none d-md-block">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
+                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <?php
+                                        } else {
+                                            ?>
+
+                                            <div class="col-md-3">
+                                                <div class="card mb-2">
+                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!--/.Second slide-->
+
+
+                                    <?php
+                                }
+                            }
+                            ?>
+
+                        </div>
+                        <!--/.Slides-->
+                        <a class="carousel-control-prev w-auto" href="#latestMovie" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next w-auto" href="#latestMovie" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
+        ?>
+    </div>
