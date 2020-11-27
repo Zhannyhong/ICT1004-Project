@@ -177,14 +177,18 @@ function fetchLatestMovies()
                                         {
                                 ?>
                                 <div class="carousel-item active">
-                                    <img class="img-fluid col-8 col-md-4 col-lg-3 col-xl-2" src="data:image/jpeg;base64,<?=chunk_split(base64_encode($latestPoster_portraitArr[$index]))?>" alt="<?=$movieTitleArr[$index]?>">
+                                    <a href="movie_template.php?id=<?=$latestMovieIDArr[$index]?>">
+                                        <img class="img-fluid col-8 col-md-4 col-lg-3 col-xl-2" src="data:image/jpeg;base64,<?=chunk_split(base64_encode($latestPoster_portraitArr[$index]))?>" alt="<?=$movieTitleArr[$index]?>">
+                                    </a>
                                 </div>
                                 <?php
                                         } else
                                         {
                                 ?>
                                 <div class="carousel-item">
-                                    <img class="img-fluid col-8 col-md-4 col-lg-3 col-xl-2" src="data:image/jpeg;base64,<?=chunk_split(base64_encode($latestPoster_portraitArr[$index]))?>" alt="<?=$movieTitleArr[$index]?>">
+                                    <a href="movie_template.php?id=<?=$latestMovieIDArr[$index]?>">
+                                        <img class="img-fluid col-8 col-md-4 col-lg-3 col-xl-2" src="data:image/jpeg;base64,<?=chunk_split(base64_encode($latestPoster_portraitArr[$index]))?>" alt="<?=$movieTitleArr[$index]?>">
+                                    </a>
                                 </div>
                                 <?php
                                         }
