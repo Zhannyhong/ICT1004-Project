@@ -21,7 +21,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
     $stmt->bind_param("s", $userID);
     require "handle_sql_execute_failure.php";
 
-    $user_details = $result->fetch_array(MYSQLI_ASSOC);
+    $user_details = $result->fetch_assoc();
     $username = $user_details["username"];
     $email = $user_details["email"];
     $profile_pic = $user_details["profilePic"];
