@@ -8,7 +8,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && filter_input(INPUT_GET, "id", FILTER_
 {
     $movieID = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
     fetchMovieData();
+} else 
+{
+    $success = false;
+    $errorMsg = "No movie selected.";
 }
+
 
 
 //Helper function to fetch movie data.
@@ -68,6 +73,10 @@ function fetchMovieData()
             include "nav.inc.php";
         ?>
         <main class="container">
+            <?php
+                if ($success)
+                {
+            ?>
             <div class="card">
                 <img src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_landscape))?>" class="card-img-top" alt="Movie Poster">
                 <div class="row card-body">
@@ -99,6 +108,9 @@ function fetchMovieData()
                     </div>
                 </div>
             </div>
+            <?php
+                }
+            ?>
 
             <div class="review">
                 <h1>Ratings and Reviews</h1>
@@ -173,13 +185,16 @@ function fetchMovieData()
                     <form action="process_review.php" method="post">
                         <h3>Leave a review</h3>
                         <div class="form-group rating star-rating">
-                            <!-- Remove whitespaces between stars -->
+                            <input type="hidden" name="movieID" id="movieID"
+                                   value="<?=$movieID?>">
                             <input type="hidden" name="rating" id="rating">
-                            <span data-score="1">★</span>
-                            <span data-score="2">★</span>
-                            <span data-score="3">★</span>
-                            <span data-score="4">★</span>
-                            <span data-score="5">★</span>
+                            <!-- Unusual format to remove whitespaces
+                            between stars -->
+                            <span data-score="1">★</span
+                            ><span data-score="2">★</span
+                            ><span data-score="3">★</span
+                            ><span data-score="4">★</span
+                            ><span data-score="5">★</span>
                         </div>
                         <div class="form-group">
                             <label class="visually-hidden" for="review_title">Title</label>
