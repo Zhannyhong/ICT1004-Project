@@ -5,17 +5,56 @@
  * and open the template in the editor.
  */
 
-$latestMovieIDArr = $latestMovieTitleArr = $latestPoster_portraitArr = $latestPoster_LandArr = array();
+$latestMovieIDArr = $latestMovieTitleArr = $latestPoster_portraitArr = array();
 $movieIDArr = $movieTitleArr = $poster_portraitArr = array();
+$mIDArr = $mTitleArr = $latestPoster_LandArr = array();
 $search_input = $errorMsg = "";
 $success = true;
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    fetchPosterMovies();
     fetchLatestMovies();
     fetchTopRatedMovies();
 } else {
     $errorMsg = "This page is not to be run directly.";
     $success = false;
+}
+
+function fetchPosterMovies() {
+    global $mIDArr, $mTitleArr, $latestPoster_LandArr, $errorMsg, $success;
+
+    // Create database connection.
+    $config = parse_ini_file('../../private/db-config.ini');
+    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
+
+    // Check connection
+    if ($conn->connect_error) {
+        $conn->close();
+        $errorMsg = "Connection failed: " . $conn->connect_error;
+        $success = false;
+    } else {
+        // lowercase search input
+        $stmt = $conn->prepare("SELECT * FROM movies
+                               ORDER BY releaseDate DESC");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows < 1) {
+            $errorMsg = "Movies not found";
+            $success = false;
+        }
+
+        $count = 0;
+        while ($row = $result->fetch_assoc()) {
+            if ($count < 3) {
+                array_push($latestPoster_LandArr, $row['poster_landscape']);
+                array_push($mTitleArr, $row['movieTitle']);
+                array_push($mIDArr, $row['movieID']);
+                $count = $count + 1;
+            } else {
+                break;
+            }
+        }
+    }
 }
 
 //Helper function to fetch latest movies.
@@ -45,7 +84,6 @@ function fetchLatestMovies() {
         $count = 0;
         while ($row = $result->fetch_assoc()) {
             if ($count < 8) {
-                array_push($latestPoster_LandArr, $row['poster_landscape']);
                 array_push($latestMovieIDArr, $row['movieID']);
                 array_push($latestMovieTitleArr, $row['movieTitle']);
                 array_push($latestPoster_portraitArr, $row['poster_portrait']);
@@ -103,57 +141,8 @@ on m.movieID in (x.id)");
 
 <div class="container">
     <!-----Slider----->
-    <?php
-    if ($success) {
-        ?>
-        <div id="slide">
-            <div id="homeSlider" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#homeSlider" data-slide-to="0" class="active"></li>
-                    <li data-target="#homeSlider" data-slide-to="1"></li>
-                    <li data-target="#homeSlider" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <?php
-                    for ($i = 0; $i < 3; $i++) {
-                        if ($i === 0) {
-                            ?>
-                            <div class="carousel-item active">
-                                <a href="movie_template.php?id=<?= $movieIDArr[$i] ?>">
-                                    <img class="d-block w-100" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_LandArr[$i])) ?>" title="<?= $movieTitleArr[$i] ?>" width="100%" height="auto">
-                                </a>
-                            </div>
-                            <div class="carousel-item">
-                                <?php
-                            } else if ($i === 1) {
-                                ?>
-                                <a href="movie_template.php?id=<?= $movieIDArr[$i] ?>">
-                                    <img class="d-block w-100" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_LandArr[$i])) ?>" title="<?= $movieTitleArr[$i] ?>" width="100%" height="auto">
-                                </a>
-                            </div>
-                            <div class="carousel-item">
-                                <?php
-                            } else {
-                                ?>
-                                <a href="movie_template.php?id=<?= $movieIDArr[$i] ?>">
-                                    <img class="d-block w-100" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_LandArr[$i])) ?>" title="<?= $movieTitleArr[$i] ?>" width="100%" height="auto">
-                                </a>
-                            </div>
-                            <?php
-                        }
-                    }
-                }
-                ?>
-                <a class="carousel-control-prev" href="#homeSlider" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#homeSlider" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-        </div>
+    <div id="slide">
+        
         <!-----Top Rated Movies----->
         <?php
         if ($success) {
