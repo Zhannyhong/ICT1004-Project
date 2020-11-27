@@ -12,10 +12,6 @@ body{
     margin: 0;
 }
 
-nav img {
-    height: 36px;
-}
-
 article {
     margin: 1rem 0 1rem;
 }
@@ -79,6 +75,13 @@ footer {
     max-width: 100%;
     border-radius: 50%;
     margin: 1rem auto;
+}
+
+.account-circle {
+    object-fit: cover;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
 }
 
 .profile {
@@ -159,8 +162,7 @@ main > .container{
 
 /*-----search_result.php-----*/
 .mini-movie-poster {
-    height: 200px;
-    width: 350px;
+    width: 100%;
 }
 
 #star-rating {

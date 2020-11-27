@@ -1,0 +1,45 @@
+
+.navbar-custom {
+    background-color: #FFD899;
+}
+nav a {
+    color: black;
+    font-size: 18px;
+}
+
+nav img {
+    height: 72px;
+}
+
+.logo {
+    border: 1px solid black;
+}
+
+input[nav-item]:hover{
+    text-decoration: #1929BC underline;
+    font-weight: bold;
+}
+
+.navbar-toggler{
+    width: 47px;
+    height: 34px;
+    background-color: black;
+    border:pink;
+}
+
+.navbar-toggler .line{
+    width: 100%;
+    float: left;
+    height: 2px;
+    background-color: #fff;
+    margin-bottom: 5px;
+}
+
+.profile-logo {
+    object-fit: cover;
+    width: 3rem;
+    height: 3rem;
+    max-width: 100%;
+    border-radius: 50%;
+    margin: 1rem auto;
+}

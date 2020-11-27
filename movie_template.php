@@ -1,6 +1,6 @@
 <?php
 
-$movieTitle = $description = $genre = $director = $producer = $actors = $length = $releaseDate = $maturityRating = $poster_landscape = "";
+$movieTitle = $description = $genre = $director = $producer = $actors = $length = $releaseDate = $maturityRating = $poster_landscape = $errorMsg = "";
 $success = true;
 
 // FILTER_SANITIZE_NUMBER_INT to prevent code injection
@@ -8,31 +8,26 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && filter_input(INPUT_GET, "id", FILTER_
 {
     $movieID = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
     fetchMovieData();
+} else 
+{
+    $success = false;
+    $errorMsg = "No movie selected.";
 }
+
 
 
 //Helper function to fetch movie data.
 function fetchMovieData()
 {
-    global $movieID, $movieTitle, $description, $genre, $director, $producer, $actors, $length, $releaseDate, $maturityRating, $poster_landscape;
+    global $movieID, $movieTitle, $description, $genre, $director, $producer, $actors, $length, $releaseDate, $maturityRating, $poster_landscape, $errorMsg, $success;
 
-    // Create database connection.
-    $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-    
-    // Check connection
-    if ($conn->connect_error)
-    {
-        $conn->close();
-        $errorMsg = "Connection failed: " . $conn->connect_error;
-        $success = false;
-    }
-    else
+    require_once "connect_database.php";
+
+    if ($success)
     {
         $stmt = $conn->prepare("SELECT * FROM movies WHERE movieID=?");
         $stmt->bind_param("s", $movieID);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        require "handle_sql_execute_failure.php";
 
         if ($result->num_rows == 1)
         {
@@ -65,19 +60,23 @@ function fetchMovieData()
 
 <html lang="en">
     <head>
+        <title><?=$movieTitle?></title>
         <?php
             include "head.inc.php";
         ?>
-        <title><?=$movieTitle?></title>
         <link rel="stylesheet" href="css/movie_template.css">
         <!-- Custom JS -->
-        <script defer type="text/javascript" src="/js/movie_template.js"></script>
+        <script defer src="js/movie_template.js"></script>
     </head>
     <body>
         <?php
             include "nav.inc.php";
         ?>
         <main class="container">
+            <?php
+                if ($success)
+                {
+            ?>
             <div class="card">
                 <img src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_landscape))?>" class="card-img-top" alt="Movie Poster">
                 <div class="row card-body">
@@ -109,6 +108,15 @@ function fetchMovieData()
                     </div>
                 </div>
             </div>
+            <?php
+                } else
+                {
+                    echo "<h1 class='display-4'>Oops!</h1>";
+                    echo "<h3>The following input errors were detected:</h3>";
+                    echo "<p class='text-secondary'>" . $errorMsg . "</p>";
+                    echo '<a class="btn btn-danger mb-3" href="index.php" role="button">Return to Home page</a>';
+                }
+            ?>
 
             <div class="review">
                 <h1>Ratings and Reviews</h1>
@@ -180,24 +188,27 @@ function fetchMovieData()
                 </div>
 
                 <div id="leave-review">
-                    <form action="" method="post">
+                    <form action="process_review.php" method="post">
                         <h3>Leave a review</h3>
                         <div class="form-group rating star-rating">
-                            <!-- Remove whitespaces between stars -->
+                            <input type="hidden" name="movieID" id="movieID"
+                                   value="<?=$movieID?>">
                             <input type="hidden" name="rating" id="rating">
-                            <span data-score="1">★</span>
-                            <span data-score="2">★</span>
-                            <span data-score="3">★</span>
-                            <span data-score="4">★</span>
-                            <span data-score="5">★</span>
+                            <!-- Unusual format to remove whitespaces
+                            between stars -->
+                            <span data-score="1">★</span
+                            ><span data-score="2">★</span
+                            ><span data-score="3">★</span
+                            ><span data-score="4">★</span
+                            ><span data-score="5">★</span>
                         </div>
                         <div class="form-group">
-                            <label class="visually-hidden" for="review-title">Title</label>
-                            <input required class="form-control col-5" type="text" placeholder="Enter title" id="review-title" name="review_title" maxlength="50">
+                            <label class="visually-hidden" for="review_title">Title</label>
+                            <input required class="form-control col-5" type="text" placeholder="Enter title" id="review_title" name="review_title" maxlength="50">
                         </div>
                         <div class="form-group">
-                            <label class="visually-hidden" for="review-writeup">Message</label>
-                            <textarea required class="form-control" rows="2" placeholder="Enter your review here" id="review-writeup" name="review_writeup"></textarea>
+                            <label class="visually-hidden" for="review_writeup">Message</label>
+                            <textarea required class="form-control" rows="2" placeholder="Enter your review here" id="review_writeup" name="review_writeup"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary mb-2">Post review</button>
                     </form>
