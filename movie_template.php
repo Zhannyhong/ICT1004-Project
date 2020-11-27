@@ -170,7 +170,7 @@ function fetchMovieData()
                 </div>
 
                 <div id="leave-review">
-                    <form action="" method="post">
+                    <form action="process_review.php" method="post">
                         <h3>Leave a review</h3>
                         <div class="form-group rating star-rating">
                             <!-- Remove whitespaces between stars -->
@@ -182,12 +182,12 @@ function fetchMovieData()
                             <span data-score="5">★</span>
                         </div>
                         <div class="form-group">
-                            <label class="visually-hidden" for="review-title">Title</label>
-                            <input required class="form-control col-5" type="text" placeholder="Enter title" id="review-title" name="review_title" maxlength="50">
+                            <label class="visually-hidden" for="review_title">Title</label>
+                            <input required class="form-control col-5" type="text" placeholder="Enter title" id="review_title" name="review_title" maxlength="50">
                         </div>
                         <div class="form-group">
-                            <label class="visually-hidden" for="review-writeup">Message</label>
-                            <textarea required class="form-control" rows="2" placeholder="Enter your review here" id="review-writeup" name="review_writeup"></textarea>
+                            <label class="visually-hidden" for="review_writeup">Message</label>
+                            <textarea required class="form-control" rows="2" placeholder="Enter your review here" id="review_writeup" name="review_writeup"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary mb-2">Post review</button>
                     </form>
