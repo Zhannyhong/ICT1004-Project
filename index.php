@@ -13,7 +13,7 @@ print_r($_SESSION);
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>World of Pets</title>
+        <title>Popcorn Homepage</title>
         <?php
         include "head.inc.php";
         ?>
