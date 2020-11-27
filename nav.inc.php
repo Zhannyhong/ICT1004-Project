@@ -1,6 +1,4 @@
-<?php
-session_start();
-?>
+
 <!-- Google Icons -->
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -14,41 +12,12 @@ session_start();
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<style>
-    .navbar-custom {
-        background-color: #FFD899;;
-    }
-    nav a {
-        color: black;
-        font-size: 18px
-    }
-    nav img {
-        border: 1px solid black; 
-        width: 70px;
-        height: 70px;
-    }
-    input[nav-item]:hover{
-        text-decoration: #1929BC underline;
-        font-weight: bold;
-    }
-    .navbar-toggler{
-        width: 47px;
-        height: 34px;
-        background-color: black;
-        border:pink;
-    }
-    .navbar-toggler .line{
-        width: 100%;
-        float: left;
-        height: 2px;
-        background-color: #fff;
-        margin-bottom: 5px;
-    }
-</style>
+<!-- Custom CSS -->
+<link rel="stylesheet" href="css/nav_style.css">
 
 
 <nav class="navbar navbar-expand-sm navbar-custom">
-    <a class="navbar-brand" href="index.php">
+    <a class="navbar-brand logo" href="index.php">
         <img src="images/popcorn.svg" alt="LOGO"/>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-navbar-toggler" aria-controls="mobile-navbar-toggler" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,27 +62,27 @@ session_start();
 
             <li class="nav-item">
                 <a class="nav-link" title="Login" href="login.php">
-                    
-                    <!-- check if user is logged in -->
+
                     <?php
+                        session_start();
+
                         if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
                         {
-                            // Initialise input variables
-                            $profile_pic = $errorMsg = "";
+                            $profile_pic = "";
                             $userID = $_SESSION["userID"];
-                            $success = true;
-                            echo $userID;
                             require_once "connect_database.php";
 
                             // Retrieves user info from database
-                            $stmt = $conn->prepare("SELECT * FROM users WHERE userID=?");
+                            $stmt = $conn->prepare("SELECT profilePic FROM users WHERE userID=?");
                             $stmt->bind_param("s", $userID);
                             require "handle_sql_execute_failure.php";
-                            $user_details = $result->fetch_array(MYSQLI_ASSOC);
-                            $profile_pic = $user_details["profilePic"];
-                            $something = $user_details["email"];
-                            echo "<h5 class='mb-3'><?=$email?></h5>";
-                            echo "<img class='avatar' src='<?=$profile_pic?>' alt='Profile Picture'>";
+                            $conn->close();
+
+                            $profile_pic = $result->fetch_assoc()["profilePic"];
+
+                            echo "<img class='account-circle' src='$profile_pic' alt='Profile Picture'>";
+
+                            unset($profile_pic);
                         }
                         else
                         {
