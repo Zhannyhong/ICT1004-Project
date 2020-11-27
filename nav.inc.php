@@ -80,7 +80,7 @@
 
                             $profile_pic = $result->fetch_assoc()["profilePic"];
 
-                            echo "<img class='account-circle' src='$profile_pic' alt='Profile Picture'>";
+                            echo "<img class='profile-logo' src='$profile_pic' alt='Profile Picture'>";
 
                             unset($profile_pic);
                         }

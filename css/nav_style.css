@@ -32,3 +32,12 @@ input[nav-item]:hover{
     background-color: #fff;
     margin-bottom: 5px;
 }
+
+.profile-logo {
+    object-fit: cover;
+    width: 3rem;
+    height: 3rem;
+    max-width: 100%;
+    border-radius: 50%;
+    margin: 1rem auto;
+}
