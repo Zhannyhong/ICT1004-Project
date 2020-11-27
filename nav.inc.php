@@ -1,10 +1,5 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+session_start();
 ?>
 <!-- Google Icons -->
 <link rel="stylesheet"
@@ -85,7 +80,7 @@
                     <i class="material-icons d-inline-block align-middle">account_circle</i>
                 </a>
             </li>-->
-<form class="form-inline" action="search_results.php" method="post">
+            <form class="form-inline" action="search_results.php" method="post">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">
@@ -98,7 +93,33 @@
 
             <li class="nav-item">
                 <a class="nav-link" title="Login" href="login.php">
-                    <i class="material-icons" style="font-size:2em;">account_circle</i>
+                    
+                    <!-- check if user is logged in -->
+                    <?php
+                        if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
+                        {
+                            // Initialise input variables
+                            $profile_pic = $errorMsg = "";
+                            $userID = $_SESSION["userID"];
+                            $success = true;
+                            echo $userID;
+                            require_once "connect_database.php";
+
+                            // Retrieves user info from database
+                            $stmt = $conn->prepare("SELECT * FROM users WHERE userID=?");
+                            $stmt->bind_param("s", $userID);
+                            require "handle_sql_execute_failure.php";
+                            $user_details = $result->fetch_array(MYSQLI_ASSOC);
+                            $profile_pic = $user_details["profilePic"];
+                            $something = $user_details["email"];
+                            echo "<h5 class='mb-3'><?=$email?></h5>";
+                            echo "<img class='avatar' src='<?=$profile_pic?>' alt='Profile Picture'>";
+                        }
+                        else
+                        {
+                            echo "<i class='material-icons' style='font-size:2em;'>account_circle</i>";
+                        }
+                    ?>
                 </a>
             </li>
         </ul>
