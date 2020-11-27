@@ -1,6 +1,6 @@
 <?php
 
-$movieTitleArr = $genreArr = $actorsArr = $releaseDateArr = $poster_portraitArr = array();
+$movieIDArr = $movieTitleArr = $genreArr = $actorsArr = $releaseDateArr = $poster_portraitArr = array();
 $search_input = $errorMsg = "";
 $success = true;
 
@@ -28,7 +28,7 @@ else
 //Helper function to fetch movie data.
 function getSearchResults()
 {
-    global $movieTitleArr, $genreArr, $actorsArr, $releaseDateArr, $poster_portraitArr, $search_input;
+    global $movieIDArr, $movieTitleArr, $genreArr, $actorsArr, $releaseDateArr, $poster_portraitArr, $search_input;
 
     // Create database connection.
     $config = parse_ini_file('../../private/db-config.ini');
@@ -65,6 +65,7 @@ function getSearchResults()
         $conn->close();
         
         while ($row = $result->fetch_assoc()) {
+            array_push($movieIDArr, $row['movieID']);
             array_push($movieTitleArr, $row['movieTitle']);
             array_push($genreArr, $row['genre']);
             array_push($actorsArr, $row['actors']);
@@ -124,6 +125,7 @@ function sanitize_input($data)
                                 <p>
                                     Cast: <?=$actorsArr[$index]?>
                                 </p>
+                                <a class="btn btn-success mb-3" href="movie_template.php?id=<?=$movieIDArr[$index]?>" role="button">Go to Movie</a>
                             </div>
                         </div>
                         <hr/>
