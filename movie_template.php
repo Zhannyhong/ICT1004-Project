@@ -61,7 +61,7 @@ function fetchMovieData()
         <title><?=$movieTitle?></title>
         <link rel="stylesheet" href="css/movie_template.css">
         <!-- Custom JS -->
-        <script defer type="text/javascript" src="/js/movie_template.js"></script>
+        <script defer src="js/movie_template.js"></script>
     </head>
     <body>
         <?php

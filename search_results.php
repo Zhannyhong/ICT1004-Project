@@ -45,10 +45,10 @@ function getSearchResults()
     {
         // lowercase search input
         $search_input = strtolower($search_input);
-        
+        $param = "%" . $search_input . "%";
         $stmt = $conn->prepare("SELECT * FROM movies
-                                WHERE (LOWER(movieTitle) LIKE '%" . $search_input . "%')");
-
+                                WHERE (LOWER(movieTitle) LIKE ?)");
+        $stmt->bind_param("s", $param);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -70,7 +70,7 @@ function getSearchResults()
             array_push($genreArr, $row['genre']);
             array_push($actorsArr, $row['actors']);
             array_push($releaseDateArr, $row['$releaseDate']);
-            array_push($poster_portraitArr, $row['$poster_portrait']);
+            array_push($poster_portraitArr, $row['poster_portrait']);
         }
     }
 }

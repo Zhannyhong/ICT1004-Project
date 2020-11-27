@@ -224,8 +224,7 @@ main > .container{
 
 /*-----search_result.php-----*/
 .mini-movie-poster {
-    height: 200px;
-    width: 350px;
+    width: 100%;
 }
 
 #star-rating {

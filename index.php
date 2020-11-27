@@ -6,8 +6,6 @@ $conn = new mysqli($config['servername'], $config['username'], $config['password
 $session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
 */
 session_start();
-print_r($_SESSION);
-
 ?>
 
 <!DOCTYPE html>
