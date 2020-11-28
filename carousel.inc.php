@@ -7,12 +7,10 @@
 
 $latestMovieIDArr = $latestMovieTitleArr = $latestPoster_portraitArr = array();
 $movieIDArr = $movieTitleArr = $poster_portraitArr = array();
-$mIDArr = $mTitleArr = $latestPoster_LandArr = array();
 $search_input = $errorMsg = "";
 $success = true;
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    fetchPosterMovies();
     fetchLatestMovies();
     fetchTopRatedMovies();
 } else {
@@ -20,42 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $success = false;
 }
 
-function fetchPosterMovies() {
-    global $mIDArr, $mTitleArr, $latestPoster_LandArr, $errorMsg, $success;
-
-    // Create database connection.
-    $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-
-    // Check connection
-    if ($conn->connect_error) {
-        $conn->close();
-        $errorMsg = "Connection failed: " . $conn->connect_error;
-        $success = false;
-    } else {
-        // lowercase search input
-        $stmt = $conn->prepare("SELECT * FROM movies
-                               ORDER BY releaseDate DESC");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows < 1) {
-            $errorMsg = "Movies not found";
-            $success = false;
-        }
-
-        $count = 0;
-        while ($row = $result->fetch_assoc()) {
-            if ($count < 3) {
-                array_push($latestPoster_LandArr, $row['poster_landscape']);
-                array_push($mTitleArr, $row['movieTitle']);
-                array_push($mIDArr, $row['movieID']);
-                $count = $count + 1;
-            } else {
-                break;
-            }
-        }
-    }
-}
 
 //Helper function to fetch latest movies.
 function fetchLatestMovies() {
