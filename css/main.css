@@ -137,11 +137,6 @@ footer {
     padding-left: 1rem;
 }
 
-.star-rating {
-    color: #FF9500;
-    font-size: 2rem;
-}
-
 /*-----Slider-----*/
 #slide{
     width: auto;
@@ -164,11 +159,6 @@ main > .container{
 .mini-movie-poster {
     width: 100%;
 }
-
-#star-rating {
-    font-size: 2em;
-}
-
 
 /* From https://www.w3.org/WAI/tutorials/forms/labels/ */
 .visually-hidden {

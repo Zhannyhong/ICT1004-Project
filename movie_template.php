@@ -262,7 +262,7 @@ function fetchMovieData()
                                 <h6 class="small"><?=$reviewDateArr[$index]?></h6>
                             </div>
                             <div class="col-8 col-md-9 mt-4">
-                                <div class="star-rating">
+                                <div class="star-rating-reviews">
                                     <?php
                                     for ($number = 0; $number < $reviewRatingArr[$index]; $number++)
                                     {

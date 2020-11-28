@@ -17,7 +17,12 @@ img.avatar {
     color: #BFBFBF;
 }
 
-.star-rating span.is-active, .star-rating span.is-highlighted, .star-rating-small {
+.star-rating, .star-rating-reviews {
+    font-size: 2rem;
+}
+
+.star-rating span.is-active, .star-rating span.is-highlighted,
+.star-rating-small, .star-rating-reviews {
     color: #FF9500;
 }
 
