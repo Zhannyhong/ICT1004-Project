@@ -62,7 +62,8 @@ function fetchMovieData()
             // query database again for review and user data
             $stmt = $conn->prepare("SELECT U.username, U.profilePic, R.reviewRating, R.reviewTitle, R.writeUp, R.reviewDate
                                     FROM users U, reviews R
-                                    WHERE R.userID = U.userID AND R.movieID = ?");
+                                    WHERE R.userID = U.userID AND R.movieID = ?
+                                    ORDER BY R.reviewDate DESC");
             $stmt->bind_param("s", $movieID);
             require "handle_sql_execute_failure.php";
             $review_count = $result->num_rows;
@@ -294,6 +295,9 @@ function fetchMovieData()
         </main>
          
         <?php
+            unset($movieTitle, $description, $genre, $director, $producer, $actors, $length, $releaseDate, $maturityRating, $poster_landscape, $errorMsg);
+            unset($review_count, $average_rating, $fiveStarPercent, $fourStarPercent, $threeStarPercent, $twoStarPercent, $oneStarPercent);
+            unset($reviewRatingArr, $reviewTitleArr, $writeupArr, $reviewDateArr, $usernameArr, $profilePicArr, $number, $index);
             include "footer.inc.php";
         ?>
     </body>
