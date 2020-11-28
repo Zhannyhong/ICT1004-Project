@@ -74,7 +74,7 @@ function fetchTopRatedMovies() {
         $stmt = $conn->prepare("SELECT * FROM movies as m
 join (SELECT y.movieID as id FROM 
 (SELECT r.movieID FROM reviews as r ORDER BY r.reviewRating DESC LIMIT 0,8) as y) as x
-on m.movieID in (x.id)");
+on m.movieID in (x.id) group by m.movieID");
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows < 1) {
