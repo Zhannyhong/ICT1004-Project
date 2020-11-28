@@ -72,7 +72,7 @@ function sanitize_input($data)
 function saveReviewToDB()
 {
     global $rating, $review_title, $review_writeup, $userID, $movieID, $success;
-    require_once "connect_database.php";
+    require "connect_database.php";
     // Get current datetime in UNIX format
     date_default_timezone_set('Asia/Singapore');
     $curr_datetime = date('Y-m-d H:i:s');

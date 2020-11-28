@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $email = $username = $file_upload = $pwd_hashed = $errorMsg = "";
     $success = true;
 
-    require_once "connect_database.php";
+    require "connect_database.php";
 
     // Sanitise and validate email input
     if (empty($_POST["email"]))

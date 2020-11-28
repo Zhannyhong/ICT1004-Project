@@ -9,7 +9,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
     $userID = $_SESSION["userID"];
     $success = true;
 
-    require_once "connect_database.php";
+    require "connect_database.php";
 
     // Retrieves user info from database
     $stmt = $conn->prepare("SELECT * FROM users WHERE userID=?");
@@ -55,7 +55,7 @@ else
                 <form action="process_edit_profile.php" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-sm-5 col-md-3 text-center" id="change-pic">
-                            <img src="<?=$profile_pic?>" class="avatar" alt="Profile Picture">
+                            <img class="avatar" src="<?=$profile_pic?>" alt="Profile Picture">
                             <h5><?=$username?></h5>
                             <h6><?=$email?></h6>
                         </div>

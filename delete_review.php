@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION["loggedin"]) && $_SES
     $reviewID = $errorMsg = "";
     $success = true;
 
-    require_once "connect_database.php";
+    require "connect_database.php";
 
     if ($success)
     {

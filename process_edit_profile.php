@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
     $userID = $_SESSION["userID"];
     $success = true;
 
-    require_once "connect_database.php";
+    require "connect_database.php";
 
     // Retrieves user info from database
     $stmt = $conn->prepare("SELECT * FROM users WHERE userID=?");

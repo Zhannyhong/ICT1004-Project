@@ -68,7 +68,7 @@ function authenticateUser()
 {
     global $email, $pwd_hashed, $userID, $username, $errorMsg, $success;
     
-    require_once "connect_database.php";
+    require "connect_database.php";
 
     if ($success)
     {
