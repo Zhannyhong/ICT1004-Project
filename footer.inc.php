@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 ?>
-
+<button onclick="toTopFunction()" id="ToTopButton" title="Go back to Top">&#8250;</button>
 <footer class="container">
     <p>Copyright &copy; 2020 Popcorn Pte. Ltd.</p>
     <div>Logo made by 

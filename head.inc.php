@@ -38,6 +38,7 @@
 
 <!-- Custom JS -->
 <script defer src="js/menu.js"></script>
+<script defer src="js/main.js"></script>
 
 <!-- CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
