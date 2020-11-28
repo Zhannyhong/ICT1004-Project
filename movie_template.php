@@ -57,7 +57,7 @@ function fetchMovieData()
             array_push($userIDArr, $row['userID']);
             array_push($reviewRatingArr, $row['reviewRating']);
             array_push($reviewTitleArr, $row['reviewTitle']);
-            array_push($writeupArr, $row['writeup']);
+            array_push($writeupArr, $row['writeUp']);
             array_push($reviewDateArr, $row['reviewDate']);
             }
             $average_rating = array_sum($reviewRatingArr) / count($reviewRatingArr);
@@ -127,15 +127,6 @@ function fetchMovieData()
                     </div>
                 </div>
             </div>
-            <?php
-                } else
-                {
-                    echo "<h1 class='display-4'>Oops!</h1>";
-                    echo "<h3>The following input errors were detected:</h3>";
-                    echo "<p class='text-secondary'>" . $errorMsg . "</p>";
-                    echo '<a class="btn btn-danger mb-3" href="index.php" role="button">Return to Home page</a>';
-                }
-            ?>
 
             <div class="review">
                 <h1>Ratings and Reviews</h1>
@@ -235,23 +226,26 @@ function fetchMovieData()
 
                 <div class="review">
                     <div>
+                        <?php
+                        for ($index = 0; $index < sizeof($reviewRatingArr); $index++)
+                        {
+                        ?>
                         <hr class="review-divider"/>
                         <div class="row review-block">
                             <div class="col-4 col-md-3">
                                 <img class="avatar" src="images/tabby_small.jpg" alt="Reviewer Profile Picture">
                                 <h5>Bryan Lam</h5>
-                                <h6 class="small">November 25, 2020</h6>
+                                <h6 class="small"><?=$reviewDateArr[$index]?></h6>
                             </div>
                             <div class="col-8 col-md-9 mt-4">
                                 <div class="star-rating">★★★★★</div>
-                                <h5>Good shit</h5>
-                                <p>
-                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                                    metus scelerisque ante sollicitudin. Cras purus odio,
-                                    vestibulum in vulputate at, tempus viverra turpis.
-                                </p>
+                                <h5><?=$reviewTitleArr[$index]?></h5>
+                                <p><?=$writeupArr[$index]?></p>
                             </div>
                         </div>
+                        <?php
+                        }
+                        ?>
                         <hr class="review-divider"/>
                         <div class="row review-block">
                             <div class="col-4 col-md-3">
@@ -273,8 +267,17 @@ function fetchMovieData()
                     </div>
                 </div>
             </div>
+            <?php
+            } else
+                {
+                    echo "<h1 class='display-4'>Oops!</h1>";
+                    echo "<h3>The following input errors were detected:</h3>";
+                    echo "<p class='text-secondary'>" . $errorMsg . "</p>";
+                    echo '<a class="btn btn-danger mb-3" href="index.php" role="button">Return to Home page</a>';
+                }
+            ?>
         </main>
-        
+         
         <?php
             include "footer.inc.php";
         ?>
