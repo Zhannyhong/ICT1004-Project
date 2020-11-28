@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         if ($success)
         {
+            $movieID = $_POST["movieID"];
             saveReviewToDB();
         }
 
@@ -70,7 +71,7 @@ function sanitize_input($data)
 // Helper function that saves review to DB
 function saveReviewToDB()
 {
-    global $rating, $review_title, $review_writeup, $userID, $success;
+    global $rating, $review_title, $review_writeup, $userID, $movieID, $success;
     require_once "connect_database.php";
     // Get current datetime in UNIX format
     date_default_timezone_set('Asia/Singapore');
@@ -78,7 +79,7 @@ function saveReviewToDB()
 
     // Saves new user to database
     $stmt = $conn->prepare("INSERT INTO reviews (movieID, userID, reviewRating, reviewTitle, writeup, reviewDate) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssss", $something, $userID, $rating, $review_title, $review_writeup, $curr_datetime);
+    $stmt->bind_param("ssssss", $movieID, $userID, $rating, $review_title, $review_writeup, $curr_datetime);
     require "handle_sql_execute_failure.php";
     
 }
@@ -102,18 +103,21 @@ function saveReviewToDB()
             {
                 echo "<h1 class='display-4'>Review Submission successful</h1>";
                 echo "<h5>Thank you for submitting your review</h5>";
-                echo '<a class="btn btn-success mb-3" href="index.php" role="button">Return to Home</a>';
+                echo '<a class="btn btn-success mb-3" href="movie_template.php?id=' . $movieID . '" role="button">Return to Movie</a>';
             }
             else
             {
                 echo "<h1 class='display-4'>Oops!</h1>";
                 echo "<h3>The following errors were detected:</h3>";
                 echo "<p class='text-secondary'>" . $errorMsg . "</p>";
-                echo '<a class="btn btn-danger mb-3" href="index.php" role="button">Return to Home</a>';
+                echo '<a class="btn btn-danger mb-3" href="movie_template.php?id=' . $movieID . '" role="button">Return to Home</a>';
             }
             ?>
         </main>
         <?php
+            unset($movieID);
+            unset($success);
+            unset($errorMsg);
             include "footer.inc.php";
         ?>
     </body>
