@@ -1,6 +1,8 @@
 <?php
 
 $movieTitle = $description = $genre = $director = $producer = $actors = $length = $releaseDate = $maturityRating = $poster_landscape = $errorMsg = "";
+$review_count = $average_rating = "";
+$userIDArr = $reviewRatingArr = $reviewTitleArr = $writeupArr = $reviewDateArr = array();
 $success = true;
 
 // FILTER_SANITIZE_NUMBER_INT to prevent code injection
@@ -20,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && filter_input(INPUT_GET, "id", FILTER_
 function fetchMovieData()
 {
     global $movieID, $movieTitle, $description, $genre, $director, $producer, $actors, $length, $releaseDate, $maturityRating, $poster_landscape, $errorMsg, $success;
+    global $review_count, $average_rating, $userIDArr, $reviewRatingArr, $reviewTitleArr, $writeupArr, $reviewDateArr;
 
     require_once "connect_database.php";
 
@@ -43,6 +46,22 @@ function fetchMovieData()
             $releaseDate = $row["releaseDate"];
             $maturityRating = $row["maturityRating"];
             $poster_landscape = $row["poster_landscape"];
+            
+            // query database again for ratings and reviews for movie
+            $stmt = $conn->prepare("SELECT * FROM reviews WHERE movieID=?");
+            $stmt->bind_param("s", $movieID);
+            require "handle_sql_execute_failure.php";
+            $review_count = $result->num_rows;
+            
+            while ($row = $result->fetch_assoc()) {
+            array_push($userIDArr, $row['userID']);
+            array_push($reviewRatingArr, $row['reviewRating']);
+            array_push($reviewTitleArr, $row['reviewTitle']);
+            array_push($writeupArr, $row['writeup']);
+            array_push($reviewDateArr, $row['reviewDate']);
+            }
+            $average_rating = array_sum($reviewRatingArr) / count($reviewRatingArr);
+            
         }
         else
         {   
@@ -123,8 +142,8 @@ function fetchMovieData()
                 <div class="card">
                     <div class="card-body row">
                         <div class="col-xs-3 col-sm-4 col-md-3 text-center">
-                            <h1 class="display-3">4.2</h1>
-                            <h6 class="text-muted">1434 Reviews</h6>
+                            <h1 class="display-3"><?=$average_rating?></h1>
+                            <h6 class="text-muted"><?=$review_count?> Reviews</h6>
                         </div>
                         <div class="col-xs-9 col-sm-8 col-md-9">
                             <div class="row">
