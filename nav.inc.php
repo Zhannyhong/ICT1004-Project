@@ -44,11 +44,7 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-<!--    <li class="nav-item">
-                <a class="nav-link" title="Sign In" href="profile_page.php">
-                    <i class="material-icons d-inline-block align-middle">account_circle</i>
-                </a>
-            </li>-->
+
             <form class="form-inline" action="search_results.php" method="post">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -64,8 +60,6 @@
                 <a class="nav-link" title="Login" href="login.php">
 
                     <?php
-                        session_start();
-
                         if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
                         {
                             $profile_pic = "";

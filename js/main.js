@@ -7,6 +7,7 @@
 
 $(document).ready(function() {
     $('#ToTopButton').click(function(event) {
+        // prevent default anchor click behaviour
         event.preventDefault();
         $("html, body").animate({scrollTop: 0}, "slow");
         return false;
