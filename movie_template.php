@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $movieTitle = $description = $genre = $director = $producer = $actors = $length = $releaseDate = $maturityRating = $poster_landscape = $errorMsg = "";
 $review_count = $average_rating = $fiveStarPercent = $fourStarPercent = $threeStarPercent = $twoStarPercent = $oneStarPercent = "";
@@ -36,7 +37,7 @@ function fetchMovieData()
     global $review_count, $average_rating, $reviewRatingArr, $reviewTitleArr, $writeupArr, $reviewDateArr, $usernameArr, $profilePicArr;
     global $fiveStarPercent, $fourStarPercent, $threeStarPercent, $twoStarPercent, $oneStarPercent;
 
-    require_once "connect_database.php";
+    require "connect_database.php";
 
     if ($success)
     {
@@ -99,6 +100,7 @@ function fetchMovieData()
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

@@ -64,7 +64,7 @@
                         {
                             $profile_pic = "";
                             $userID = $_SESSION["userID"];
-                            require_once "connect_database.php";
+                            require "connect_database.php";
 
                             // Retrieves user info from database
                             $stmt = $conn->prepare("SELECT profilePic FROM users WHERE userID=?");
