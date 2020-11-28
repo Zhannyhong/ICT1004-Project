@@ -1,8 +1,8 @@
 <?php
 
 $movieTitle = $description = $genre = $director = $producer = $actors = $length = $releaseDate = $maturityRating = $poster_landscape = $errorMsg = "";
-$review_count = $average_rating = "";
-$userIDArr = $reviewRatingArr = $reviewTitleArr = $writeupArr = $reviewDateArr = array();
+$review_count = $average_rating = $fiveStarPercent = $fourStarPercent = $threeStarPercent = $twoStarPercent = $oneStarPercent = "";
+$reviewRatingArr = $reviewTitleArr = $writeupArr = $reviewDateArr = $usernameArr = $profilePicArr = array();
 $success = true;
 
 // FILTER_SANITIZE_NUMBER_INT to prevent code injection
@@ -16,13 +16,25 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && filter_input(INPUT_GET, "id", FILTER_
     $errorMsg = "No movie selected.";
 }
 
-
+// helper function to count number of occurrences for a value in an array
+function countOccurrencesInArr($array, $value){
+    $counter = 0;
+    // go through each value in array
+    foreach($array as $valueInArr) 
+    {
+        if($valueInArr === $value){ 
+        $counter++; 
+        }
+    }
+    return $counter;
+}
 
 //Helper function to fetch movie data.
 function fetchMovieData()
 {
     global $movieID, $movieTitle, $description, $genre, $director, $producer, $actors, $length, $releaseDate, $maturityRating, $poster_landscape, $errorMsg, $success;
-    global $review_count, $average_rating, $userIDArr, $reviewRatingArr, $reviewTitleArr, $writeupArr, $reviewDateArr;
+    global $review_count, $average_rating, $reviewRatingArr, $reviewTitleArr, $writeupArr, $reviewDateArr, $usernameArr, $profilePicArr;
+    global $fiveStarPercent, $fourStarPercent, $threeStarPercent, $twoStarPercent, $oneStarPercent;
 
     require_once "connect_database.php";
 
@@ -47,21 +59,32 @@ function fetchMovieData()
             $maturityRating = $row["maturityRating"];
             $poster_landscape = $row["poster_landscape"];
             
-            // query database again for ratings and reviews for movie
-            $stmt = $conn->prepare("SELECT * FROM reviews WHERE movieID=?");
+            // query database again for review and user data
+            $stmt = $conn->prepare("SELECT U.username, U.profilePic, R.reviewRating, R.reviewTitle, R.writeUp, R.reviewDate
+                                    FROM users U, reviews R
+                                    WHERE R.userID = U.userID AND R.movieID = ?");
             $stmt->bind_param("s", $movieID);
             require "handle_sql_execute_failure.php";
             $review_count = $result->num_rows;
             
             while ($row = $result->fetch_assoc()) {
-            array_push($userIDArr, $row['userID']);
-            array_push($reviewRatingArr, $row['reviewRating']);
-            array_push($reviewTitleArr, $row['reviewTitle']);
-            array_push($writeupArr, $row['writeUp']);
-            array_push($reviewDateArr, $row['reviewDate']);
+                array_push($reviewRatingArr, $row['reviewRating']);
+                array_push($reviewTitleArr, $row['reviewTitle']);
+                array_push($writeupArr, $row['writeUp']);
+                array_push($reviewDateArr, $row['reviewDate']);
+                array_push($usernameArr, $row['username']);
+                array_push($profilePicArr, $row['profilePic']);
             }
-            $average_rating = array_sum($reviewRatingArr) / count($reviewRatingArr);
             
+            // calculate average rating for movie and round off to 1dp
+            $average_rating = round(array_sum($reviewRatingArr) / count($reviewRatingArr), 1);
+ 
+            // calculate percentages for each rating user gives and round off to 1dp
+            $fiveStarPercent = round(countOccurrencesInArr($reviewRatingArr, 5) / count($reviewRatingArr) * 100, 1);
+            $fourStarPercent = round(countOccurrencesInArr($reviewRatingArr, 4) / count($reviewRatingArr) * 100, 1);
+            $threeStarPercent = round(countOccurrencesInArr($reviewRatingArr, 3) / count($reviewRatingArr) * 100, 1);
+            $twoStarPercent = round(countOccurrencesInArr($reviewRatingArr, 2) / count($reviewRatingArr) * 100, 1);
+            $oneStarPercent = round(countOccurrencesInArr($reviewRatingArr, 1) / count($reviewRatingArr) * 100, 1);
         }
         else
         {   
@@ -73,10 +96,10 @@ function fetchMovieData()
         $conn->close();
     }
 }
+
 ?>
 
 <!DOCTYPE html>
-
 <html lang="en">
     <head>
         <title><?=$movieTitle?></title>
@@ -142,9 +165,9 @@ function fetchMovieData()
                                 <div class="col-xs-1 col-md-2 text-right">5 <span class="star-rating-small">★</span></div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 80%"
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: <?=$fiveStarPercent?>%"
                                              aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                                            80%
+                                            <?=$fiveStarPercent?>%
                                         </div>
                                     </div>
                                 </div>
@@ -154,8 +177,8 @@ function fetchMovieData()
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60"
-                                             aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            60%
+                                             aria-valuemin="0" aria-valuemax="100" style="width: <?=$fourStarPercent?>%">
+                                            <?=$fourStarPercent?>%
                                         </div>
                                     </div>
                                 </div>
@@ -165,8 +188,8 @@ function fetchMovieData()
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-info" role="progressbar" aria-valuenow="40"
-                                             aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            40%
+                                             aria-valuemin="0" aria-valuemax="100" style="width: <?=$threeStarPercent?>%">
+                                            <?=$threeStarPercent?>%
                                         </div>
                                     </div>
                                 </div>
@@ -176,8 +199,8 @@ function fetchMovieData()
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="20"
-                                             aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                            20%
+                                             aria-valuemin="0" aria-valuemax="100" style="width: <?=$twoStarPercent?>%">
+                                            <?=$twoStarPercent?>%
                                         </div>
                                     </div>
                                 </div>
@@ -187,8 +210,8 @@ function fetchMovieData()
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
                                         <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="15"
-                                             aria-valuemin="0" aria-valuemax="100" style="width: 15%">
-                                            15%
+                                             aria-valuemin="0" aria-valuemax="100" style="width: <?=$oneStarPercent?>%">
+                                            <?=$oneStarPercent?>%
                                         </div>
                                     </div>
                                 </div>
@@ -233,12 +256,22 @@ function fetchMovieData()
                         <hr class="review-divider"/>
                         <div class="row review-block">
                             <div class="col-4 col-md-3">
-                                <img class="avatar" src="images/tabby_small.jpg" alt="Reviewer Profile Picture">
-                                <h5>Bryan Lam</h5>
+                                <img class="avatar" src="<?=$profilePicArr[$index]?>" alt="Reviewer Profile Picture">
+                                <h5><?=$usernameArr[$index]?></h5>
                                 <h6 class="small"><?=$reviewDateArr[$index]?></h6>
                             </div>
                             <div class="col-8 col-md-9 mt-4">
-                                <div class="star-rating">★★★★★</div>
+                                <div class="star-rating">
+                                    <?php
+                                    for ($number = 0; $number < $reviewRatingArr[$index]; $number++)
+                                    {
+                                    ?>
+                                    <span>★</span
+                                    <?php
+                                    }
+                                    ?>
+                                    >
+                                </div>
                                 <h5><?=$reviewTitleArr[$index]?></h5>
                                 <p><?=$writeupArr[$index]?></p>
                             </div>
@@ -246,24 +279,6 @@ function fetchMovieData()
                         <?php
                         }
                         ?>
-                        <hr class="review-divider"/>
-                        <div class="row review-block">
-                            <div class="col-4 col-md-3">
-                                <img class="avatar" src="images/tabby_small.jpg" alt="Reviewer Profile Picture">
-                                <h5>Yong Jun</h5>
-                                <h6 class="small">November 23, 2020</h6>
-                            </div>
-                            <div class="col-8 col-md-9 mt-4">
-                                <div class="star-rating">★★★★</div>
-                                <h5>Decent but can be improved</h5>
-                                <p>
-                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                                    metus scelerisque ante sollicitudin. Cras purus odio,
-                                    vestibulum in vulputate at, tempus viverra turpis.
-                                </p>
-                            </div>
-                        </div>
-                        <hr class="review-divider"/>
                     </div>
                 </div>
             </div>
