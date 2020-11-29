@@ -17,48 +17,46 @@ session_start();
     <body>
         <?php
             include "nav.inc.php";
+
+            // Checks that the user is logged in
+            if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
+            {
+                // Initialise input variables
+                $email = $username = $profile_pic = $errorMsg = "";
+                $userID = $_SESSION["userID"];
+                $success = true;
+
+                require "connect_database.php";
+
+                // Retrieves user info from database
+                $stmt = $conn->prepare("SELECT * FROM users WHERE userID=?");
+                $stmt->bind_param("s", $userID);
+                require "handle_sql_execute_failure.php";
+
+                $user_details = $result->fetch_assoc();
+                $username = $user_details["username"];
+                $email = $user_details["email"];
+                $profile_pic = $user_details["profilePic"];
+
+                // Retrieves user's reviews from database
+                $stmt = $conn->prepare("SELECT U.profilePic, U.username, R.reviewID, R.reviewDate, R.reviewRating, R.reviewTitle, R.writeUp, M.movieID, M.movieTitle
+                                        FROM users U, reviews R, movies M 
+                                        WHERE R.userID=? AND R.userID=U.userID AND R.movieID=M.movieID
+                                        ORDER BY R.reviewDate DESC");
+                $stmt->bind_param("s", $userID);
+                require "handle_sql_execute_failure.php";
+                $conn->close();
+                $review_count = $result->num_rows;
+                unset($userID);
+            }
+            else
+            {
+                echo "<h2>This page is not to be run without logging in first.</h2>";
+                echo "<p>You can login at the link below:</p>";
+                echo "<a href='login.php'>Go to Login page...</a>";
+                exit();
+            }
         ?>
-<?php
-// Checks that the user is logged in
-if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
-{
-    // Initialise input variables
-    $email = $username = $profile_pic = $errorMsg = "";
-    $userID = $_SESSION["userID"];
-    $success = true;
-
-    require "connect_database.php";
-
-    // Retrieves user info from database
-    $stmt = $conn->prepare("SELECT * FROM users WHERE userID=?");
-    $stmt->bind_param("s", $userID);
-    require "handle_sql_execute_failure.php";
-
-    $user_details = $result->fetch_assoc();
-    $username = $user_details["username"];
-    $email = $user_details["email"];
-    $profile_pic = $user_details["profilePic"];
-
-    // Retrieves user's reviews from database
-    $stmt = $conn->prepare("SELECT U.profilePic, U.username, R.reviewID, R.reviewDate, R.reviewRating, R.reviewTitle, R.writeUp, M.movieID, M.movieTitle
-                            FROM users U, reviews R, movies M 
-                            WHERE R.userID=? AND R.userID=U.userID AND R.movieID=M.movieID
-                            ORDER BY R.reviewDate DESC");
-    $stmt->bind_param("s", $userID);
-    require "handle_sql_execute_failure.php";
-    $conn->close();
-    $review_count = $result->num_rows;
-    unset($userID);
-}
-else
-{
-    echo "<h2>This page is not to be run without logging in first.</h2>";
-    echo "<p>You can login at the link below:</p>";
-    echo "<a href='login.php'>Go to Login page...</a>";
-    exit();
-}
-
-?>
         <main class="container">
             <div class="profile rounded shadow-sm card-background">
                 <img class="avatar" src="<?=$profile_pic?>" alt="Profile Picture">
@@ -110,11 +108,11 @@ else
                                 </button>
 
                                 <!-- Confirm review deletion -->
-                                <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="DeleteReview" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Delete Review</h5>
+                                                <h5 class="modal-title" id="DeleteReview">Delete Review</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -127,7 +125,6 @@ else
                                                 <a class="btn btn-danger" href="delete_review.php?reviewID=<?=$row['reviewID']?>" role="button">
                                                     Delete Review
                                                 </a>
-                                                
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +147,7 @@ else
                                 <p><?=$row['writeUp']?></p>
                                 <div class="review-movie">
                                     <p>Review for
-                                        <a class="btn btn-success mb-3" href="movie_template.php?id=<?=$row['movieID']?>" role="button">
+                                        <a href="movie_template.php?id=<?=$row['movieID']?>">
                                             <?=$row['movieTitle']?>
                                         </a>
                                     </p>
