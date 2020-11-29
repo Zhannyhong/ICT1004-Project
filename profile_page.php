@@ -4,12 +4,11 @@ require 'Zebra_Session.php';
 $session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
 */
 session_start();
-print_r($_SESSION);
 ?>
 
 <html lang="en">
     <head>
-        <title>World of Pets</title>
+        <title>Profile Page</title>
         <?php
             include "head.inc.php";
         ?>
@@ -49,6 +48,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
     require "handle_sql_execute_failure.php";
     $conn->close();
     $review_count = $result->num_rows;
+    unset($userID);
 }
 else
 {
@@ -172,6 +172,7 @@ else
         </main>
         <?php
             include "footer.inc.php";
+            unset($profile_pic, $email, $username, $result, $success, $review_count);
         ?>
     </body>
 </html>

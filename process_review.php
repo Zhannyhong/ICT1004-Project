@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         // ensure rating is not empty
         if (empty($_POST["rating"]))
         {
+            $intent = $_POST["intent"];
             $errorMsg .= "A rating is required.<br>";
             $success = false;
         }
@@ -41,9 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             saveReviewToDB();
         }
 
-        unset($rating);
-        unset($review_title);
-        unset($review_writeup);
+        unset($rating, $reviewID, $review_title, $review_writeup, $userID);
     }
     else
     {
@@ -123,7 +122,7 @@ function saveReviewToDB()
                     echo "<h5>Thank you, your review has been " . $intent . ".</h5>";
                     echo '<a class="btn btn-success mb-3" href="movie_template.php?id=' . $movieID . '" role="button">Return to Movie</a>';
                 }
-                else if($intent == "updated")
+                else if ($intent == "updated")
                 {
                     echo "<h1 class='display-4'>Review Updated successfully</h1>";
                     echo "<h5>Thank you, your review has been " . $intent . ".</h5>";
@@ -132,17 +131,25 @@ function saveReviewToDB()
             }
             else
             {
-                echo "<h1 class='display-4'>Oops!</h1>";
-                echo "<h3>The following errors were detected:</h3>";
-                echo "<p class='text-secondary'>" . $errorMsg . "</p>";
-                echo '<a class="btn btn-danger mb-3" href="movie_template.php?id=' . $movieID . '" role="button">Return to Home</a>';
+                if ($intent == "posted")
+                {
+                    echo "<h1 class='display-4'>Oops!</h1>";
+                    echo "<h3>The following errors were detected:</h3>";
+                    echo "<p class='text-secondary'>" . $errorMsg . "</p>";
+                    echo '<a class="btn btn-danger mb-3" href="movie_template.php?id=' . $movieID . '" role="button">Return to Home</a>';
+                }
+                else if ($intent == "updated")
+                {
+                    echo "<h1 class='display-4'>Oops!</h1>";
+                    echo "<h3>The following errors were detected:</h3>";
+                    echo "<p class='text-secondary'>" . $errorMsg . "</p>";
+                    echo '<a class="btn btn-danger mb-3" href="profile_page.php" role="button">Return to Profile page</a>';
+                }
             }
             ?>
         </main>
         <?php
-            unset($movieID);
-            unset($success);
-            unset($errorMsg);
+            unset($movieID, $errorMsg, $intent, $success);
             include "footer.inc.php";
         ?>
     </body>

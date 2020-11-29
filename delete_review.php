@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION["loggedin"]) && $_SES
 
     $stmt->close();
     $conn->close();
+    unset($reviewID, $errorMsg, $success);
 }
 else
 {

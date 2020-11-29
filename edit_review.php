@@ -117,6 +117,7 @@ function fetchReviewData(){
         </main>
         <?php
             include "footer.inc.php";
+            unset($errorMsg, $reviewID, $reviewRating, $reviewTitle, $success, $userID, $writeUp);
         ?>
     </body>
 </html>

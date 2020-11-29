@@ -117,7 +117,7 @@ function authenticateUser()
 
 <html lang="en">
     <head>
-        <title>Registration Results</title>
+        <title>Login Results</title>
         <?php
             include "head.inc.php";
         ?>
@@ -146,6 +146,7 @@ function authenticateUser()
         </main>
         <?php
             include "footer.inc.php";
+            unset($username, $errorMsg);
         ?>
     </body>
 </html>

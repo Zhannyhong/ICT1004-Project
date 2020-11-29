@@ -159,10 +159,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     }
 
     if ($success)
+    {
         saveMemberToDB();
+    }
 
-    unset($file_upload);
-    unset($pwd_hashed);
+    unset($file_upload, $email_pattern, $file_err_num, $file_extension, $file_upload, $result);
     $conn->close();
 }
 else
@@ -236,6 +237,7 @@ function saveMemberToDB()
         </main>
         <?php
             include "footer.inc.php";
+            unset($username, $email, $errorMsg);
         ?>
     </body>
 </html>

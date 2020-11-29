@@ -4,7 +4,6 @@ require 'Zebra_Session.php';
 $session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
 */
 session_start();
-print_r($_SESSION);
 ?>
 
 
@@ -75,7 +74,7 @@ print_r($_SESSION);
 
                 <article class="col-sm-6">
                     <div class="card-background rounded shadow-sm">
-                        <img class="avatar" src="images/Bryan.jpg" alt="Bryan's Avatar">
+                        <img class="avatar" src="images/Bryan.jpeg" alt="Bryan's Avatar">
                         <h4 class="mb-0">Bryan Lam</h4>
                         <h6 class="small text-muted">Project Lead</h6>
                         <a href="mailto:2003114@sit.singaporetech.edu.sg" title="Send me an email!">

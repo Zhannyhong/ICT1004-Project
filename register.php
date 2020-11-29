@@ -2,7 +2,7 @@
 
 <html lang="en">
     <head>
-        <title>World of Pets</title>
+        <title>Registration Page</title>
         <?php
             include "head.inc.php";
         ?>
