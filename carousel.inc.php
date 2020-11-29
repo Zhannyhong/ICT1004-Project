@@ -34,11 +34,11 @@ function fetchLatestMovies() {
         $success = false;
     } else {
         // lowercase search input
-        $stmt = $conn->prepare("SELECT * FROM movies
-                               ORDER BY releaseDate DESC");
+        $stmt = $conn->prepare("SELECT m.movieID, m.movieTitle, 
+            m.poster_portrait FROM movies AS m ORDER BY releaseDate DESC");
         $stmt->execute();
         $result = $stmt->get_result();
-        if ($result->num_rows < 1) {
+        if ($result->num_rows < 8) {
             $errorMsg = "Movies not found";
             $success = false;
         }
@@ -71,17 +71,17 @@ function fetchTopRatedMovies() {
         $success = false;
     } else {
         // lowercase search input
-        $stmt = $conn->prepare("SELECT * FROM movies as m
-join (SELECT y.movieID as id FROM 
-(SELECT r.movieID FROM reviews as r ORDER BY r.reviewRating DESC LIMIT 0,8) as y) as x
-on m.movieID in (x.id) group by m.movieID");
+        $stmt = $conn->prepare("SELECT m.movieID, m.movieTitle, 
+            m.poster_portrait FROM movies AS m JOIN (SELECT topMovies.movieID 
+            AS id FROM (SELECT r.movieID, AVG(r.reviewRating) AS avg_rating 
+            FROM reviews as r GROUP BY r.movieID ORDER BY avg_rating DESC 
+            LIMIT 8) AS topMovies) AS topMoviesIDs ON m.movieID IN 
+            (topMoviesIDs.id) GROUP BY m.movieID");
         $stmt->execute();
         $result = $stmt->get_result();
-        if ($result->num_rows < 1) {
+        if ($result->num_rows < 8) {
             $errorMsg = "Movies not found";
             $success = false;
-        } elseif ($result->num_rows < 8) {
-            
         }
         $stmt->close();
         $conn->close();
@@ -116,7 +116,7 @@ on m.movieID in (x.id) group by m.movieID");
 
                         <!--Slides-->
                         <div class="carousel-inner" role="listbox">
-
+                            
                             <?php
                             for ($index = 0; $index < 8; $index++) {
                                 if ($index === 0) {
