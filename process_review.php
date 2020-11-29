@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
     {
         // Initialise input variables
-        $rating = $review_title = $review_writeup = "";
+        $rating = $review_title = $review_writeup = $errorMsg = $movieID = $reviewID = "";
         $userID = $_SESSION["userID"];
         $success = true;
 
@@ -36,6 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         if ($success)
         {
             $movieID = $_POST["movieID"];
+            $reviewID = $_POST["reviewID"];
+            $intent = $_POST["intent"];
             saveReviewToDB();
         }
 
@@ -71,17 +73,31 @@ function sanitize_input($data)
 // Helper function that saves review to DB
 function saveReviewToDB()
 {
-    global $rating, $review_title, $review_writeup, $userID, $movieID, $success;
+    global $rating, $review_title, $review_writeup, $userID, $movieID, $reviewID, $intent, $success, $errorMsg;
     require "connect_database.php";
     // Get current datetime in UNIX format
     date_default_timezone_set('Asia/Singapore');
     $curr_datetime = date('Y-m-d H:i:s');
-
-    // Saves new user to database
-    $stmt = $conn->prepare("INSERT INTO reviews (movieID, userID, reviewRating, reviewTitle, writeup, reviewDate) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssss", $movieID, $userID, $rating, $review_title, $review_writeup, $curr_datetime);
-    require "handle_sql_execute_failure.php";
     
+    if ($intent == "posted") {
+        // Saves new review to database
+        $stmt = $conn->prepare("INSERT INTO reviews (movieID, userID, reviewRating, reviewTitle, writeup, reviewDate) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssss", $movieID, $userID, $rating, $review_title, $review_writeup, $curr_datetime);
+        require "handle_sql_execute_failure.php";
+    } elseif ($intent == "updated") {
+        // Updates review to database
+        $stmt = $conn->prepare("UPDATE reviews
+                                SET reviewRating=?, reviewTitle=?, writeUp=?, reviewDate=?
+                                WHERE reviewID=?");
+        $stmt->bind_param("sssss", $rating, $review_title, $review_writeup, $curr_datetime, $reviewID);
+        require "handle_sql_execute_failure.php";   
+    }
+    else
+    {
+        $success = false;
+        $errorMsg .= "This review could not be processed.";
+    }
+    $conn->close();
 }
 ?>
 
@@ -101,9 +117,18 @@ function saveReviewToDB()
             <?php
             if ($success)
             {
-                echo "<h1 class='display-4'>Review Submission successful</h1>";
-                echo "<h5>Thank you for submitting your review</h5>";
-                echo '<a class="btn btn-success mb-3" href="movie_template.php?id=' . $movieID . '" role="button">Return to Movie</a>';
+                if ($intent == "posted")
+                {
+                    echo "<h1 class='display-4'>Review Submission successful</h1>";
+                    echo "<h5>Thank you, your review has been " . $intent . ".</h5>";
+                    echo '<a class="btn btn-success mb-3" href="movie_template.php?id=' . $movieID . '" role="button">Return to Movie</a>';
+                }
+                else if($intent == "updated")
+                {
+                    echo "<h1 class='display-4'>Review Updated successfully</h1>";
+                    echo "<h5>Thank you, your review has been " . $intent . ".</h5>";
+                    echo '<a class="btn btn-success mb-3" href="profile_page.php" role="button">Return to Profile Page</a>';
+                }
             }
             else
             {

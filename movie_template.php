@@ -229,6 +229,7 @@ function fetchMovieData()
                         <div class="form-group rating star-rating">
                             <input type="hidden" name="movieID" id="movieID"
                                    value="<?=$movieID?>">
+                            <input type="hidden" name="intent" id="intent" value="posted">
                             <input type="hidden" name="rating" id="rating">
                             <!-- Unusual format to remove whitespaces
                             between stars -->

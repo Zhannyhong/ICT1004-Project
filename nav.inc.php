@@ -57,7 +57,7 @@
             </form>
 
             <li class="nav-item">
-                <a class="nav-link" title="Login" href="login.php">
+                <a class="nav-link" title="Account" href="login.php">
 
                     <?php
                         if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])

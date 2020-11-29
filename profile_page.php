@@ -13,6 +13,7 @@ print_r($_SESSION);
         <?php
             include "head.inc.php";
         ?>
+        <link rel="stylesheet" href="css/movie_template.css">
     </head>
     <body>
         <?php
@@ -42,7 +43,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
     // Retrieves user's reviews from database
     $stmt = $conn->prepare("SELECT U.profilePic, U.username, R.reviewID, R.reviewDate, R.reviewRating, R.reviewTitle, R.writeUp, M.movieID, M.movieTitle
                             FROM users U, reviews R, movies M 
-                            WHERE R.userID=? AND R.userID=U.userID AND R.movieID=M.movieID");
+                            WHERE R.userID=? AND R.userID=U.userID AND R.movieID=M.movieID
+                            ORDER BY R.reviewDate DESC");
     $stmt->bind_param("s", $userID);
     require "handle_sql_execute_failure.php";
     $conn->close();
@@ -125,6 +127,7 @@ else
                                                 <a class="btn btn-danger" href="delete_review.php?reviewID=<?=$row['reviewID']?>" role="button">
                                                     Delete Review
                                                 </a>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -132,16 +135,26 @@ else
                             </div>
 
                             <div class="mt-4">
-                                <div class="star-rating">
+                                <div class="star-rating-reviews">
+                                    <?php
+                                    for ($number = 0; $number < $row["reviewRating"]; $number++)
+                                    {
+                                    ?>
+                                    <span>★</span
+                                    <?php
+                                    }
+                                    ?>
+                                    >
                                 </div>
                                 <h5><?=$row['reviewTitle']?></h5>
                                 <p><?=$row['writeUp']?></p>
                                 <div class="review-movie">
                                     <h6>Review for
-                                        <a href="movie_template.php?id=<?=$row['movieID']?>" title="See more info about the movie you reviewed">
+                                        <a class="btn btn-success mb-3" href="movie_template.php?id=<?=$row['movieID']?>" role="button">
                                             <?=$row['movieTitle']?>
                                         </a>
                                     </h6>
+                                    <a href="edit_review.php?reviewID=<?=$row['reviewID']?>">Edit review</a>
                                 </div>
                             </div>
                         </div>
