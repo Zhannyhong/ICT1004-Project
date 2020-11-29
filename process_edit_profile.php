@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
         // If user did not upload any files, use default profile picture
         $file_upload = "images/default_profile_pic.png";
     }
-    elseif (($_FILES['file_upload']['error']) != UPLOAD_ERR_OK)
+    else if (($_FILES['file_upload']['error']) != UPLOAD_ERR_OK)
     {
         // Error occurred during uploading process
         $file_err_num = $_FILES['file_upload']['error'];
@@ -172,9 +172,14 @@ function saveProfileChanges()
 {
     global $conn, $userID, $file_upload, $username, $pwd_hashed, $errorMsg, $success;
 
+    // Formats image SRC to be uploaded to database
+    $encoded_file = base64_encode(file_get_contents($file_upload));
+    $file_mime = mime_content_type($file_upload);
+    $profile_pic = "data: " . $file_mime . ";base64," . $encoded_file;
+    
     // Update user profile details in database
     $stmt = $conn->prepare("UPDATE users SET username=?, profilePic=?, password=? WHERE userID=?");
-    $stmt->bind_param("ssss", $username, $file_upload, $pwd_hashed, $userID);
+    $stmt->bind_param("ssss", $username, $profile_pic, $pwd_hashed, $userID);
     require "handle_sql_execute_failure.php";
 
     if ($stmt->affected_rows != 1)
