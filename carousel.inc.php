@@ -71,12 +71,11 @@ function fetchTopRatedMovies() {
         $success = false;
     } else {
         // lowercase search input
-        $stmt = $conn->prepare("SELECT m.movieID, m.movieTitle, 
-            m.poster_portrait FROM movies AS m JOIN (SELECT topMovies.movieID 
-            AS id FROM (SELECT r.movieID, AVG(r.reviewRating) AS avg_rating 
-            FROM reviews as r GROUP BY r.movieID ORDER BY avg_rating DESC 
-            LIMIT 8) AS topMovies) AS topMoviesIDs ON m.movieID IN 
-            (topMoviesIDs.id) GROUP BY m.movieID DESC");
+        $stmt = $conn->prepare("SELECT m.movieID, m.movieTitle,
+            m.poster_portrait FROM movies AS m 
+            INNER JOIN (SELECT r.movieID FROM reviews
+            as r GROUP BY r.movieID ORDER BY AVG(r.reviewRating) DESC 
+            LIMIT 8) AS topMovies ON m.movieID = topMovies.movieID");
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows < 8) {
