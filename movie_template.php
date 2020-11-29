@@ -283,6 +283,7 @@ function fetchMovieData()
                         <?php
                         }
                         ?>
+                        <hr class="review-divider"/>
                     </div>
                 </div>
             </div>

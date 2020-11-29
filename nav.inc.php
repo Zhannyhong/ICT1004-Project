@@ -5,12 +5,12 @@
 
 <nav class="navbar navbar-expand-sm" style="background-color: #FFD899;">
     <a class="navbar-brand" href="index.php">
-        <img src="images/popcorn.svg" alt="Popcorn Logo" class="d-inline-block align-top"/>
+        <img src="images/popcorn.svg" alt="Popcorn Logo"/>
         Popcorn
     </a>
 
     <!-- Hamburger Menu for small screens -->
-    <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -19,11 +19,11 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" title="Home" href="index.php">
-                    <i class="material-icons d-inline-block align-middle" style="font-size:2em;">home</i>
+                    <i class="material-icons d-inline-block align-middle" style="font-size:35px;">home</i>
                 </a>
             </li>
 
-            <li class="nav-item d-inline-block align-middle">
+            <li class="nav-item">
                 <a class="nav-link" title="About Us" href="about_us.php">About Us</a>
             </li>
         </ul>
@@ -67,7 +67,7 @@
                         }
                         else
                         {
-                            echo "<i class='material-icons' style='font-size:2em;'>account_circle</i>";
+                            echo "<i class='material-icons d-inline-block align-middle' style='font-size:35px;'>account_circle</i>";
                         }
                     ?>
                 </a>

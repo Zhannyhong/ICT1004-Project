@@ -99,7 +99,8 @@ function sanitize_input($data)
         <main class="container">
             
             <section id="review">
-                <h1>Search Results for <?=$search_input?> </h1>
+                <h1 class="display-4 mt-4"><?=sizeof($movieTitleArr)?> Search Results for "<?=$search_input?>"</h1>
+                <hr/>
                 <?php
                     if ($success)
                     {
@@ -108,21 +109,21 @@ function sanitize_input($data)
                 ?>
                 <div class="row">
                     <div class="review-block">
-                        <hr/>
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-3 my-auto">
                                 <img class="mini-movie-poster" src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_portraitArr[$index]))?>" alt="Movie Poster for <?=$movieTitleArr[$index]?>">
 
                             </div>
                             <div class="col-9 mt-4">
-                                <div id="star-rating">⭐⭐⭐⭐⭐</div>
-                                <h5><?=$movieTitleArr[$index]?></h5>
-                                <h6 class="small text-muted">Release date: <?=$releaseDateArr[$index]?></h6>
-                                
-                                <h6> Movie Genre: <?=$genreArr[$index]?> </h6>
-                                <p>
-                                    Cast: <?=$actorsArr[$index]?>
-                                </p>
+                                <h1 class="display-4"><?=$movieTitleArr[$index]?></h1>
+                                <h6 class="small text-muted mb-4">Release date: <?=$releaseDateArr[$index]?></h6>
+
+                                <h5>Genre:</h5>
+                                <h6 class="text-muted"><?=$genreArr[$index]?></h6>
+
+                                <h5>Cast:</h5>
+                                <h6 class="text-muted"><?=$actorsArr[$index]?></h6>
+
                                 <a class="btn btn-success mb-3" href="movie_template.php?id=<?=$movieIDArr[$index]?>" role="button">Go to Movie</a>
                             </div>
                         </div>
