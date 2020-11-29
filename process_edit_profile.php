@@ -148,6 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
         saveProfileChanges();
 
     $conn->close();
+    unset($allowed_extensions, $file_err_num, $file_extension, $file_upload, $pwd_hashed, $result, $userID, $user_details, $username);
 }
 else
 {
@@ -214,6 +215,7 @@ function saveProfileChanges()
             </main>
         <?php
         include "footer.inc.php";
+        unset($success, $errorMsg);
         ?>
     </body>
 </html>

@@ -143,6 +143,7 @@ function sanitize_input($data)
         </main>
         
         <?php
+            unset($errorMsg, $success, $actorsArr, $genreArr, $index, $movieIDArr, $movieTitleArr, $poster_portraitArr, $releaseDateArr, $search_input);
             include "footer.inc.php";
         ?>
     </body>

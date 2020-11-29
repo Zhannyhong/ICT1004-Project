@@ -21,9 +21,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
     $username = $user_details["username"];
     $email = $user_details["email"];
     $profile_pic = $user_details["profilePic"];
-
     // print_r($user_details);
-
 }
 else
 {
@@ -103,6 +101,7 @@ else
         
         <?php
         include "footer.inc.php";
+        unset($email, $profile_pic, $result, $userID, $user_details, $username);
         ?>
     </body>
 </html>
