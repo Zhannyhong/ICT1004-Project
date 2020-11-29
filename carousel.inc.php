@@ -76,7 +76,7 @@ function fetchTopRatedMovies() {
             AS id FROM (SELECT r.movieID, AVG(r.reviewRating) AS avg_rating 
             FROM reviews as r GROUP BY r.movieID ORDER BY avg_rating DESC 
             LIMIT 8) AS topMovies) AS topMoviesIDs ON m.movieID IN 
-            (topMoviesIDs.id) GROUP BY m.movieID");
+            (topMoviesIDs.id) GROUP BY m.movieID DESC");
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows < 8) {
