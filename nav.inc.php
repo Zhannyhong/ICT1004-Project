@@ -34,11 +34,6 @@
             </li>
             </li>
             <li class="nav-item">
-                <a class="nav-link" title="Movie" href="movie_template.php">
-                    <i class="material-icons d-inline-block align-middle" style="font-size:2em;">movie</i>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" title="About Us" href="about_us.php">About Us</a>
             </li>
         </ul>

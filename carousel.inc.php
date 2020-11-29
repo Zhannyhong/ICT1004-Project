@@ -118,8 +118,8 @@ on m.movieID in (x.id) group by m.movieID");
                         <div class="carousel-inner" role="listbox">
 
                             <?php
-                            for ($x = 0; $x < 8; $x++) {
-                                if ($x === 0) {
+                            for ($index = 0; $index < 8; $index++) {
+                                if ($index === 0) {
                                     ?>
 
                                     <!--First slide-->
@@ -129,44 +129,32 @@ on m.movieID in (x.id) group by m.movieID");
 
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
+                                                    <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
 
                                             <?php
-                                        } else if ($x === 1) {
+                                        } else if ($index === 1 || $index === 2) {
                                             ?>
 
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
+                                                    <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
-
+                                            
                                             <?php
-                                        } else if ($x === 2) {
+                                        } else if ($index === 3) {
                                             ?>
 
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <?php
-                                        } else if ($x === 3) {
-                                            ?>
-
-                                            <div class="col-md-3">
-                                                <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
+                                                    <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
@@ -183,49 +171,25 @@ on m.movieID in (x.id) group by m.movieID");
                                         <div class="row">
 
                                             <?php
-                                        } else if ($x === 4) {
+                                        } else if ($index === 4 || $index === 5 || $index === 6) {
                                             ?>
 
                                             <div class="col-md-3 d-none d-md-block">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
+                                                    <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
+                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
-
-                                            <?php
-                                        } else if ($x === 5) {
-                                            ?>
-
-                                            <div class="col-md-3 d-none d-md-block">
-                                                <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <?php
-                                        } else if ($x === 6) {
-                                            ?>
-
-                                            <div class="col-md-3 d-none d-md-block">
-                                                <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
-                                                    </a>
-                                                </div>
-                                            </div>
-
+                                            
                                             <?php
                                         } else {
                                             ?>
 
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $movieIDArr[$x] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$x])) ?>" alt="<?= $movieTitleArr[$x] ?>">
+                                                    <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
+                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
@@ -286,19 +250,7 @@ on m.movieID in (x.id) group by m.movieID");
                                             </div>
 
                                             <?php
-                                        } else if ($index === 1) {
-                                            ?>
-
-                                            <div class="col-md-3">
-                                                <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <?php
-                                        } else if ($index === 2) {
+                                        } else if ($index === 1 || $index === 2) {
                                             ?>
 
                                             <div class="col-md-3">
@@ -320,10 +272,7 @@ on m.movieID in (x.id) group by m.movieID");
                                                     </a>
                                                 </div>
                                             </div>
-
-
                                         </div>
-
                                     </div>
                                     <!--/.First slide-->
 
@@ -333,31 +282,7 @@ on m.movieID in (x.id) group by m.movieID");
                                         <div class="row">
 
                                             <?php
-                                        } else if ($index === 4) {
-                                            ?>
-
-                                            <div class="col-md-3 d-none d-md-block">
-                                                <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <?php
-                                        } else if ($index === 5) {
-                                            ?>
-
-                                            <div class="col-md-3 d-none d-md-block">
-                                                <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <?php
-                                        } else if ($index === 6) {
+                                        } else if ($index === 4 || $index === 5 || $index === 6) {
                                             ?>
 
                                             <div class="col-md-3 d-none d-md-block">
