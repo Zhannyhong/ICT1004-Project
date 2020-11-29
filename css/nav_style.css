@@ -1,4 +1,7 @@
-/*
+
+.navbar-custom {
+    background-color: #FFD899;
+}
 nav a {
     color: black;
     font-size: 18px;
@@ -17,7 +20,6 @@ input[nav-item]:hover{
     font-weight: bold;
 }
 
-
 .navbar-toggler{
     width: 47px;
     height: 34px;
@@ -32,7 +34,7 @@ input[nav-item]:hover{
     background-color: #fff;
     margin-bottom: 5px;
 }
-*/
+
 .profile-logo {
     object-fit: cover;
     width: 3rem;

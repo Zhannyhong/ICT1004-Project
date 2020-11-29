@@ -1,51 +1,59 @@
 
+<!-- Google Icons -->
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity=
+    "sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <!-- Custom CSS -->
 <link rel="stylesheet" href="css/nav_style.css">
 
 
-<nav class="navbar navbar-expand-sm" style="background-color: #FFD899;">
-    <a class="navbar-brand" href="index.php">
-        <img src="images/popcorn.svg" alt="Popcorn Logo" class="d-inline-block align-top"/>
-        Popcorn
+<nav class="navbar navbar-expand-sm navbar-custom">
+    <a class="navbar-brand logo" href="index.php">
+        <img src="images/popcorn.svg" alt="LOGO"/>
     </a>
-
-    <!-- Hamburger Menu for small screens -->
-    <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-navbar-toggler" aria-controls="mobile-navbar-toggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="line"></span> 
+        <span class="line"></span> 
+        <span class="line" style="margin-bottom: 0;"></span>
     </button>
-
-    <div class="collapse navbar-collapse" id="navbarToggler">
-        <!-- Left side of the navigation bar -->
+    <div class="collapse navbar-collapse" id="mobile-navbar-toggler">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" title="Home" href="index.php">
                     <i class="material-icons d-inline-block align-middle" style="font-size:2em;">home</i>
                 </a>
             </li>
-
-            <li class="nav-item d-inline-block align-middle">
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" title="About Us" href="about_us.php">About Us</a>
             </li>
         </ul>
 
-        <!-- Right side of the navigation bar -->
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <!-- Search movies functionality -->
-                <form class="form-inline my-2 ml-auto col-xs-4" action="search_results.php" method="post">
-                    <div class="input-group" id="search">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="material-icons d-inline-block align-middle">search</i>
-                            </span>
-                        </div>
-                        <input required type="text" name="search_input" maxlength="40" class="form-control mr-sm-2" placeholder="Search for movie title" aria-label="Search" aria-describedby="search">
+
+            <form class="form-inline" action="search_results.php" method="post">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="material-icons d-inline-block align-middle">search</i>
+                        </span>
                     </div>
-                </form>
-            </li>
+                    <input required type="text" id="search_input" name="search_input" maxlength="40" class="form-control" placeholder="Search for movie title" aria-label="Search" aria-describedby="basic-addon1">
+                </div>
+            </form>
 
             <li class="nav-item">
                 <a class="nav-link" title="Account" href="login.php">
+
                     <?php
                         if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
                         {
