@@ -149,12 +149,15 @@ else
                                 <h5><?=$row['reviewTitle']?></h5>
                                 <p><?=$row['writeUp']?></p>
                                 <div class="review-movie">
-                                    <h6>Review for
+                                    <p>Review for
                                         <a class="btn btn-success mb-3" href="movie_template.php?id=<?=$row['movieID']?>" role="button">
                                             <?=$row['movieTitle']?>
                                         </a>
-                                    </h6>
-                                    <a href="edit_review.php?reviewID=<?=$row['reviewID']?>">Edit review</a>
+                                    </p>
+                                    <a href="edit_review.php?reviewID=<?=$row['reviewID']?>">
+                                        <i class="material-icons align-middle">create</i>
+                                        Edit Review
+                                    </a>
                                 </div>
                             </div>
                         </div>
