@@ -18,9 +18,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
 
 
     $user_details = $result->fetch_assoc();
-    $username = $user_details["username"];
-    $email = $user_details["email"];
-    $profile_pic = $user_details["profilePic"];
     // print_r($user_details);
 }
 else
@@ -51,8 +48,8 @@ else
                     <div class="row">
                         <div class="col-sm-5 col-md-3 text-center" id="change-pic">
                             <img class="avatar" src="<?=$user_details["profilePic"]?>" alt="Profile Picture">
-                            <h5><?=$username?></h5>
-                            <h6><?=$email?></h6>
+                            <h5><?=$user_details["username"]?></h5>
+                            <h6><?=$user_details["email"]?></h6>
                         </div>
                         <div class="col-sm-7 col-md-9 my-4">
                             <div class="form-group">
@@ -101,7 +98,7 @@ else
         
         <?php
         include "footer.inc.php";
-        unset($email, $profile_pic, $result, $userID, $user_details, $username);
+        unset($result, $userID, $user_details);
         ?>
     </body>
 </html>
