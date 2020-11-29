@@ -41,7 +41,7 @@ print_r($_SESSION);
             <div class="row text-center">
                 <article class="col-sm-6">
                     <div class="card-background rounded shadow-sm">
-                        <img class="avatar" src="images/tabby_small.jpg" alt="Anne's Avatar">
+                        <img class="avatar" src="images/Anne.jpeg" alt="Anne's Avatar">
                         <h4 class="mb-0">Anne Tan</h4>
                         <h6 class="small text-muted">Project Lead</h6>
                         <a href="mailto:2002716@sit.singaporetech.edu.sg" title="Send me an email!">
@@ -52,7 +52,7 @@ print_r($_SESSION);
 
                 <article class="col-sm-6">
                     <div class="card-background rounded shadow-sm">
-                        <img class="avatar" src="images/tabby_small.jpg" alt="Jessica's Avatar">
+                        <img class="avatar" src="images/Jessica.jpg" alt="Jessica's Avatar">
                         <h4 class="mb-0">Jessica Tan</h4>
                         <h6 class="small text-muted">Project Lead</h6>
                         <a href="mailto:2002253@sit.singaporetech.edu.sg" title="Send me an email!">
@@ -75,7 +75,7 @@ print_r($_SESSION);
 
                 <article class="col-sm-6">
                     <div class="card-background rounded shadow-sm">
-                        <img class="avatar" src="images/tabby_small.jpg" alt="Bryan's Avatar">
+                        <img class="avatar" src="images/Bryan.jpg" alt="Bryan's Avatar">
                         <h4 class="mb-0">Bryan Lam</h4>
                         <h6 class="small text-muted">Project Lead</h6>
                         <a href="mailto:2003114@sit.singaporetech.edu.sg" title="Send me an email!">
@@ -87,7 +87,7 @@ print_r($_SESSION);
             <div class="row text-center">
                 <article class="col-sm-6">
                     <div class="card-background rounded shadow-sm">
-                        <img class="avatar" src="images/tabby_small.jpg" alt="Yong Jun's Avatar">
+                        <img class="avatar" src="images/YongJun.jpg" alt="Yong Jun's Avatar">
                         <h4 class="mb-0">Lim Yong Jun</h4>
                         <h6 class="small text-muted">Project Lead</h6>
                         <a href="mailto:2003119@sit.singaporetech.edu.sg" title="Send me an email!">

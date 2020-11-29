@@ -123,7 +123,7 @@ function fetchMovieData()
                 {
             ?>
             <div class="card">
-                <img src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_landscape))?>" class="card-img-top" alt="Movie Poster">
+                <img src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_landscape))?>" class="card-img-top" alt="<?=$movieTitle?> Movie Poster">
                 <div class="row card-body">
                     <div class="col-7">
                         <div class="row col-7 card-title">
@@ -260,7 +260,7 @@ function fetchMovieData()
                         <hr class="review-divider"/>
                         <div class="row review-block">
                             <div class="col-4 col-md-3">
-                                <img class="avatar" src="<?=$profilePicArr[$index]?>" alt="Reviewer Profile Picture">
+                                <img class="avatar" src="<?=$profilePicArr[$index]?>" alt="<?=$usernameArr[$index]?> Reviewer Profile Picture">
                                 <h5><?=$usernameArr[$index]?></h5>
                                 <h6 class="small"><?=$reviewDateArr[$index]?></h6>
                             </div>
