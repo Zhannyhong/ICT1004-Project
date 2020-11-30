@@ -17,7 +17,7 @@ session_start();
         <title>About Us</title>
     </head>
 
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <?php
             include "nav.inc.php";
         ?>
@@ -30,7 +30,7 @@ session_start();
             </p>
         </header>
 
-        <main class="container">
+        <main class="container flex-grow-1">
             <div>
                 <h2 class="display-4 font-weight-light">Meet the Team</h2>
                 <p class="font-italic">The ones that made it all possible.</p>

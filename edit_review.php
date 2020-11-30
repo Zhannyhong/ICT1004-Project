@@ -68,11 +68,11 @@ function fetchReviewData(){
         <script defer src="js/movie_template.js"></script>
         <title>Edit Review</title>
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <?php
         include "nav.inc.php";
         ?>
-        <main class="container">
+        <main class="container flex-grow-1">
             <?php
                 if ($success)
                 {

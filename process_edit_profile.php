@@ -197,27 +197,27 @@ function saveProfileChanges()
         include "head.inc.php";
         ?>
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <?php
         include "nav.inc.php";
         ?>
-            <main class="container">
-                <hr/>
-                <?php
-                if ($success)
-                {
-                    echo "<h1 class='display-4'>Profile Updated</h1><br>";
-                    echo '<a class="btn btn-success mb-3" href="profile_page.php" role="button">Return to Profile page</a>';
-                }
-                else
-                {
-                    echo "<h1 class='display-4'>Oops!</h1>";
-                    echo "<h3>The following input errors were detected:</h3>";
-                    echo "<p class='text-secondary'>" . $errorMsg . "</p>";
-                    echo '<a class="btn btn-danger mb-3" href="profile_page.php" role="button">Return to Profile page</a>';
-                }
-                ?>
-            </main>
+        <main class="container flex-grow-1">
+            <hr/>
+            <?php
+            if ($success)
+            {
+                echo "<h1 class='display-4'>Profile Updated</h1><br>";
+                echo '<a class="btn btn-success mb-3" href="profile_page.php" role="button">Return to Profile page</a>';
+            }
+            else
+            {
+                echo "<h1 class='display-4'>Oops!</h1>";
+                echo "<h3>The following input errors were detected:</h3>";
+                echo "<p class='text-secondary'>" . $errorMsg . "</p>";
+                echo '<a class="btn btn-danger mb-3" href="profile_page.php" role="button">Return to Profile page</a>';
+            }
+            ?>
+        </main>
         <?php
         include "footer.inc.php";
         unset($success, $errorMsg);

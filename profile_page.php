@@ -14,7 +14,7 @@ session_start();
         ?>
         <link rel="stylesheet" href="css/movie_template.css">
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <?php
             include "nav.inc.php";
 
@@ -57,7 +57,7 @@ session_start();
                 exit();
             }
         ?>
-        <main class="container">
+        <main class="container flex-grow-1">
             <div class="profile rounded shadow-sm card-background">
                 <img class="avatar" src="<?=$profile_pic?>" alt="Profile Picture">
                 <h6 class="small text-muted">Username:</h6>

@@ -7,11 +7,11 @@
             include "head.inc.php";
         ?>
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <?php
             include "nav.inc.php";
         ?>
-        <main class="container">
+        <main class="container flex-grow-1">
             <div class="my-5">
                 <h1 class="display-4">The show is just starting</h1>
                 <h6 class="lead">Create a free account to share your movie reviews with the Popcorn community.</h6>
