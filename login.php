@@ -25,11 +25,11 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
             include "head.inc.php";
         ?>
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <?php
             include "nav.inc.php";
         ?>
-        <main class="container">
+        <main class="container flex-grow-1">
             <div class="my-5">
                 <h1 class="display-4">Member Login</h1>
                 <h6 class="lead">Need a Popcorn account? <a href="register.php">Create an account</a>.</h6>

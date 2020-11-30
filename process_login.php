@@ -122,11 +122,11 @@ function authenticateUser()
             include "head.inc.php";
         ?>
     </head>
-    <body>    
+    <body class="d-flex flex-column min-vh-100">
         <?php
             include "nav.inc.php";
         ?>
-        <main class="container">
+        <main class="container flex-grow-1">
             <hr>
             <?php
             if ($success)

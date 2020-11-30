@@ -92,11 +92,11 @@ function sanitize_input($data)
         ?>
         <link rel="stylesheet" href="css/main.css">
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <?php
             include "nav.inc.php";
         ?>
-        <main class="container">
+        <main class="container flex-grow-1">
             
             <section id="review">
                 <h1 class="display-4 mt-4"><?=sizeof($movieTitleArr)?> Search Results for "<?=$search_input?>"</h1>

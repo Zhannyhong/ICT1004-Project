@@ -36,11 +36,11 @@ else
         ?>
         <title>Edit Profile</title>
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <?php
         include "nav.inc.php";
         ?>
-        <main class="container">
+        <main class="container flex-grow-1">
             <h1 class="display-4 mt-4">Edit Profile</h1>
             <hr>
             <div>
