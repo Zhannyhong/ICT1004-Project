@@ -35,9 +35,9 @@
                 <form class="form-inline my-2 ml-auto col-xs-4" action="search_results.php" method="post">
                     <div class="input-group" id="search">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">
+                            <button class="input-group-text" type="submit">
                                 <i class="material-icons d-inline-block align-middle">search</i>
-                            </span>
+                            </button>
                         </div>
                         <input required type="text" name="search_input" maxlength="40" class="form-control mr-sm-2" placeholder="Search for movie title" aria-label="Search" aria-describedby="search">
                     </div>
