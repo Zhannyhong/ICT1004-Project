@@ -29,3 +29,27 @@ $(window).scroll(function() {
         $('#ToTopButton').fadeOut();
     }
 });
+
+// Add active class to the current button (highlight it)
+$(function() {
+        // this will get the full URL at the address bar
+        var url = window.location.href;
+        // passes on every "a" tag
+        $(".topnav a").each(function() {
+            // checks if its the same on the address bar
+            if (url === (this.href)) {
+                $(this).closest("a").addClass("active");
+                //for making parent of submenu active
+               $(this).closest("a").parent().parent().addClass("active");
+            }
+        });
+    });        
+
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
