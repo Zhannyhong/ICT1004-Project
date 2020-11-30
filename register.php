@@ -2,7 +2,7 @@
 
 <html lang="en">
     <head>
-        <title>Registration Page</title>
+        <title>Register</title>
         <?php
             include "head.inc.php";
         ?>

@@ -126,21 +126,22 @@ function authenticateUser()
         <?php
             include "nav.inc.php";
         ?>
-        <main class="container flex-grow-1">
-            <hr>
+        <main class="container flex-grow-1 text-center">
             <?php
             if ($success)
             {
-                echo "<h1 class='display-4'>Login successful</h1>";
+                echo "<img src='images/check.svg' class='mt-5' width='125px' height='125px' alt='Success'>";
+                echo "<h1 class='display-4 mt-3'>Login Successful</h1>";
                 echo "<h4>Welcome back, $username.</h4>";
-                echo '<a class="btn btn-success mb-3" href="index.php" role="button">Return to Home</a>';
+                echo '<a class="btn btn-success my-4" href="index.php" role="button">Return to Home</a>';
             }
             else
             {
-                echo "<h1 class='display-4'>Oops!</h1>";
+                echo "<img src='images/close.svg' class='mt-5' width='125px' height='125px' alt='Error'>";
+                echo "<h1 class='display-4 mt-3'>Oops!</h1>";
                 echo "<h3>The following input errors were detected:</h3>";
                 echo "<p class='text-secondary'>" . $errorMsg . "</p>";
-                echo '<a class="btn btn-danger mb-3" href="login.php" role="button">Return to Login page</a>';
+                echo '<a class="btn btn-danger my-4" href="login.php" role="button">Return to Login page</a>';
             }
             ?>
         </main>

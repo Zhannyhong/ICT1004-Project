@@ -20,7 +20,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
 
 <html lang="en">
     <head>
-        <title>World of Pets</title>
+        <title>Member Login</title>
         <?php
             include "head.inc.php";
         ?>
@@ -31,7 +31,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
         ?>
         <main class="container flex-grow-1">
             <div class="my-5">
-                <h1 class="display-4">Member Login</h1>
+                <h1 class="display-4">Welcome Back</h1>
                 <h6 class="lead">Need a Popcorn account? <a href="register.php">Create an account</a>.</h6>
             </div>
 

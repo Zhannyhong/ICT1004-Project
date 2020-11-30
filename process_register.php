@@ -221,17 +221,19 @@ function saveMemberToDB()
             <?php
             if ($success)
             {
-                echo "<h1 class='display-4'>Registration successful</h1>";
+                echo "<img src='images/check.svg' class='mt-5' width='125px' height='125px' alt='Success'>";
+                echo "<h1 class='display-4 mt-3'>Registration Successful</h1>";
                 echo "<h5>Email: $email</h5>";
                 echo "<h5>Thank you for signing up, $username.</h5>";
-                echo '<a class="btn btn-success mb-3" href="login.php" role="button">Login</a>';
+                echo '<a class="btn btn-success my-4" href="login.php" role="button">Login</a>';
             }
             else
             {
-                echo "<h1 class='display-4'>Oops!</h1>";
+                echo "<img src='images/close.svg' class='mt-5' width='125px' height='125px' alt='Error'>";
+                echo "<h1 class='display-4 mt-3'>Oops!</h1>";
                 echo "<h3>The following errors were detected:</h3>";
                 echo "<p class='text-secondary'>" . $errorMsg . "</p>";
-                echo '<a class="btn btn-danger mb-3" href="register.php" role="button">Return to Register page</a>';
+                echo '<a class="btn btn-danger my-4" href="register.php" role="button">Return to Register page</a>';
             }
             ?>
         </main>

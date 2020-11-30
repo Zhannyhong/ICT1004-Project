@@ -99,13 +99,17 @@ function sanitize_input($data)
         <main class="container flex-grow-1">
             
             <section id="review">
-                <h1 class="display-4 mt-4"><?=sizeof($movieTitleArr)?> Search Results for "<?=$search_input?>"</h1>
-                <hr/>
                 <?php
-                    if ($success)
-                    {
-                        for ($index = 0; $index < sizeof($movieTitleArr); $index++)
-                        {
+                   if (sizeof($movieTitleArr) > 0)
+                   {
+                       echo '<h1 class="display-4 mt-4">' . sizeof($movieTitleArr) .'Search Results for "' . $search_input .'"</h1>';
+                       echo '<hr/>';
+                   }
+
+                   if ($success)
+                   {
+                       for ($index = 0; $index < sizeof($movieTitleArr); $index++)
+                       {
                 ?>
                 <div class="row">
                     <div class="review-block">
@@ -131,14 +135,16 @@ function sanitize_input($data)
                     </div>
                 </div>
                 <?php
-                        }
-                    } else 
-                    {
-                        echo "<h1 class='display-4'>Oops!</h1>";
+                       }
+                   }
+                   else
+                   {
+                        echo "<img src='images/close.svg' class='mt-5' width='125px' height='125px' alt='Error'>";
+                        echo "<h1 class='display-4 mt-3'>Oops!</h1>";
                         echo "<h3>The following input errors were detected:</h3>";
                         echo "<p class='text-secondary'>" . $errorMsg . "</p>";
-                        echo '<a class="btn btn-danger mb-3" href="index.php" role="button">Return to Home page</a>';
-                    }
+                        echo '<a class="btn btn-danger my-4" href="index.php" role="button">Return to Home page</a>';
+                   }
                 ?>
             </section>
         </main>

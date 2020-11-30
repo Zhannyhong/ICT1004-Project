@@ -1,56 +1,46 @@
 <?php
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST")
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
 {
-    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
+    // Initialise input variables
+    $rating = $review_title = $review_writeup = $errorMsg = $movieID = $reviewID = "";
+    $userID = $_SESSION["userID"];
+    $success = true;
+
+    // ensure rating is not empty
+    if (empty($_POST["rating"]))
     {
-        // Initialise input variables
-        $rating = $review_title = $review_writeup = $errorMsg = $movieID = $reviewID = "";
-        $userID = $_SESSION["userID"];
-        $success = true;
-
-        // ensure rating is not empty
-        if (empty($_POST["rating"]))
-        {
-            $intent = $_POST["intent"];
-            $errorMsg .= "A rating is required.<br>";
-            $success = false;
-        }
-        else
-        {
-            $rating = $_POST["rating"];
-        }
-
-        // Ensure title and writeup not empty and sanitise
-        if (empty($_POST["review_title"]) || empty($_POST["review_writeup"])) 
-        {
-            $errorMsg .= "A review title and message is required.<br>";
-            $success = false;
-        }
-        else
-        {
-            $review_title = sanitize_input($_POST["review_title"]);
-            $review_writeup = sanitize_input($_POST["review_writeup"]);
-        }
-
-        if ($success)
-        {
-            $movieID = $_POST["movieID"];
-            $reviewID = $_POST["reviewID"];
-            $intent = $_POST["intent"];
-            saveReviewToDB();
-        }
-
-        unset($rating, $reviewID, $review_title, $review_writeup, $userID);
+        $intent = $_POST["intent"];
+        $errorMsg .= "A rating is required.<br>";
+        $success = false;
     }
     else
     {
-        echo "<h2>You must be logged in to submit a review.</h2>";
-        echo "<p>You can login at the link below:</p>";
-        echo "<a href='login.php'>Go to Login page...</a>";
-        exit();
+        $rating = $_POST["rating"];
     }
+
+    // Ensure title and writeup not empty and sanitise
+    if (empty($_POST["review_title"]) || empty($_POST["review_writeup"]))
+    {
+        $errorMsg .= "A review title and message is required.<br>";
+        $success = false;
+    }
+    else
+    {
+        $review_title = sanitize_input($_POST["review_title"]);
+        $review_writeup = sanitize_input($_POST["review_writeup"]);
+    }
+
+    if ($success)
+    {
+        $movieID = $_POST["movieID"];
+        $reviewID = $_POST["reviewID"];
+        $intent = $_POST["intent"];
+        saveReviewToDB();
+    }
+
+    unset($rating, $reviewID, $review_title, $review_writeup, $userID);
 }
 else
 {
@@ -118,32 +108,36 @@ function saveReviewToDB()
             {
                 if ($intent == "posted")
                 {
-                    echo "<h1 class='display-4'>Review Submission successful</h1>";
-                    echo "<h5>Thank you, your review has been " . $intent . ".</h5>";
-                    echo '<a class="btn btn-success mb-3" href="movie_template.php?id=' . $movieID . '" role="button">Return to Movie</a>';
+                    echo "<img src='images/check.svg' class='mt-5' width='125px' height='125px' alt='Success'>";
+                    echo "<h1 class='display-4 mt-3'>Review Submission Successful</h1>";
+                    echo "<h5>Thank you, your review has been posted.</h5>";
+                    echo '<a class="btn btn-success my-4" href="movie_template.php?id=' . $movieID . '" role="button">Return to Movie</a>';
                 }
                 else if ($intent == "updated")
                 {
-                    echo "<h1 class='display-4'>Review Updated successfully</h1>";
-                    echo "<h5>Thank you, your review has been " . $intent . ".</h5>";
-                    echo '<a class="btn btn-success mb-3" href="profile_page.php" role="button">Return to Profile Page</a>';
+                    echo "<img src='images/check.svg' class='mt-5' width='125px' height='125px' alt='Success'>";
+                    echo "<h1 class='display-4 mt-3'>Review Updated successfully</h1>";
+                    echo "<h5>Thank you, your review has been updated.</h5>";
+                    echo '<a class="btn btn-success my-4" href="profile_page.php" role="button">Return to Profile page</a>';
                 }
             }
             else
             {
                 if ($intent == "posted")
                 {
-                    echo "<h1 class='display-4'>Oops!</h1>";
+                    echo "<img src='images/close.svg' class='mt-5' width='125px' height='125px' alt='Error'>";
+                    echo "<h1 class='display-4 mt-3'>Oops!</h1>";
                     echo "<h3>The following errors were detected:</h3>";
                     echo "<p class='text-secondary'>" . $errorMsg . "</p>";
-                    echo '<a class="btn btn-danger mb-3" href="movie_template.php?id=' . $movieID . '" role="button">Return to Home</a>';
+                    echo '<a class="btn btn-danger my-4" href="movie_template.php?id=' . $movieID . '" role="button">Return to Movie</a>';
                 }
                 else if ($intent == "updated")
                 {
-                    echo "<h1 class='display-4'>Oops!</h1>";
+                    echo "<img src='images/close.svg' class='mt-5' width='125px' height='125px' alt='Error'>";
+                    echo "<h1 class='display-4 mt-3'>Oops!</h1>";
                     echo "<h3>The following errors were detected:</h3>";
                     echo "<p class='text-secondary'>" . $errorMsg . "</p>";
-                    echo '<a class="btn btn-danger mb-3" href="profile_page.php" role="button">Return to Profile page</a>';
+                    echo '<a class="btn btn-danger my-4" href="profile_page.php" role="button">Return to Profile page</a>';
                 }
             }
             ?>
