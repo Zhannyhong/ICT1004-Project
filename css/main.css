@@ -21,8 +21,8 @@ article div {
 }
 
 .jumbotron {
-    padding-top: 13rem;
-    padding-bottom: 13rem;
+    padding-top: 9rem;
+    padding-bottom: 9rem;
 }
 
 figure {
@@ -41,6 +41,22 @@ figcaption {
     border-radius: 15px;
     padding: 10px;
     height: 35px;
+}
+
+span.subhead {
+    font-size:1.5em;
+    text-align: center;
+    display:block;
+    position: relative;
+    margin-bottom: 4rem;
+}
+span.subhead:before, span.subhead:after {
+    content:"";
+    width:60px;
+    height:6px;
+    border-top:1px solid black;
+    display:inline-block;
+    margin:0 10px;
 }
 
 footer {

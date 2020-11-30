@@ -116,7 +116,7 @@ function saveReviewToDB()
                 else if ($intent == "updated")
                 {
                     echo "<img src='images/check.svg' class='mt-5' width='125px' height='125px' alt='Success'>";
-                    echo "<h1 class='display-4 mt-3'>Review Updated successfully</h1>";
+                    echo "<h1 class='display-4 mt-3'>Update Review Successful</h1>";
                     echo "<h5>Thank you, your review has been updated.</h5>";
                     echo '<a class="btn btn-success my-4" href="profile_page.php" role="button">Return to Profile page</a>';
                 }
