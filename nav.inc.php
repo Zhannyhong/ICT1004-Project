@@ -1,16 +1,11 @@
 
-<!-- Custom CSS -->
-<link rel="stylesheet" href="css/nav_style.css">
-
-
-<nav class="navbar navbar-expand-sm" style="background-color: #FFD899;">
+<nav class="navbar navbar-expand-sm navbar-light" style="background-color: #FFD899;">
     <a class="navbar-brand" href="index.php">
-        <img src="images/popcorn.svg" alt="Popcorn Logo"/>
-        Popcorn
+        <img src="images/popcorn.svg" class="d-inline-block align-top" width="75px" height="75px" alt="Popcorn Logo">
     </a>
 
     <!-- Hamburger Menu for small screens -->
-    <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -32,7 +27,7 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <!-- Search movies functionality -->
-                <form class="form-inline my-2 ml-auto col-xs-4" action="search_results.php" method="post">
+                <form class="form-inline d-inline-block align-middle" action="search_results.php" method="post">
                     <div class="input-group" id="search">
                         <div class="input-group-prepend">
                             <button class="input-group-text" type="submit">
@@ -61,7 +56,7 @@
 
                             $profile_pic = $result->fetch_assoc()["profilePic"];
 
-                            echo "<img class='profile-logo' src='$profile_pic' alt='Profile Picture'>";
+                            echo "<img class='profile-logo d-inline-block align-middle' src='$profile_pic' alt='Profile Picture'>";
 
                             unset($profile_pic);
                         }
