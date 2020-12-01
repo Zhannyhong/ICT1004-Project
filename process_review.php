@@ -103,6 +103,8 @@ function saveReviewToDB()
         ?>
         <main class="container flex-grow-1 text-center">
             <?php
+            echo var_dump($_POST);
+            echo $movieID;
             if ($success)
             {
                 if ($intent == "posted")

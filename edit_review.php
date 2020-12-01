@@ -1,7 +1,7 @@
 <?php
 session_start();
 echo var_dump($_SESSION);
-$reviewRating = $reviewTitle = $writeUp = $userID = "";
+$movieID = $reviewRating = $reviewTitle = $writeUp = $userID = "";
 $success = true;
 
 // FILTER_SANITIZE_NUMBER_INT to prevent code injection
@@ -18,8 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && filter_input(INPUT_GET, "reviewID", F
 
 
 function fetchReviewData(){
-    global $reviewID, $reviewRating, $reviewTitle, $writeUp, $userID, $errorMsg, $success;
-    
+    global $movieID, $reviewID, $reviewRating, $reviewTitle, $writeUp, $userID, $errorMsg, $success;
     
     require "connect_database.php";
 
@@ -42,6 +41,7 @@ function fetchReviewData(){
             else
             {
                 // get review info
+                $movieID = $row["movieID"];
                 $reviewRating = $row["reviewRating"];
                 $reviewTitle = $row["reviewTitle"];
                 $writeUp = $row["writeUp"];
@@ -83,6 +83,8 @@ function fetchReviewData(){
             <div id="leave-review">
                 <form action="process_review.php" method="post">
                     <div class="form-group rating star-rating">
+                        <input type="hidden" name="movieID" id="movieID"
+                               value="<?=$movieID?>">
                         <input type="hidden" name="reviewID" id="reviewID"
                                value="<?=$reviewID?>">
                         <input type="hidden" name="intent" id="intent" value="updated">
