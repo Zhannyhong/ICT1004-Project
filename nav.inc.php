@@ -37,16 +37,17 @@
         <!-- account_circle -->
     </a>
     <!-- Search movies functionality -->
-        <form class="nav-form-rigth" action="search_results.php" method="post">
-            <div class="input-group" id="search">
-                <div class="input-group-prepend">
-                    <button class="input-group-text" type="submit">
-                        <i class="material-icons d-inline-block align-middle">search</i>
-                    </button>
-                </div>
-                <input required type="text" name="search_input" maxlength="40" class="form-control mr-sm-2" placeholder="Search for movie title" aria-label="Search" aria-describedby="search">
+    <form class="nav-form-right" action="search_results.php" method="post">
+        <div class="input-group input-group-lg" id="search">
+            <div class="input-group-prepend">
+                <button class="input-group-text" type="submit">
+                    <i class="material-icons d-inline-block align-middle">search</i>
+                </button>
             </div>
-        </form>
+            <input required type="text" name="search_input" maxlength="40" class="form-control mr-sm-2" placeholder="Search for movie title" aria-label="Search" aria-describedby="search">
+        </div>
+    </form>
+
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
         <i class="fa fa-bars" style="color: black"></i>
     </a>

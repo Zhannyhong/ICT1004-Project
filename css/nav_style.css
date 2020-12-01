@@ -29,7 +29,7 @@
   color: black;
 }
 
-.topnav a.nav-right-2, .topnav form.nav-form-rigth {
+.topnav a.nav-right-2, .topnav form.nav-form-right {
   float: right;
   text-align: center;
   text-decoration: none;
@@ -55,6 +55,13 @@
 
 .topnav a{
     background-color: #FFD899; 
+}
+
+#menu {
+  font-size: 30px;
+  margin-left: 5px;
+  text-align: left;
+  color: black;
 }
 
 @media screen and (max-width: 600px) {
