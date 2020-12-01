@@ -126,19 +126,21 @@ function fetchMovieData()
             <div class="card">
                 <img src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_landscape))?>" class="card-img-top" alt="<?=$movieTitle?> Movie Poster">
                 <div class="row card-body">
-                    <div class="col-7">
+                    <div class="col-md-7">
                         <div class="card-title">
-                            <h3 class="display-4"><?=$movieTitle?></h3>
+                            <h2 class="display-4"><?=$movieTitle?></h2>
                         </div>
                         <p class="card-text">
                             <?=$description?>
                         </p>
-                        <p class="card-text text-muted small">Released on <?=$releaseDate?></p>
-                        <span class="btn-static"><?=$maturityRating?></span>
-                        <span class="btn-static"><?=$length?>min</span>
+                        <div class="mb-2">
+                            <p class="card-text text-muted small">Released on <?=$releaseDate?></p>
+                            <span class="btn-static"><?=$maturityRating?></span>
+                            <span class="btn-static"><?=$length?>min</span>
+                        </div>
                     </div>
 
-                    <div class="col-5 card-text">
+                    <div class="col-md-5 card-text mt-3">
                         <h6 class="text-muted">Director:</h6>
                         <h6><?=$director?></h6>
 
