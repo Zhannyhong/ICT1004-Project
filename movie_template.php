@@ -128,9 +128,8 @@ function fetchMovieData()
                 <img src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_landscape))?>" class="card-img-top" alt="<?=$movieTitle?> Movie Poster">
                 <div class="row card-body">
                     <div class="col-7">
-                        <div class="row col-7 card-title">
+                        <div class="card-title">
                             <h3 class="display-4"><?=$movieTitle?></h3>
-
                         </div>
                         <p class="card-text">
                             <?=$description?>
