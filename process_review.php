@@ -1,5 +1,6 @@
 <?php
 session_start();
+define("PREVIOUS_LOCATION", $_SESSION['current_location']);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
 {
@@ -103,8 +104,6 @@ function saveReviewToDB()
         ?>
         <main class="container flex-grow-1 text-center">
             <?php
-            echo var_dump($_POST);
-            echo $movieID;
             if ($success)
             {
                 if ($intent == "posted")
@@ -132,11 +131,11 @@ function saveReviewToDB()
             {
                 require "error_msg.php";
 
-                if ($_SESSION['current_location'] === 'movie_template.php')
+                if (PREVIOUS_LOCATION === 'movie_template.php')
                 {
                     echo '<a class="btn btn-danger my-4" href="movie_template.php?id=' . $movieID . '" role="button">Return to Movie</a>';
                 }
-                else if ($_SESSION['current_location'] === 'profile_page.php')
+                else if (PREVIOUS_LOCATION === 'profile_page.php')
                 {
                     echo '<a class="btn btn-danger my-4" href="profile_page.php" role="button">Return to Profile page</a>';
                 }
