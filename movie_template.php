@@ -224,6 +224,10 @@ function fetchMovieData()
                 </div>
 
                 <div id="leave-review">
+                    <?php
+                        if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
+                        {
+                    ?>
                     <form action="process_review.php" method="post">
                         <h3>Leave a review</h3>
                         <div class="form-group rating star-rating">
@@ -249,6 +253,12 @@ function fetchMovieData()
                         </div>
                         <button type="submit" class="btn btn-primary mb-2">Post review</button>
                     </form>
+                    <?php
+                        } else
+                        {
+                            echo '<h3><a href="login.php">Login</a> or <a href="register.php">sign up</a> to leave a review</h3>';
+                        }
+                    ?>
                 </div>
 
                 <div class="review">
