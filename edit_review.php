@@ -107,13 +107,13 @@ function fetchReviewData(){
                 </form>
             </div>
             <?php
-                } else
-                    {
-                        echo "<h1 class='display-4'>Oops!</h1>";
-                        echo "<h3>The following input errors were detected:</h3>";
-                        echo "<p class='text-secondary'>" . $errorMsg . "</p>";
-                        echo '<a class="btn btn-danger mb-3" href="profile_page.php" role="button">Return to Profile Page</a>';
-                    }
+                }
+                else
+                {
+                    require "error_msg.php";
+                    echo '<a class="btn btn-danger my-4" href="profile_page.php" role="button">Return to Profile Page</a>';
+                    echo "</div>";
+                }
             ?>
         </main>
         <?php

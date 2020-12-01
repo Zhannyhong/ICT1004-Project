@@ -101,8 +101,7 @@ function saveReviewToDB()
         <?php
             include "nav.inc.php";
         ?>
-        <main class="container flex-grow-1">
-            <hr/>
+        <main class="container flex-grow-1 text-center">
             <?php
             if ($success)
             {
@@ -129,20 +128,8 @@ function saveReviewToDB()
             }
             else
             {
-                if ($intent == "posted")
-                {
-                    echo "<img src='images/close.svg' class='mt-5' width='125px' height='125px' alt='Error'>";
-                    echo "<h1 class='display-4 mt-3'>Oops!</h1>";
-                    echo "<h3>The following errors were detected:</h3>";
-                    echo "<p class='text-secondary'>" . $errorMsg . "</p>";
-                }
-                else if ($intent == "updated")
-                {
-                    echo "<img src='images/close.svg' class='mt-5' width='125px' height='125px' alt='Error'>";
-                    echo "<h1 class='display-4 mt-3'>Oops!</h1>";
-                    echo "<h3>The following errors were detected:</h3>";
-                    echo "<p class='text-secondary'>" . $errorMsg . "</p>";
-                }
+                require "error_msg.php";
+
                 if ($_SESSION['current_location'] === 'movie_template.php')
                 {
                     echo '<a class="btn btn-danger my-4" href="movie_template.php?id=' . $movieID . '" role="button">Return to Movie</a>';
@@ -151,6 +138,8 @@ function saveReviewToDB()
                 {
                     echo '<a class="btn btn-danger my-4" href="profile_page.php" role="button">Return to Profile page</a>';
                 }
+
+                echo "</div>";
             }
             ?>
         </main>

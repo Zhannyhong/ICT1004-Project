@@ -216,8 +216,7 @@ function saveMemberToDB()
         <?php
             include "nav.inc.php";
         ?>
-        <main class="container flex-grow-1">
-            <hr/>
+        <main class="container flex-grow-1 text-center">
             <?php
             if ($success)
             {
@@ -229,11 +228,9 @@ function saveMemberToDB()
             }
             else
             {
-                echo "<img src='images/close.svg' class='mt-5' width='125px' height='125px' alt='Error'>";
-                echo "<h1 class='display-4 mt-3'>Oops!</h1>";
-                echo "<h3>The following errors were detected:</h3>";
-                echo "<p class='text-secondary'>" . $errorMsg . "</p>";
+                require "error_msg.php";
                 echo '<a class="btn btn-danger my-4" href="register.php" role="button">Return to Register page</a>';
+                echo "</div>";
             }
             ?>
         </main>

@@ -98,7 +98,6 @@ function sanitize_input($data)
             include "nav.inc.php";
         ?>
         <main class="container flex-grow-1">
-            
             <section id="review">
                 <?php
                    if (sizeof($movieTitleArr) > 0)
@@ -145,11 +144,7 @@ function sanitize_input($data)
                    }
                    else
                    {
-                        echo "<div class='text-center'>";
-                        echo "<img src='images/close.svg' class='mt-5' width='125px' height='125px' alt='Error'>";
-                        echo "<h1 class='display-4 mt-3'>Oops!</h1>";
-                        echo "<h3>The following input errors were detected:</h3>";
-                        echo "<p class='text-secondary'>" . $errorMsg . "</p>";
+                        require "error_msg.php";
                         echo '<a class="btn btn-danger my-4" href="index.php" role="button">Return to Home page</a>';
                         echo "</div>";
                    }
