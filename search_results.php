@@ -19,8 +19,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 }
 else
 {
-    echo "<h2>This page is not to be run directly.</h2>";
-    echo "<a href='index.php'>Return to Home Page...</a>";
+    require "illegal_access.php";
+    echo '<a class="btn btn-danger my-4" href="index.php" role="button">Return Home</a>';
+    echo "</div>";
+    echo "</body>";
+    include "footer.inc.php";
     exit();
 }
 
@@ -81,9 +84,6 @@ function sanitize_input($data)
     return $data;
 }
 ?>
-
-
-<!DOCTYPE html>
 
 <html lang="en">
     <head>
