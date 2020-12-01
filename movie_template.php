@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-$movieTitle = $description = $genre = $director = $producer = $actors = $length = $releaseDate = $maturityRating = $poster_landscape = $errorMsg = "";
+$movieTitle = $description = $genre = $director = $producer = $actors = $length = $releaseDate = $maturityRating = $poster_landscape = $userID = $errorMsg = "";
 $review_count = $average_rating = $fiveStarPercent = $fourStarPercent = $threeStarPercent = $twoStarPercent = $oneStarPercent = "";
-$reviewRatingArr = $reviewTitleArr = $writeupArr = $reviewDateArr = $usernameArr = $profilePicArr = array();
+$reviewRatingArr = $reviewTitleArr = $writeupArr = $reviewDateArr = $usernameArr = $profilePicArr = $userIDArr = $reviewIDArr = array();
 $success = true;
 
 // FILTER_SANITIZE_NUMBER_INT to prevent code injection
@@ -34,7 +34,7 @@ function countOccurrencesInArr($array, $value){
 function fetchMovieData()
 {
     global $movieID, $movieTitle, $description, $genre, $director, $producer, $actors, $length, $releaseDate, $maturityRating, $poster_landscape, $errorMsg, $success;
-    global $review_count, $average_rating, $reviewRatingArr, $reviewTitleArr, $writeupArr, $reviewDateArr, $usernameArr, $profilePicArr;
+    global $review_count, $average_rating, $reviewRatingArr, $reviewTitleArr, $writeupArr, $reviewDateArr, $usernameArr, $profilePicArr, $userIDArr, $reviewIDArr;
     global $fiveStarPercent, $fourStarPercent, $threeStarPercent, $twoStarPercent, $oneStarPercent;
 
     require "connect_database.php";
@@ -61,7 +61,7 @@ function fetchMovieData()
             $poster_landscape = $row["poster_landscape"];
             
             // query database again for review and user data
-            $stmt = $conn->prepare("SELECT U.username, U.profilePic, R.reviewRating, R.reviewTitle, R.writeUp, R.reviewDate
+            $stmt = $conn->prepare("SELECT U.username, U.profilePic, R.userID, R.reviewID, R.reviewRating, R.reviewTitle, R.writeUp, R.reviewDate
                                     FROM users U, reviews R
                                     WHERE R.userID = U.userID AND R.movieID = ?
                                     ORDER BY R.reviewDate DESC");
@@ -70,6 +70,8 @@ function fetchMovieData()
             $review_count = $result->num_rows;
             
             while ($row = $result->fetch_assoc()) {
+                array_push($userIDArr, $row['userID']);
+                array_push($reviewIDArr, $row['reviewID']);
                 array_push($reviewRatingArr, $row['reviewRating']);
                 array_push($reviewTitleArr, $row['reviewTitle']);
                 array_push($writeupArr, $row['writeUp']);
@@ -227,6 +229,7 @@ function fetchMovieData()
                     <?php
                         if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
                         {
+                            $userID = $_SESSION["userID"];
                     ?>
                     <form action="process_review.php" method="post">
                         <h3>Leave a review</h3>
@@ -275,6 +278,41 @@ function fetchMovieData()
                                 <h6 class="small"><?=$reviewDateArr[$index]?></h6>
                             </div>
                             <div class="col-8 col-md-9 mt-4">
+                                <?php
+                                if ($userIDArr[$index] == $userID)
+                                { 
+                                ?>
+                                <div>
+                                    <button type="button" class="close" data-toggle="modal" data-target="#confirm" aria-label="Delete Review" title="Delete Review">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+
+                                    <!-- Confirm review deletion -->
+                                    <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="DeleteReview" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="DeleteReview">Delete Review</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete this review?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <a class="btn btn-danger" href="delete_review.php?reviewID=<?=$reviewIDArr[$index]?>" role="button">
+                                                        Delete Review
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                }
+                                ?>
                                 <div class="star-rating-reviews">
                                     <?php
                                     for ($number = 0; $number < $reviewRatingArr[$index]; $number++)
@@ -288,6 +326,19 @@ function fetchMovieData()
                                 </div>
                                 <h5><?=$reviewTitleArr[$index]?></h5>
                                 <p><?=$writeupArr[$index]?></p>
+                                <?php
+                                if ($userIDArr[$index] == $userID)
+                                { 
+                                ?>
+                                <div class="review-movie">
+                                    <a href="edit_review.php?reviewID=<?=$reviewIDArr[$index]?>">
+                                        <i class="material-icons align-middle">create</i>
+                                        Edit Review
+                                    </a>
+                                </div>
+                                <?php
+                                }
+                                ?>
                             </div>
                         </div>
                         <?php
@@ -311,7 +362,7 @@ function fetchMovieData()
         <?php
             unset($movieTitle, $description, $genre, $director, $producer, $actors, $length, $releaseDate, $maturityRating, $poster_landscape, $errorMsg);
             unset($review_count, $average_rating, $fiveStarPercent, $fourStarPercent, $threeStarPercent, $twoStarPercent, $oneStarPercent);
-            unset($reviewRatingArr, $reviewTitleArr, $writeupArr, $reviewDateArr, $usernameArr, $profilePicArr, $number, $index);
+            unset($reviewRatingArr, $reviewTitleArr, $writeupArr, $reviewDateArr, $usernameArr, $profilePicArr, $userIDArr, $reviewIDArr, $number, $index);
             include "footer.inc.php";
         ?>
     </body>
