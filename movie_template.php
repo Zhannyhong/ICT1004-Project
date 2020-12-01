@@ -104,7 +104,6 @@ function fetchMovieData()
 ?>
 
 
-<!DOCTYPE html>
 <html lang="en">
     <head>
         <title><?=$movieTitle?></title>

@@ -1,6 +1,6 @@
 <?php
 
-$movieIDArr = $movieTitleArr = $genreArr = $actorsArr = $releaseDateArr = $poster_portraitArr = array();
+$movieIDArr = $movieTitleArr = $genreArr = $actorsArr = $releaseDateArr = $poster_portraitArr = $poster_landscapeArr = array();
 $search_input = $errorMsg = "";
 $success = true;
 
@@ -28,7 +28,7 @@ else
 //Helper function to fetch movie data.
 function getSearchResults()
 {
-    global $movieIDArr, $movieTitleArr, $genreArr, $actorsArr, $releaseDateArr, $poster_portraitArr, $search_input, $errorMsg, $success;
+    global $movieIDArr, $movieTitleArr, $genreArr, $actorsArr, $releaseDateArr, $poster_portraitArr, $poster_landscapeArr, $search_input, $errorMsg, $success;
 
     // Create database connection.
     $config = parse_ini_file('../../private/db-config.ini');
@@ -67,6 +67,7 @@ function getSearchResults()
             array_push($actorsArr, $row['actors']);
             array_push($releaseDateArr, $row['releaseDate']);
             array_push($poster_portraitArr, $row['poster_portrait']);
+            array_push($poster_landscapeArr, $row['poster_landscape']);
         }
     }
 }
@@ -113,12 +114,17 @@ function sanitize_input($data)
                 ?>
                 <div class="row">
                     <div class="review-block">
-                        <div class="row">
-                            <div class="col-3 my-auto">
+                        <div class="row mx-2">
+                            <!-- Shows portrait posters on larger screens -->
+                            <div class="d-none d-md-block col-md-3 my-auto">
                                 <img class="mini-movie-poster" src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_portraitArr[$index]))?>" alt="Movie Poster for <?=$movieTitleArr[$index]?>">
-
                             </div>
-                            <div class="col-9 mt-4">
+                            <!-- Shows landscape posters on smaller screens -->
+                            <div class="d-xs-block d-md-none my-auto container">
+                                <img class="mini-movie-poster" src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_landscapeArr[$index]))?>" alt="Movie Poster for <?=$movieTitleArr[$index]?>">
+                            </div>
+
+                            <div class="col-md-9 mt-4">
                                 <h1 class="display-4"><?=$movieTitleArr[$index]?></h1>
                                 <h6 class="small text-muted mb-4">Release date: <?=$releaseDateArr[$index]?></h6>
 
@@ -152,7 +158,7 @@ function sanitize_input($data)
         </main>
         
         <?php
-            unset($errorMsg, $success, $actorsArr, $genreArr, $index, $movieIDArr, $movieTitleArr, $poster_portraitArr, $releaseDateArr, $search_input);
+            unset($errorMsg, $success, $actorsArr, $genreArr, $index, $movieIDArr, $movieTitleArr, $poster_portraitArr, $poster_landscapeArr, $releaseDateArr, $search_input);
             include "footer.inc.php";
         ?>
     </body>
