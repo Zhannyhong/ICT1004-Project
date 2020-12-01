@@ -12,12 +12,6 @@ img.avatar {
     max-height: 550px;
 }
 
-@include media-breakpoint-up(sm) {
-    h3 {
-        font-size: 2rem;
-    }
-}
-
 /* Before hovering */
 .star-rating span {
     color: #BFBFBF;
