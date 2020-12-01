@@ -2,10 +2,13 @@
 session_start();
 
 // FILTER_SANITIZE_NUMBER_INT to prevent code injection
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] && filter_input(INPUT_GET, "reviewID", FILTER_SANITIZE_NUMBER_INT))
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION["loggedin"]) && 
+        $_SESSION["loggedin"] && 
+        filter_input(INPUT_GET, "movieID", FILTER_SANITIZE_NUMBER_INT) && 
+        filter_input(INPUT_GET, "reviewID", FILTER_SANITIZE_NUMBER_INT))
 {
     // Initialise input variables
-    $reviewID = $errorMsg = "";
+    $movieID = $reviewID = $errorMsg = "";
     $success = true;
 
     require "connect_database.php";
@@ -13,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION["loggedin"]) && $_SES
     if ($success)
     {
         // FILTER_SANITIZE_NUMBER_INT to prevent code injection
+        $movieID = filter_input(INPUT_GET, "movieID", FILTER_SANITIZE_NUMBER_INT);
         $reviewID = filter_input(INPUT_GET, "reviewID", FILTER_SANITIZE_NUMBER_INT);
 
         // Delete review from database
@@ -25,7 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION["loggedin"]) && $_SES
             // Successful deletion, re-directing user back to their profile page
             $stmt->close();
             $conn->close();
-            header("location: profile_page.php");
+            if ($_SESSION['current_location'] === 'movie_template.php')
+            {
+                header("location: profile_page.php");
+            }
+            else if ($_SESSION['current_location'] === 'profile_page.php')
+            {
+                header("location: movie_template.php?id=" . $movieID);
+            }
         }
         else
         {
