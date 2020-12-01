@@ -304,7 +304,7 @@ function fetchMovieData()
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <a class="btn btn-danger" href="delete_review.php?reviewID=<?=$reviewIDArr[$index]?>&movieID=<?=$row['movieID']?>" role="button">
+                                                    <a class="btn btn-danger" href="delete_review.php?reviewID=<?=$reviewIDArr[$index]?>&movieID=<?=$movieID?>" role="button">
                                                         Delete Review
                                                     </a>
                                                 </div>
