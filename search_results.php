@@ -102,7 +102,7 @@ function sanitize_input($data)
                 <?php
                    if (sizeof($movieTitleArr) > 0)
                    {
-                       echo '<h1 class="display-4 mt-4">' . sizeof($movieTitleArr) . '  Search Results for "' . $search_input .'"</h1>';
+                       echo '<h1 class="mt-4">' . sizeof($movieTitleArr) . '  Search Results for "' . $search_input .'"</h1>';
                        echo '<hr/>';
                    }
 
