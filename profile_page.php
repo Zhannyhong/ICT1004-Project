@@ -94,7 +94,7 @@ session_start();
                 <div>
                     <hr class="review-divider"/>
                     <?php
-                    $_SESSION['current_location'] = 'profile_page.php';
+                    $_SESSION['current_review_location'] = 'profile_page.php';
                     while ($row = $result->fetch_assoc()) {
                     ?>
 
