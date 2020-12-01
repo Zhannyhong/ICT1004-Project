@@ -51,9 +51,11 @@ session_start();
             }
             else
             {
-                echo "<h2>This page is not to be run without logging in first.</h2>";
-                echo "<p>You can login at the link below:</p>";
-                echo "<a href='login.php'>Go to Login page...</a>";
+                require "illegal_access.php";
+                echo '<a class="btn btn-danger my-4" href="login.php" role="button">Login Here</a>';
+                echo "</div>";
+                echo "</body>";
+                include "footer.inc.php";
                 exit();
             }
         ?>

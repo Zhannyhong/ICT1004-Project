@@ -22,9 +22,11 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
 }
 else
 {
-    // Redirects user back to sign in page
-    echo "<h2>This page is not to be run directly.</h2>";
-    echo "<h2>Please<a href='login.php'> sign in </a>first</h2>";
+    require "illegal_access.php";
+    echo '<a class="btn btn-danger my-4" href="login.php" role="button">Login Here</a>';
+    echo "</div>";
+    echo "</body>";
+    include "footer.inc.php";
     exit();
 }
 ?>

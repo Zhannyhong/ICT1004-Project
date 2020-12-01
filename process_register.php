@@ -168,9 +168,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 }
 else
 {
-    echo "<h2>This page is not to be run directly.</h2>";
-    echo "<p>You can register at the link below:</p>";
-    echo "<a href='register.php'>Go to Register page...</a>";
+    require "illegal_access.php";
+    echo '<a class="btn btn-danger my-4" href="register.php" role="button">Register Here</a>';
+    echo "</div>";
+    echo "</body>";
+    include "footer.inc.php";
     exit();
 }
 
