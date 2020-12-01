@@ -111,13 +111,19 @@ function saveReviewToDB()
                     echo "<img src='images/check.svg' class='mt-5' width='125px' height='125px' alt='Success'>";
                     echo "<h1 class='display-4 mt-3'>Review Submission Successful</h1>";
                     echo "<h5>Thank you, your review has been posted.</h5>";
-                    echo '<a class="btn btn-success my-4" href="movie_template.php?id=' . $movieID . '" role="button">Return to Movie</a>';
                 }
                 else if ($intent == "updated")
                 {
                     echo "<img src='images/check.svg' class='mt-5' width='125px' height='125px' alt='Success'>";
                     echo "<h1 class='display-4 mt-3'>Update Review Successful</h1>";
                     echo "<h5>Thank you, your review has been updated.</h5>";
+                }
+                if ($_SESSION['current_location'] === 'movie_template.php')
+                {
+                    echo '<a class="btn btn-success my-4" href="movie_template.php?id=' . $movieID . '" role="button">Return to Movie</a>';
+                }
+                else if ($_SESSION['current_location'] === 'profile_page.php')
+                {
                     echo '<a class="btn btn-success my-4" href="profile_page.php" role="button">Return to Profile page</a>';
                 }
             }
@@ -129,7 +135,6 @@ function saveReviewToDB()
                     echo "<h1 class='display-4 mt-3'>Oops!</h1>";
                     echo "<h3>The following errors were detected:</h3>";
                     echo "<p class='text-secondary'>" . $errorMsg . "</p>";
-                    echo '<a class="btn btn-danger my-4" href="movie_template.php?id=' . $movieID . '" role="button">Return to Movie</a>';
                 }
                 else if ($intent == "updated")
                 {
@@ -137,6 +142,13 @@ function saveReviewToDB()
                     echo "<h1 class='display-4 mt-3'>Oops!</h1>";
                     echo "<h3>The following errors were detected:</h3>";
                     echo "<p class='text-secondary'>" . $errorMsg . "</p>";
+                }
+                if ($_SESSION['current_location'] === 'movie_template.php')
+                {
+                    echo '<a class="btn btn-danger my-4" href="movie_template.php?id=' . $movieID . '" role="button">Return to Movie</a>';
+                }
+                else if ($_SESSION['current_location'] === 'profile_page.php')
+                {
                     echo '<a class="btn btn-danger my-4" href="profile_page.php" role="button">Return to Profile page</a>';
                 }
             }

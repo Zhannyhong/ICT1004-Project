@@ -267,6 +267,8 @@ function fetchMovieData()
                 <div class="review">
                     <div>
                         <?php
+                        echo var_dump($_SESSION);
+                        $_SESSION['current_location'] = 'movie_template.php';
                         for ($index = 0; $index < sizeof($reviewRatingArr); $index++)
                         {
                         ?>

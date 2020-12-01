@@ -1,5 +1,6 @@
 <?php
 session_start();
+echo var_dump($_SESSION);
 $reviewRating = $reviewTitle = $writeUp = $userID = "";
 $success = true;
 
@@ -70,7 +71,7 @@ function fetchReviewData(){
     </head>
     <body class="d-flex flex-column min-vh-100">
         <?php
-        include "nav.inc.php";
+            include "nav.inc.php";
         ?>
         <main class="container flex-grow-1">
             <?php
