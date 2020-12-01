@@ -49,6 +49,9 @@ function myFunction() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
     x.className += " responsive";
+        document.getElementById('login').innerHTML = "Login";
+        document.getElementById('menu').innerHTML = "Menu";
+
   } else {
     x.className = "topnav";
   }

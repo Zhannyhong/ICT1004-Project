@@ -5,7 +5,8 @@
 <!-- Left side of the navigation bar -->
 <div class="topnav" id="myTopnav">
     <a class="nav-brand" href="index.php">
-        <img src="images/logo.gif" alt="Popcorn Logo"/>
+        <img class="logo" src="images/logo.gif" alt="Popcorn Logo"/>
+        <label id="menu" class="nav-menu" style="font-size: 30px; margin-left: 5px; text-align: left; color: black;"></label>
     </a>
     <a class="btn" href="index.php"><i class="fa fa-home"></i> Home</a>
     <a class="btn" href="about_us.php"><i class="fa fa-users"></i> About Us</a>
@@ -29,7 +30,8 @@
 
             unset($profile_pic);
         } else {
-            echo "<i class='fas fa-user-circle' style='font-size:46px;'></i>";
+            echo "<i class='fas fa-user-circle' style='font-size:46px; color: black'></i>";
+            echo "<label id='login' style='font-size: 30px; margin-left: 5px; color: black'></label>";
         }
         ?>
         <!-- account_circle -->
@@ -46,7 +48,7 @@
             </div>
         </form>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
+        <i class="fa fa-bars" style="color: black"></i>
     </a>
     
 </div>
