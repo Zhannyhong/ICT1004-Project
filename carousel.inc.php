@@ -43,6 +43,9 @@ function fetchLatestMovies() {
             $success = false;
         }
 
+        $stmt->close();
+        $conn->close();
+        
         $count = 0;
         while ($row = $result->fetch_assoc()) {
             if ($count < 8) {
