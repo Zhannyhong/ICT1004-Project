@@ -29,6 +29,9 @@ print_r($_SESSION);
             <?php
             include "carousel.inc.php";
             ?>
+            <?php
+            include "movie_list.GridView.php";
+            ?>
         </main>
         <?php
         include "footer.inc.php";
