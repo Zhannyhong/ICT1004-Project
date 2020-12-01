@@ -123,7 +123,7 @@ session_start();
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <a class="btn btn-danger" href="delete_review.php?reviewID=<?=$row['reviewID']?>" role="button">
+                                                <a class="btn btn-danger" href="delete_review.php?reviewID=<?=$row['reviewID']?>&movieID=<?=$row['movieID']?>" role="button">
                                                     Delete Review
                                                 </a>
                                             </div>
