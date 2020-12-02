@@ -74,7 +74,7 @@ function fetchTopRatedMovies() {
 }
 ?>
 
-<div class="container" id="carouselSec">
+<!--<div class="container" id="carouselSec">-->
     <!-----Slider----->
     <div id="slide">
 
@@ -306,5 +306,5 @@ function fetchTopRatedMovies() {
         unset($errorMsg, $success, $latestMovieIDArr, $latestMovieTitleArr, $latestPoster_portraitArr, $movieIDArr, $movieTitleArr, $poster_portraitArr);
         ?>
     </div>
-</div>
+<!--</div>-->
 

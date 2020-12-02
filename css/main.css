@@ -158,14 +158,12 @@ footer {
     margin: auto;
 }
 
-
 .content {
   width: 70%;
   height: auto;
   min-height: 300px;
   margin: auto;
   background: white;
-  padding: 10px;
   position: relative;
 }
 
@@ -268,7 +266,7 @@ section { display: block; }
 }
 
 
-
+/*-----Movie List Grid View-----*/
 .allmovies{
     display: inline-block;
     float: left;
@@ -287,13 +285,13 @@ section { display: block; }
 .m1{
     width: 24%;
     height: auto;
-    margin-right: 10px;
+    margin-right: 5px;
     float: left;
     margin-top: 10px;
 }
-.m1 img{
+.m1 img.gridimg{
     width: 100%;
-    max-height: 350px;
+    height: 350px;
 }
 
 /*
