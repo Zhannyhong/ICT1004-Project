@@ -1,6 +1,6 @@
 <?php
 session_start();
-/* Get current_review_location, which was previously set at either movie_template
+/* Get current_review_location, which was previously set at either movie_details
 or profile_page. */
 define("PREVIOUS_LOCATION", $_SESSION['current_review_location']);
 echo var_dump($_SESSION);
@@ -36,9 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION["loggedin"]) &&
             {
                 header("location: profile_page.php");
             }
-            else if (PREVIOUS_LOCATION === 'movie_template.php')
+            else if (PREVIOUS_LOCATION === 'movie_details.php')
             {
-                header("location: movie_template.php?id=" . $movieID);
+                header("location: movie_details.php?id=" . $movieID);
             }
         }
         else

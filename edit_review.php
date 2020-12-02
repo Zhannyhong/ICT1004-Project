@@ -64,9 +64,9 @@ function fetchReviewData(){
         <?php
             include "head.inc.php";
         ?>
-        <link rel="stylesheet" href="css/movie_template.css">
+        <link rel="stylesheet" href="css/movie_details.css">
         <!-- Custom JS -->
-        <script defer src="js/movie_template.js"></script>
+        <script defer src="js/movie_details.js"></script>
         <title>Edit Review</title>
     </head>
     <body class="d-flex flex-column min-vh-100">

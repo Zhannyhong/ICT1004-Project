@@ -133,7 +133,7 @@ function sanitize_input($data)
                                 <h5>Cast:</h5>
                                 <h6 class="text-muted"><?=$actorsArr[$index]?></h6>
 
-                                <a class="btn btn-success mb-3" href="movie_template.php?id=<?=$movieIDArr[$index]?>" role="button">Go to Movie</a>
+                                <a class="btn btn-success mb-3" href="movie_details.php?id=<?=$movieIDArr[$index]?>" role="button">Go to Movie</a>
                             </div>
                         </div>
                         <hr/>

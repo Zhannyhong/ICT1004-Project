@@ -12,7 +12,7 @@ session_start();
         <?php
             include "head.inc.php";
         ?>
-        <link rel="stylesheet" href="css/movie_template.css">
+        <link rel="stylesheet" href="css/movie_details.css">
     </head>
     <body class="d-flex flex-column min-vh-100">
         <?php
@@ -150,7 +150,7 @@ session_start();
                                 <p><?=$row['writeUp']?></p>
                                 <div class="review-movie">
                                     <p>Review for
-                                        <a href="movie_template.php?id=<?=$row['movieID']?>">
+                                        <a href="movie_details.php?id=<?=$row['movieID']?>">
                                             <?=$row['movieTitle']?>
                                         </a>
                                     </p>

@@ -110,9 +110,9 @@ function fetchMovieData()
         <?php
             include "head.inc.php";
         ?>
-        <link rel="stylesheet" href="css/movie_template.css">
+        <link rel="stylesheet" href="css/movie_details.css">
         <!-- Custom JS -->
-        <script defer src="js/movie_template.js"></script>
+        <script defer src="js/movie_details.js"></script>
     </head>
     <body>
         <?php
@@ -267,7 +267,7 @@ function fetchMovieData()
                 <div class="review">
                     <div>
                         <?php
-                        $_SESSION['current_review_location'] = 'movie_template.php';
+                        $_SESSION['current_review_location'] = 'movie_details.php';
                         for ($index = 0; $index < sizeof($reviewRatingArr); $index++)
                         {
                         ?>
