@@ -75,10 +75,10 @@ function fetchTopRatedMovies() {
 ?>
 
 <!--<div class="container" id="carouselSec">-->
-    <!-----Slider----->
+    <!-- Slider -->
     <div id="slide">
 
-        <!-----Top Rated Movies----->
+        <!-- Top Rated Movies -->
         <?php
         if ($success) {
             ?>
@@ -87,7 +87,7 @@ function fetchTopRatedMovies() {
                 <div class="row mx-auto my-auto">
                     <div id="topRated" class="carousel slide carousel-multi-item" data-ride="carousel">
 
-                        <!--Slides-->
+                        <!-- Slides -->
                         <div class="carousel-inner" role="listbox">
 
                             <?php
@@ -192,7 +192,7 @@ function fetchTopRatedMovies() {
             </div>
         </div>
 
-        <!-----Latest Movies----->       
+        <!-- Latest Movies -->
         <?php
         if ($success) {
             ?>
