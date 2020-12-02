@@ -82,6 +82,10 @@
     margin: 1rem auto;
 }
 
+#login{
+    display: none;
+}
+
 @media screen and (max-width: 600px) {
   .topnav a:not(:first-child) {display: none;}
   .topnav form:not(:first-child) {display: none;}
@@ -98,6 +102,9 @@
   .topnav a label.nav-menu{
       display: none;
   }
+  #login{
+    display: inline;
+}
   
 }
 
@@ -137,6 +144,9 @@
     float: right;
     display: block;
   }
+  #login{
+    display: inline;
+}
 }
 
 @media screen and (max-width: 1120px) {

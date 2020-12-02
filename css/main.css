@@ -292,7 +292,7 @@ section { display: block; }
     padding-bottom: 8px;
 }
 .movie-poster-grid{
-    padding: 5px 0px;
+    padding: 5px 5px;
 }
 .m1{
     width: 24%;
@@ -304,6 +304,7 @@ section { display: block; }
 .m1 img.gridimg{
     width: 100%;
     height: 350px;
+    margin-left: 10px;
 }
 
 /*
