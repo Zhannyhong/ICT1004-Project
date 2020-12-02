@@ -95,6 +95,7 @@ function saveReviewToDB()
 }
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Review Submission Results</title>

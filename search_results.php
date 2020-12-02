@@ -85,6 +85,7 @@ function sanitize_input($data)
 }
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Search Results for Movie</title>

@@ -103,7 +103,7 @@ function fetchMovieData()
 
 ?>
 
-
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <title><?=$movieTitle?></title>
@@ -240,11 +240,11 @@ function fetchMovieData()
                             <input type="hidden" name="rating" id="rating">
                             <!-- Unusual format to remove whitespaces
                             between stars -->
-                            <span data-score="1">★</span
-                            ><span data-score="2">★</span
-                            ><span data-score="3">★</span
-                            ><span data-score="4">★</span
-                            ><span data-score="5">★</span>
+                            <span data-score="1">★</span>
+                            <span data-score="2">★</span>
+                            <span data-score="3">★</span>
+                            <span data-score="4">★</span>
+                            <span data-score="5">★</span>
                         </div>
                         <div class="form-group">
                             <label class="visually-hidden" for="review_title">Title</label>
@@ -321,11 +321,10 @@ function fetchMovieData()
                                     for ($number = 0; $number < $reviewRatingArr[$index]; $number++)
                                     {
                                     ?>
-                                    <span>★</span
+                                    <span>★</span>
                                     <?php
                                     }
                                     ?>
-                                    >
                                 </div>
                                 <h5><?=$reviewTitleArr[$index]?></h5>
                                 <p><?=$writeupArr[$index]?></p>

@@ -55,7 +55,7 @@ if (substr(PREVIOUS_LOCATION, 0, 21) === 'movie_details.php?id=')
                     </div>
                     <div class="form-group col">
                         <label for="file_upload">Choose Profile Picture</label>
-                        <input type="file" class="form-control-file" name="file_upload" accept=".jpeg, .jpg, .png" aria-label="Choose Profile Picture">
+                        <input type="file" class="form-control-file" id="file_upload" name="file_upload" accept=".jpeg, .jpg, .png" aria-label="Choose Profile Picture">
                     </div>
                 </div>
 

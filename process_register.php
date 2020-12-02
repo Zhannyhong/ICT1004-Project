@@ -193,7 +193,7 @@ function saveMemberToDB()
     // Formats image SRC to be uploaded to database
     $encoded_file = base64_encode(file_get_contents($file_upload));
     $file_mime = mime_content_type($file_upload);
-    $profile_pic = "data: " . $file_mime . ";base64," . $encoded_file;
+    $profile_pic = "data:" . $file_mime . ";base64," . $encoded_file;
 
     // Get current datetime in UNIX format
     date_default_timezone_set('Asia/Singapore');
@@ -207,6 +207,7 @@ function saveMemberToDB()
 }
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Registration Results</title>

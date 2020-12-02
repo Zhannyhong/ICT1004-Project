@@ -114,6 +114,7 @@ function authenticateUser()
 
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Login Results</title>

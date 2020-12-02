@@ -177,7 +177,7 @@ function saveProfileChanges()
     // Formats image SRC to be uploaded to database
     $encoded_file = base64_encode(file_get_contents($file_upload));
     $file_mime = mime_content_type($file_upload);
-    $profile_pic = "data: " . $file_mime . ";base64," . $encoded_file;
+    $profile_pic = "data:" . $file_mime . ";base64," . $encoded_file;
     
     // Update user profile details in database
     $stmt = $conn->prepare("UPDATE users SET username=?, profilePic=?, password=? WHERE userID=?");
@@ -192,6 +192,7 @@ function saveProfileChanges()
 }
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Edit Profile Results</title>
