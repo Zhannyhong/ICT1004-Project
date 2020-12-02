@@ -133,7 +133,7 @@ function authenticateUser()
                 echo "<img src='images/check.svg' class='mt-5' width='125px' "
                 . "height='125px' alt='Success'>";
                 echo "<h1 class='display-4 mt-3'>Login Successful</h1>";
-                echo "<h4>Welcome back, $username.</h4>";
+                echo "<h3>Welcome back, $username.</h3>";
                 echo substr(LOGIN_SIGNUP_FROM, 0, 21);
                 if (substr(LOGIN_SIGNUP_FROM, 0, 21) === 'movie_details.php?id=')
                 {

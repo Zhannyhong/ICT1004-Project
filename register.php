@@ -30,8 +30,8 @@ if (substr(PREVIOUS_LOCATION, 0, 21) === 'movie_details.php?id=')
         <main class="container flex-grow-1">
             <div class="my-5">
                 <h1 class="display-4">The show is just starting</h1>
-                <h6 class="lead">Create a free account to share your movie reviews with the Popcorn community.</h6>
-                <h6 class="lead">Already have a Popcorn account? <a href="login.php">Log in here</a>.</h6>
+                <h2 class="lead">Create a free account to share your movie reviews with the Popcorn community.</h2>
+                <h2 class="lead">Already have a Popcorn account? <a href="login.php">Log in here</a>.</h2>
             </div>
 
             <form action="process_register.php" method="post" enctype="multipart/form-data">
@@ -55,7 +55,7 @@ if (substr(PREVIOUS_LOCATION, 0, 21) === 'movie_details.php?id=')
                     </div>
                     <div class="form-group col">
                         <label for="file_upload">Choose Profile Picture</label>
-                        <input type="file" class="form-control-file" name="file_upload" accept=".jpeg, .jpg, .png">
+                        <input type="file" class="form-control-file" name="file_upload" accept=".jpeg, .jpg, .png" aria-label="Choose Profile Picture">
                     </div>
                 </div>
 

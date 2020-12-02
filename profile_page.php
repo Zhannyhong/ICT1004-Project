@@ -56,11 +56,11 @@
         <main class="container flex-grow-1">
             <div class="profile rounded shadow-sm card-background">
                 <img class="avatar" src="<?=$profile_pic?>" alt="Profile Picture">
-                <h6 class="small text-muted">Username:</h6>
-                <h5 class="mb-4"><?=$username?></h5>
+                <h5 class="small">Username:</h5>
+                <h4 class="mb-4"><?=$username?></h4>
 
-                <h6 class="small text-muted">Email:</h6>
-                <h5 class="mb-3"><?=$email?></h5>
+                <h5 class="small">Email:</h5>
+                <h4 class="mb-4"><?=$email?></h4>
 
                 <div class="row" id="profile-settings">
                     <ul class="list-unstyled">

@@ -41,8 +41,8 @@ session_start();
                 <article class="col-sm-6">
                     <div class="card-background rounded shadow-sm">
                         <img class="avatar" src="images/Anne.jpeg" alt="Anne's Avatar">
-                        <h4 class="mb-0">Anne Tan</h4>
-                        <h6 class="small text-muted">Project Lead</h6>
+                        <h3 class="mb-0">Anne Tan</h3>
+                        <h4 class="small">Project Lead</h4>
                         <a href="mailto:2002716@sit.singaporetech.edu.sg" title="Send me an email!">
                             <i class="material-icons">email</i>
                         </a>
@@ -52,8 +52,8 @@ session_start();
                 <article class="col-sm-6">
                     <div class="card-background rounded shadow-sm">
                         <img class="avatar" src="images/Jessica.jpg" alt="Jessica's Avatar">
-                        <h4 class="mb-0">Jessica Tan</h4>
-                        <h6 class="small text-muted">Project Lead</h6>
+                        <h3 class="mb-0">Jessica Tan</h3>
+                        <h4 class="small">Project Lead</h4>
                         <a href="mailto:2002253@sit.singaporetech.edu.sg" title="Send me an email!">
                             <i class="material-icons">email</i>
                         </a>
@@ -64,8 +64,8 @@ session_start();
                 <article class="col-sm-6">
                     <div class="card-background rounded shadow-sm">
                         <img class="avatar" src="images/ZhanHong.jpg" alt="Zhan Hong's Avatar">
-                        <h4 class="mb-0">Lee Zhan Hong</h4>
-                        <h6 class="small text-muted">Project Lead</h6>
+                        <h3 class="mb-0">Lee Zhan Hong</h3>
+                        <h4 class="small">Project Lead</h4>
                         <a href="mailto:2003116@sit.singaporetech.edu.sg" title="Send me an email!">
                             <i class="material-icons">email</i>
                         </a>
@@ -75,8 +75,8 @@ session_start();
                 <article class="col-sm-6">
                     <div class="card-background rounded shadow-sm">
                         <img class="avatar" src="images/Bryan.jpeg" alt="Bryan's Avatar">
-                        <h4 class="mb-0">Bryan Lam</h4>
-                        <h6 class="small text-muted">Project Lead</h6>
+                        <h3 class="mb-0">Bryan Lam</h3>
+                        <h4 class="small">Project Lead</h4>
                         <a href="mailto:2003114@sit.singaporetech.edu.sg" title="Send me an email!">
                             <i class="material-icons">email</i>
                         </a>
@@ -87,8 +87,8 @@ session_start();
                 <article class="col-sm-6">
                     <div class="card-background rounded shadow-sm">
                         <img class="avatar" src="images/YongJun.jpg" alt="Yong Jun's Avatar">
-                        <h4 class="mb-0">Lim Yong Jun</h4>
-                        <h6 class="small text-muted">Project Lead</h6>
+                        <h3 class="mb-0">Lim Yong Jun</h3>
+                        <h4 class="small">Project Lead</h4>
                         <a href="mailto:2003119@sit.singaporetech.edu.sg" title="Send me an email!">
                             <i class="material-icons">email</i>
                         </a>

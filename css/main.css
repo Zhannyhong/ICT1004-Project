@@ -13,6 +13,18 @@ body{
     font-size: 14px;
 }
 
+a {
+    color: #0040e3;
+}
+
+.btn-primary {
+    background-color: #0040e3;
+}
+
+.btn-success {
+    background-color: #0c8503;
+}
+
 article {
     margin: 1rem 0 1rem;
 }
