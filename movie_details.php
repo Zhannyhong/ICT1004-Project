@@ -81,7 +81,7 @@ function fetchMovieData()
             }
             
             // calculate average rating for movie and round off to 1dp
-            $average_rating = round(array_sum($reviewRatingArr) / count($reviewRatingArr), 1);
+            $average_rating = number_format(array_sum($reviewRatingArr) / count($reviewRatingArr), 1);
  
             // calculate percentages for each rating user gives and round off to 1dp
             $fiveStarPercent = round(countOccurrencesInArr($reviewRatingArr, 5) / count($reviewRatingArr) * 100, 1);
@@ -170,8 +170,8 @@ function fetchMovieData()
                                 <div class="col-xs-1 col-md-2 text-right">5 <span class="star-rating-small">★</span></div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: <?=$fiveStarPercent?>%"
-                                             aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:<?=$fiveStarPercent?>%"
+                                             aria-valuenow="<?=$fiveStarPercent?>" aria-valuemin="0" aria-valuemax="100">
                                             <?=$fiveStarPercent?>%
                                         </div>
                                     </div>
@@ -181,8 +181,8 @@ function fetchMovieData()
                                 <div class="col-xs-1 col-md-2 text-right">4 <span class="star-rating-small">★</span></div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60"
-                                             aria-valuemin="0" aria-valuemax="100" style="width: <?=$fourStarPercent?>%">
+                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="<?=$fourStarPercent?>"
+                                             aria-valuemin="0" aria-valuemax="100" style="width:<?=$fourStarPercent?>%">
                                             <?=$fourStarPercent?>%
                                         </div>
                                     </div>
@@ -192,7 +192,7 @@ function fetchMovieData()
                                 <div class="col-xs-1 col-md-2 text-right">3 <span class="star-rating-small">★</span></div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
-                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="40"
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="<?=$threeStarPercent?>"
                                              aria-valuemin="0" aria-valuemax="100" style="width: <?=$threeStarPercent?>%">
                                             <?=$threeStarPercent?>%
                                         </div>
@@ -203,7 +203,7 @@ function fetchMovieData()
                                 <div class="col-xs-1 col-md-2 text-right">2 <span class="star-rating-small">★</span></div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
-                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="20"
+                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="<?=$twoStarPercent?>"
                                              aria-valuemin="0" aria-valuemax="100" style="width: <?=$twoStarPercent?>%">
                                             <?=$twoStarPercent?>%
                                         </div>
@@ -214,7 +214,7 @@ function fetchMovieData()
                                 <div class="col-xs-1 col-md-2 text-right">1 <span class="star-rating-small">★</span></div>
                                 <div class="col-xs-11 col-md-10">
                                     <div class="progress">
-                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="15"
+                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="<?=$oneStarPercent?>"
                                              aria-valuemin="0" aria-valuemax="100" style="width: <?=$oneStarPercent?>%">
                                             <?=$oneStarPercent?>%
                                         </div>

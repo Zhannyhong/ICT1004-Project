@@ -143,15 +143,13 @@ function authenticateUser()
                     . LOGIN_SIGNUP_FROM . '" role="button">Return to Profile page</a>';
                 } else
                 {
-                    echo '<a class="btn btn-success my-4" href="index.php" '
-                    . 'role="button">Return to Home</a>';                    
+                    echo '<a class="btn btn-success my-4" href="index.php" role="button">Return to Home</a>';
                 }
             }
             else
             {
                 require "error_msg.php";
-                echo '<a class="btn btn-danger my-4" href="login.php" '
-                . 'role="button">Return to Login page</a>';
+                echo '<a class="btn btn-danger my-4" href="login.php" role="button">Return to Login page</a>';
                 echo '</div>';
             }
             ?>
