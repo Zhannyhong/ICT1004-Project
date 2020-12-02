@@ -18,7 +18,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
 
 
     $user_details = $result->fetch_assoc();
-    // print_r($user_details);
 }
 else
 {

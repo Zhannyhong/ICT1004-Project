@@ -103,15 +103,9 @@ function authenticateUser()
     // Log user in
     if ($success)
     {
-        /*
-        require 'Zebra_Session.php';
-        $session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
-        */
         session_start();
-
         $_SESSION["loggedin"] = true;
         $_SESSION["userID"] = $userID;
-        print_r($_SESSION);
     }
 }
 

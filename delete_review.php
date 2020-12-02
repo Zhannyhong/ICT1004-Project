@@ -1,9 +1,9 @@
 <?php
 session_start();
-/* Get current_review_location, which was previously set at either movie_details
-or profile_page. */
+
+/* Get current_review_location, which was previously set at either movie_details or profile_page. */
 define("PREVIOUS_LOCATION", $_SESSION['current_review_location']);
-echo var_dump($_SESSION);
+
 // FILTER_SANITIZE_NUMBER_INT to prevent code injection
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION["loggedin"]) && 
         $_SESSION["loggedin"] && 

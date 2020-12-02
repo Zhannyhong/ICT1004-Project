@@ -1,12 +1,5 @@
 <?php
-/*
-require 'Zebra_Session.php';
-$config = parse_ini_file('../../private/db-config.ini');
-$conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-$session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
-*/
 session_start();
-print_r($_SESSION);
 
 // Checks if the user is logged in
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
