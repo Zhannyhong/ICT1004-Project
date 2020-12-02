@@ -38,6 +38,10 @@
   font-size: 30px;
 }
 
+.topnav a.nav-right-2 {
+    margin-top: 13px;
+}
+
 .topnav a label.nav-menu{
       display: none;
   }
