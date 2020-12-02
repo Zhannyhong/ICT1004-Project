@@ -238,8 +238,7 @@ function fetchMovieData()
                                    value="<?=$movieID?>">
                             <input type="hidden" name="intent" id="intent" value="posted">
                             <input type="hidden" name="rating" id="rating">
-                            <!-- Unusual format to remove whitespaces
-                            between stars -->
+
                             <span data-score="1">★</span>
                             <span data-score="2">★</span>
                             <span data-score="3">★</span>
