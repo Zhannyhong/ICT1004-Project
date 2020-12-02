@@ -10,7 +10,6 @@
     </a>
     <a class="btn" href="index.php"><i class="fa fa-home"></i> Home</a>
     <a class="btn" href="about_us.php"><i class="fa fa-users"></i> About Us</a>
-    
     <a class="nav-right-2" title="Account" href="login.php">
         <?php
         session_start();
@@ -38,7 +37,7 @@
         ?>
         <!-- account_circle -->
     </a>
-    <!-- Search movies functionality -->
+    <!-- Search bar -->
     <form class="nav-form-right" action="search_results.php" method="post">
         <div class="input-group input-group-lg" id="search">
             <div class="input-group-prepend">
