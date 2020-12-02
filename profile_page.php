@@ -10,7 +10,6 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
         <?php
-            session_start();
             include "nav.inc.php";
 
             // Checks that the user is logged in
@@ -137,11 +136,10 @@
                                     for ($number = 0; $number < $row["reviewRating"]; $number++)
                                     {
                                     ?>
-                                    <span>★</span
+                                    <span>★</span>
                                     <?php
                                     }
                                     ?>
-                                    >
                                 </div>
                                 <h5><?=$row['reviewTitle']?></h5>
                                 <p><?=$row['writeUp']?></p>

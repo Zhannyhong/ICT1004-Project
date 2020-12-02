@@ -238,8 +238,7 @@ function fetchMovieData()
                                    value="<?=$movieID?>">
                             <input type="hidden" name="intent" id="intent" value="posted">
                             <input type="hidden" name="rating" id="rating">
-                            <!-- Unusual format to remove whitespaces
-                            between stars -->
+
                             <span data-score="1">★</span>
                             <span data-score="2">★</span>
                             <span data-score="3">★</span>
@@ -264,12 +263,13 @@ function fetchMovieData()
                     ?>
                 </div>
 
+                <!-- Displays all reviews for the movie -->
                 <div class="review">
                     <div>
                         <?php
-                        // Remove /ICT1004-Project/
-                        $_SESSION['current_review_location'] = 
-                                substr($_SERVER['REQUEST_URI'], 17);
+                        // Removes "/ICT1004-Project/" from URL
+                        $_SESSION['current_review_location'] = substr($_SERVER['REQUEST_URI'], 17);
+
                         for ($index = 0; $index < sizeof($reviewRatingArr); $index++)
                         {
                         ?>
@@ -280,7 +280,7 @@ function fetchMovieData()
                                 <h5><?=$usernameArr[$index]?></h5>
                                 <h6 class="small"><?=$reviewDateArr[$index]?></h6>
                             </div>
-                            <div class="col-8 col-md-9 mt-4">
+                            <div class="col-8 col-md-9">
                                 <?php
                                 if ($userIDArr[$index] == $userID)
                                 { 
@@ -316,7 +316,7 @@ function fetchMovieData()
                                 <?php
                                 }
                                 ?>
-                                <div class="star-rating-reviews">
+                                <div class="star-rating-reviews mt-4">
                                     <?php
                                     for ($number = 0; $number < $reviewRatingArr[$index]; $number++)
                                     {

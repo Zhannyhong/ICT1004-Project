@@ -72,7 +72,7 @@ if (substr(PREVIOUS_LOCATION, 0, 21) === 'movie_details.php?id=')
                 </div>
                 <div class="form-group">
                     <p class="small text-muted mb-1">By clicking on the "Sign Me Up!" button below, you agree to Popcorn's Terms of Use and Privacy Policy.</p>
-                    <button class="btn btn-primary" type="submit">Sign Me Up!</button>
+                    <button class="btn btn-primary mb-4" type="submit">Sign Me Up!</button>
                 </div>
             </form>
         </main>
