@@ -5,8 +5,8 @@
  */
 
 
-$(document).ready(function() {
-    $('#ToTopButton').click(function(event) {
+$(document).ready(function () {
+    $('#ToTopButton').click(function (event) {
         // prevent default anchor click behaviour
         event.preventDefault();
         $("html, body").animate({scrollTop: 0}, "slow");
@@ -15,19 +15,19 @@ $(document).ready(function() {
 });
 
 // Add active class to the current button to highlight the current page
-$(function() {
-        // this will get the full URL at the address bar
-        var url = window.location.href;
-        // passes on every "a" tag
-        $(".topnav a").each(function() {
-            // checks if its the same on the address bar
-            if (url === (this.href)) {
-                $(this).closest("a").addClass("active");
-                //for making parent of submenu active
-               $(this).closest("a").parent().parent().addClass("active");
-            }
-        });
-    });      
+$(function () {
+    // this will get the full URL at the address bar
+    var url = window.location.href;
+    // passes on every "a" tag
+    $(".topnav a").each(function () {
+        // checks if its the same on the address bar
+        if (url === (this.href)) {
+            $(this).closest("a").addClass("active");
+            //for making parent of submenu active
+            $(this).closest("a").parent().parent().addClass("active");
+        }
+    });
+});
 
 $('.carousel').carousel({
     interval: 10000
@@ -35,26 +35,25 @@ $('.carousel').carousel({
 
 /*-----Back to top button-----*/
 // check if user scrolls too far down
-$(window).scroll(function() {
+$(window).scroll(function () {
     var height = $(window).scrollTop();
     if (height > 30) {
         $('#ToTopButton').fadeIn();
-    }
-    else {
+    } else {
         $('#ToTopButton').fadeOut();
     }
 });
-  
+
 
 function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
         document.getElementById('login').innerHTML = "Login";
         document.getElementById('menu').innerHTML = "Menu";
 
-  } else {
-    x.className = "topnav";
-  }
+    } else {
+        x.className = "topnav";
+    }
 }
 

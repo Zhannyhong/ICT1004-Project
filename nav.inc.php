@@ -28,11 +28,13 @@
             $profile_pic = $result->fetch_assoc()["profilePic"];
 
             echo "<img class='profile-logo' src='$profile_pic' alt='Profile Picture'>";
+            echo "<style>.topnav a.nav-right-2{ margin-top: 9px;} </style>";
 
             unset($profile_pic);
         } else {
             echo "<i class='fas fa-user-circle' style='font-size:46px; color: black'></i>";
             echo "<label id='login' style='font-size: 30px; margin-left: 5px; color: black'></label>";
+            echo "<style>.topnav a.nav-right-2{ margin-top: 25px;} </style>";
         }
         ?>
         <!-- account_circle -->
@@ -52,5 +54,5 @@
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
         <i class="fa fa-bars" style="color: black"></i>
     </a>
-    
+
 </div>
