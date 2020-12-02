@@ -10,7 +10,7 @@
     </a>
     <a class="btn" href="index.php"><i class="fa fa-home"></i> Home</a>
     <a class="btn" href="about_us.php"><i class="fa fa-users"></i> About Us</a>
-    <a class="nav-right-2" title="Account" href="login.php">
+    <a id="loginIcon" class="nav-right-2" title="Account" href="login.php">
         <?php
         session_start();
 
@@ -32,9 +32,9 @@
 
             unset($profile_pic);
         } else {
-            echo "<i class='fas fa-user-circle' style='font-size:46px; color: black'></i>";
+            echo "<i class='fas fa-user-circle'></i>";
             echo "<label id='login' style='font-size: 30px; margin-left: 5px; color: black'></label>";
-            echo "<style>.topnav a.nav-right-2{ margin-top: 25px;} </style>";
+            
         }
         ?>
         <!-- account_circle -->

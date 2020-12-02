@@ -34,6 +34,12 @@
     text-align: center;
     text-decoration: none;
     padding: 18px 20px;
+    margin-top: 25px;
+    font-size: 30px;
+}
+
+.topnav a.nav-right-2 i{
+    color: black;
     font-size: 30px;
 }
 
@@ -57,7 +63,7 @@
     margin-right: 10px;
 }
 
-.topnav a label #login{
+label#login{
     display: none;
 }
 
@@ -81,10 +87,6 @@
     margin: 1rem auto;
 }
 
-#login{
-    display: none;
-}
-
 @media screen and (max-width: 600px) {
     .topnav a:not(:first-child) {display: none;}
     .topnav form:not(:first-child) {display: none;}
@@ -101,8 +103,9 @@
     .topnav a label.nav-menu{
         display: none;
     }
-    #login{
+    label#login{
         display: inline;
+        
     }
 
 }
@@ -143,7 +146,7 @@
         float: right;
         display: block;
     }
-    #login{
+    label#login{
         display: inline;
     }
 }
