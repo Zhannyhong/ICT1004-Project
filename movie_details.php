@@ -110,9 +110,9 @@ function fetchMovieData()
         <?php
             include "head.inc.php";
         ?>
-        <link rel="stylesheet" href="css/movie_template.css">
+        <link rel="stylesheet" href="css/movie_details.css">
         <!-- Custom JS -->
-        <script defer src="js/movie_template.js"></script>
+        <script defer src="js/movie_details.js"></script>
     </head>
     <body>
         <?php
@@ -267,7 +267,9 @@ function fetchMovieData()
                 <div class="review">
                     <div>
                         <?php
-                        $_SESSION['current_review_location'] = 'movie_template.php';
+                        // Remove /ICT1004-Project/
+                        $_SESSION['current_review_location'] = 
+                                substr($_SERVER['REQUEST_URI'], 17);
                         for ($index = 0; $index < sizeof($reviewRatingArr); $index++)
                         {
                         ?>
@@ -303,7 +305,7 @@ function fetchMovieData()
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <a class="btn btn-danger" href="delete_review.php?reviewID=<?=$reviewIDArr[$index]?>&movieID=<?=$movieID?>" role="button">
+                                                    <a class="btn btn-danger" href="delete_review.php?reviewID=<?=$reviewIDArr[$index]?>" role="button">
                                                         Delete Review
                                                     </a>
                                                 </div>

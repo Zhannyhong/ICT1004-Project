@@ -12,7 +12,7 @@ session_start();
         <?php
             include "head.inc.php";
         ?>
-        <link rel="stylesheet" href="css/movie_template.css">
+        <link rel="stylesheet" href="css/movie_details.css">
     </head>
     <body class="d-flex flex-column min-vh-100">
         <?php
@@ -94,7 +94,9 @@ session_start();
                 <div>
                     <hr class="review-divider"/>
                     <?php
-                    $_SESSION['current_review_location'] = 'profile_page.php';
+                    // Remove /ICT1004-Project/
+                    $_SESSION['current_review_location'] = 
+                            substr($_SERVER['REQUEST_URI'], 17);
                     while ($row = $result->fetch_assoc()) {
                     ?>
 
@@ -125,7 +127,7 @@ session_start();
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <a class="btn btn-danger" href="delete_review.php?reviewID=<?=$row['reviewID']?>&movieID=<?=$row['movieID']?>" role="button">
+                                                <a class="btn btn-danger" href="delete_review.php?reviewID=<?=$row['reviewID']?>" role="button">
                                                     Delete Review
                                                 </a>
                                             </div>
@@ -150,7 +152,7 @@ session_start();
                                 <p><?=$row['writeUp']?></p>
                                 <div class="review-movie">
                                     <p>Review for
-                                        <a href="movie_template.php?id=<?=$row['movieID']?>">
+                                        <a href="movie_details.php?id=<?=$row['movieID']?>">
                                             <?=$row['movieTitle']?>
                                         </a>
                                     </p>
