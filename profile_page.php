@@ -88,7 +88,9 @@
                 <div>
                     <hr class="review-divider"/>
                     <?php
-                    $_SESSION['current_review_location'] = 'profile_page.php';
+                    // Remove /ICT1004-Project/
+                    $_SESSION['current_review_location'] = 
+                            substr($_SERVER['REQUEST_URI'], 17);
                     while ($row = $result->fetch_assoc()) {
                     ?>
 
@@ -119,7 +121,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <a class="btn btn-danger" href="delete_review.php?reviewID=<?=$row['reviewID']?>&movieID=<?=$row['movieID']?>" role="button">
+                                                <a class="btn btn-danger" href="delete_review.php?reviewID=<?=$row['reviewID']?>" role="button">
                                                     Delete Review
                                                 </a>
                                             </div>

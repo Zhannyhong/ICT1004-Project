@@ -1,6 +1,7 @@
 <?php
 session_start();
-/* Get current_review_location, which was previously set at either movie_details or profile_page. */
+/* Get current_review_location, which was previously set at either 
+ * movie_details.php?id=<INTEGER> or profile_page.php. */
 define("PREVIOUS_LOCATION", $_SESSION['current_review_location']);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
@@ -121,9 +122,9 @@ function saveReviewToDB()
                     echo "<h1 class='display-4 mt-3'>Update Review Successful</h1>";
                     echo "<h5>Thank you, your review has been updated.</h5>";
                 }
-                if (PREVIOUS_LOCATION === 'movie_details.php')
+                if (substr(PREVIOUS_LOCATION, 0, 21) === 'movie_details.php?id=')
                 {
-                    echo '<a class="btn btn-success my-4" href="movie_details.php?id=' . $movieID . '" role="button">Return to Movie</a>';
+                    echo '<a class="btn btn-success my-4" href="' . PREVIOUS_LOCATION . '" role="button">Return to Movie</a>';
                 }
                 else if (PREVIOUS_LOCATION === 'profile_page.php')
                 {
@@ -134,9 +135,9 @@ function saveReviewToDB()
             {
                 require "error_msg.php";
 
-                if (PREVIOUS_LOCATION === 'movie_details.php')
+                if (substr(PREVIOUS_LOCATION, 0, 21) === 'movie_details.php?id=')
                 {
-                    echo '<a class="btn btn-danger my-4" href="movie_details.php?id=' . $movieID . '" role="button">Return to Movie</a>';
+                    echo '<a class="btn btn-danger my-4" href="' . PREVIOUS_LOCATION . '" role="button">Return to Movie</a>';
                 }
                 else if (PREVIOUS_LOCATION === 'profile_page.php')
                 {
