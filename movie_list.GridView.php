@@ -62,8 +62,7 @@ function fetchAllLatestMovies() {
                     ?>
                     <div class="m1">
                         <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
-                            <img class="gridimg" src="data:image/jpeg;base64,
-                                 <?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" 
+                            <img class="gridimg" src="data:image/jpeg;base64,<?=base64_encode($poster_portraitArr[$index])?>"
                                  alt="<?= $movieTitleArr[$index] ?>">
                         </a>
                     </div>

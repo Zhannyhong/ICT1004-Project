@@ -117,11 +117,11 @@ function sanitize_input($data)
                         <div class="row mx-2">
                             <!-- Shows portrait posters on larger screens -->
                             <div class="d-none d-md-block col-md-3 my-auto">
-                                <img class="mini-movie-poster" src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_portraitArr[$index]))?>" alt="Movie Poster for <?=$movieTitleArr[$index]?>">
+                                <img class="mini-movie-poster" src="data:image/jpeg;base64,<?=base64_encode($poster_portraitArr[$index])?>" alt="Movie Poster for <?=$movieTitleArr[$index]?>">
                             </div>
                             <!-- Shows landscape posters on smaller screens -->
                             <div class="d-xs-block d-md-none my-auto container">
-                                <img class="mini-movie-poster" src="data:image/jpeg;base64,<?=chunk_split(base64_encode($poster_landscapeArr[$index]))?>" alt="Movie Poster for <?=$movieTitleArr[$index]?>">
+                                <img class="mini-movie-poster" src="data:image/jpeg;base64,<?=base64_encode($poster_landscapeArr[$index])?>" alt="Movie Poster for <?=$movieTitleArr[$index]?>">
                             </div>
 
                             <div class="col-md-9 mt-4">
