@@ -1,9 +1,4 @@
 <?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 $latestMovieIDArr = $latestMovieTitleArr = $latestPoster_portraitArr = array();
 $movieIDArr = $movieTitleArr = $poster_portraitArr = array();
@@ -11,94 +6,71 @@ $search_input = $errorMsg = "";
 $success = true;
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    fetchLatestMovies();
-    fetchTopRatedMovies();
-} else {
-    $errorMsg = "This page is not to be run directly.";
-    $success = false;
+    require "connect_database.php";
+
+    if ($success) {
+        fetchLatestMovies();
+        fetchTopRatedMovies();
+    }
+
+    $conn->close();
+}
+else
+{
+    require "illegal_access.php";
+    echo '<a class="btn btn-danger my-4" href="index.php" role="button">Return Home</a>';
+    echo "</div>";
+    echo "</body>";
+    include "footer.inc.php";
+    exit();
 }
 
 //Helper function to fetch latest movies.
 function fetchLatestMovies() {
-    global $latestMovieIDArr, $latestMovieTitleArr, $latestPoster_portraitArr, $latestPoster_LandArr, $errorMsg, $success;
+    global $conn, $latestMovieIDArr, $latestMovieTitleArr, $latestPoster_portraitArr, $errorMsg, $success;
 
-    // Create database connection.
-    $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
+    // lowercase search input
+    $stmt = $conn->prepare("SELECT m.movieID, m.movieTitle, m.poster_portrait FROM movies AS m ORDER BY releaseDate DESC LIMIT 8");
+    require "handle_sql_execute_failure.php";
 
-    // Check connection
-    if ($conn->connect_error) {
-        $conn->close();
-        $errorMsg = "Connection failed: " . $conn->connect_error;
+    if ($result->num_rows < 8) {
+        $errorMsg = "Movies not found";
         $success = false;
-    } else {
-        // lowercase search input
-        $stmt = $conn->prepare("SELECT m.movieID, m.movieTitle, 
-            m.poster_portrait FROM movies AS m ORDER BY releaseDate DESC");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows < 8) {
-            $errorMsg = "Movies not found";
-            $success = false;
-        }
-
-        $stmt->close();
-        $conn->close();
-
-        $count = 0;
-        while ($row = $result->fetch_assoc()) {
-            if ($count < 8) {
-                array_push($latestMovieIDArr, $row['movieID']);
-                array_push($latestMovieTitleArr, $row['movieTitle']);
-                array_push($latestPoster_portraitArr, $row['poster_portrait']);
-                $count = $count + 1;
-            } else {
-                break;
-            }
-        }
     }
+
+    $count = 0;
+    while (($row = $result->fetch_assoc()) && ($count < 8))
+    {
+        array_push($latestMovieIDArr, $row['movieID']);
+        array_push($latestMovieTitleArr, $row['movieTitle']);
+        array_push($latestPoster_portraitArr, $row['poster_portrait']);
+        $count++;
+    }
+
 }
 
 function fetchTopRatedMovies() {
-    global $movieIDArr, $movieTitleArr, $poster_portraitArr, $errorMsg, $success;
+    global $conn, $movieIDArr, $movieTitleArr, $poster_portraitArr, $errorMsg, $success;
 
-    // Create database connection.
-    $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-
-    // Check connection
-    if ($conn->connect_error) {
-        $conn->close();
-        $errorMsg = "Connection failed: " . $conn->connect_error;
-        $success = false;
-    } else {
         // lowercase search input
-        $stmt = $conn->prepare("SELECT m.movieID, m.movieTitle,
-            m.poster_portrait FROM movies AS m 
-            INNER JOIN (SELECT r.movieID FROM reviews
-            as r GROUP BY r.movieID ORDER BY AVG(r.reviewRating) DESC 
-            LIMIT 8) AS topMovies ON m.movieID = topMovies.movieID");
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $stmt = $conn->prepare("SELECT m.movieID, m.movieTitle, m.poster_portrait FROM movies AS m 
+            INNER JOIN (SELECT r.movieID FROM reviews as r GROUP BY r.movieID ORDER BY AVG(r.reviewRating) 
+            DESC LIMIT 8) AS topMovies ON m.movieID = topMovies.movieID");
+        require "handle_sql_execute_failure.php";
+
         if ($result->num_rows < 8) {
             $errorMsg = "Movies not found";
             $success = false;
         }
-        $stmt->close();
-        $conn->close();
 
         $count = 0;
-        while ($row = $result->fetch_assoc()) {
-            if ($count < 8) {
-                array_push($movieIDArr, $row['movieID']);
-                array_push($movieTitleArr, $row['movieTitle']);
-                array_push($poster_portraitArr, $row['poster_portrait']);
-                $count = $count + 1;
-            } else {
-                break;
-            }
+        while (($row = $result->fetch_assoc()) && ($count < 8))
+        {
+            array_push($movieIDArr, $row['movieID']);
+            array_push($movieTitleArr, $row['movieTitle']);
+            array_push($poster_portraitArr, $row['poster_portrait']);
+            $count++;
         }
-    }
 }
 ?>
 
@@ -130,7 +102,7 @@ function fetchTopRatedMovies() {
 
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
+                                                    <a href="movie_details.php?id=<?= $movieIDArr[$index] ?>">
                                                         <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
@@ -142,7 +114,7 @@ function fetchTopRatedMovies() {
 
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
+                                                    <a href="movie_details.php?id=<?= $movieIDArr[$index] ?>">
                                                         <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
@@ -154,7 +126,7 @@ function fetchTopRatedMovies() {
 
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
+                                                    <a href="movie_details.php?id=<?= $movieIDArr[$index] ?>">
                                                         <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
@@ -177,7 +149,7 @@ function fetchTopRatedMovies() {
 
                                             <div class="col-md-3 d-none d-md-block">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
+                                                    <a href="movie_details.php?id=<?= $movieIDArr[$index] ?>">
                                                         <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
@@ -189,7 +161,7 @@ function fetchTopRatedMovies() {
 
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
+                                                    <a href="movie_details.php?id=<?= $movieIDArr[$index] ?>">
                                                         <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
@@ -244,7 +216,7 @@ function fetchTopRatedMovies() {
 
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
+                                                    <a href="movie_details.php?id=<?= $latestMovieIDArr[$index] ?>">
                                                         <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
@@ -256,7 +228,7 @@ function fetchTopRatedMovies() {
 
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
+                                                    <a href="movie_details.php?id=<?= $latestMovieIDArr[$index] ?>">
                                                         <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
@@ -268,7 +240,7 @@ function fetchTopRatedMovies() {
 
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
+                                                    <a href="movie_details.php?id=<?= $latestMovieIDArr[$index] ?>">
                                                         <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
@@ -288,7 +260,7 @@ function fetchTopRatedMovies() {
 
                                             <div class="col-md-3 d-none d-md-block">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
+                                                    <a href="movie_details.php?id=<?= $latestMovieIDArr[$index] ?>">
                                                         <img class="img-card-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
@@ -300,7 +272,7 @@ function fetchTopRatedMovies() {
 
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
-                                                    <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
+                                                    <a href="movie_details.php?id=<?= $latestMovieIDArr[$index] ?>">
                                                         <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>

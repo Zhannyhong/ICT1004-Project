@@ -64,6 +64,15 @@
   color: black;
 }
 
+.profile-logo {
+    object-fit: cover;
+    width: 3rem;
+    height: 3rem;
+    max-width: 100%;
+    border-radius: 50%;
+    margin: 1rem auto;
+}
+
 @media screen and (max-width: 600px) {
   .topnav a:not(:first-child) {display: none;}
   .topnav form:not(:first-child) {display: none;}

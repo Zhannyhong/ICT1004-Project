@@ -6,13 +6,15 @@
 <div class="topnav" id="myTopnav">
     <a class="nav-brand" href="index.php">
         <img class="logo" src="images/logo.gif" alt="Popcorn Logo"/>
-        <label id="menu" class="nav-menu" style="font-size: 30px; margin-left: 5px; text-align: left; color: black;"></label>
+        <label id="menu" class="nav-menu"></label>
     </a>
     <a class="btn" href="index.php"><i class="fa fa-home"></i> Home</a>
     <a class="btn" href="about_us.php"><i class="fa fa-users"></i> About Us</a>
     
     <a class="nav-right-2" title="Account" href="login.php">
         <?php
+        session_start();
+
         if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
             $profile_pic = "";
             $userID = $_SESSION["userID"];

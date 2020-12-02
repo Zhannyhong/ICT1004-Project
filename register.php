@@ -1,3 +1,19 @@
+<?php
+/* Get current_review_location, which was previously set at either movie_details
+or profile_page. */
+define("PREVIOUS_LOCATION", $_SESSION['current_review_location']);
+if (substr(PREVIOUS_LOCATION, 0, 21) === 'movie_details.php?id=')
+{
+    $_SESSION['login_signup_from'] = PREVIOUS_LOCATION;
+} else if (PREVIOUS_LOCATION === 'profile_page.php')
+{
+    $_SESSION['login_signup_from'] = PREVIOUS_LOCATION;
+} else
+{
+    $_SESSION['login_signup_from'] = '';
+}
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">

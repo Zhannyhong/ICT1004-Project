@@ -99,15 +99,6 @@ footer {
     border-radius: 50%;
 }
 
-.profile-logo {
-    object-fit: cover;
-    width: 3rem;
-    height: 3rem;
-    max-width: 100%;
-    border-radius: 50%;
-    margin: 1rem auto;
-}
-
 .profile {
     padding: 2rem;
     background-color: white;

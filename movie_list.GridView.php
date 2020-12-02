@@ -1,9 +1,4 @@
 <?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 $movieIDArr = $movieTitleArr = $poster_portraitArr = $latestDesptArr = array();
 $errorMsg = "";
@@ -75,6 +70,7 @@ function fetchAllLatestMovies() {
                     </a>
                 </div>
                 <?php
+
             }
         }
         ?>

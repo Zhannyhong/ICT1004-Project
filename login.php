@@ -1,17 +1,24 @@
 <?php
-/*
-require 'Zebra_Session.php';
-$config = parse_ini_file('../../private/db-config.ini');
-$conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-$session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
-*/
 session_start();
-print_r($_SESSION);
 
+/* Get current_review_location, which was previously set at either movie_details
+or profile_page. */
+define("PREVIOUS_LOCATION", $_SESSION['current_review_location']);
+echo substr(PREVIOUS_LOCATION, 0, 21);
+if (substr(PREVIOUS_LOCATION, 0, 21) === 'movie_details.php?id=')
+{
+    $_SESSION['login_signup_from'] = PREVIOUS_LOCATION;
+} else if (PREVIOUS_LOCATION === 'profile_page.php')
+{
+    $_SESSION['login_signup_from'] = PREVIOUS_LOCATION;
+} else
+{
+    $_SESSION['login_signup_from'] = '';
+}
 // Checks if the user is logged in
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
 {
-    // Redirects user to their profile page
+    // Redirects user to profile page
     header("location: profile_page.php");
     exit();
 }
