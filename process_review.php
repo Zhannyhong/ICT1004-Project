@@ -1,7 +1,6 @@
 <?php
 session_start();
-/* Get current_review_location, which was previously set at either movie_details
-or profile_page. */
+/* Get current_review_location, which was previously set at either movie_details or profile_page. */
 define("PREVIOUS_LOCATION", $_SESSION['current_review_location']);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
@@ -108,7 +107,6 @@ function saveReviewToDB()
         ?>
         <main class="container flex-grow-1 text-center">
             <?php
-            echo var_dump($_SESSION);
             if ($success)
             {
                 if ($intent == "posted")

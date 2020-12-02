@@ -1,13 +1,3 @@
-<?php
-/*
-  require 'Zebra_Session.php';
-  $config = parse_ini_file('../../private/db-config.ini');
-  $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-  $session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
- */
-session_start();
-print_r($_SESSION);
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +11,7 @@ print_r($_SESSION);
     </head>
     <body class="d-flex flex-column min-vh-100" style="background: #f5f5f5;">
         <?php
+        session_start();
         include "nav.inc.php";
         ?>
 

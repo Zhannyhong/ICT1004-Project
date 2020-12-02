@@ -1,10 +1,3 @@
-<?php
-/*
-require 'Zebra_Session.php';
-$session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
-*/
-session_start();
-?>
 
 <html lang="en">
     <head>
@@ -16,6 +9,7 @@ session_start();
     </head>
     <body class="d-flex flex-column min-vh-100">
         <?php
+            session_start();
             include "nav.inc.php";
 
             // Checks that the user is logged in
