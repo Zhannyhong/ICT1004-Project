@@ -111,7 +111,7 @@
   }
 }
 
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: 1120px) {
     .topnav a:not(:first-child) {display: none;}
   .topnav form:not(:first-child) {display: none;}
 
@@ -121,7 +121,7 @@
   }
 }
 
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: 1120px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: absolute;

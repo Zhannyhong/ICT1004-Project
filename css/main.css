@@ -195,14 +195,14 @@ main > .container{
     width: 1px;
 }
 
-/*-----Top Rated Movie-----*/
+/*-----Carousel Top Rated Movie-----*/
 #topRatedSec{
-    margin-top: 80px !important;
+    margin-top: 70px !important;
     text-align: left !important;
 }
 #topRated img{
     width: 100% !important;
-    height: auto !important;
+    height: 350px !important;
 }
 .style-line{
     border-bottom: 1px solid;
@@ -210,14 +210,14 @@ main > .container{
     padding-bottom: 10px;
 }
 
-/*-----Latest Movie-----*/
+/*-----Carousel Latest Movie-----*/
 #latestSec{
-    margin-top: 80px !important;
+    margin-top: 70px !important;
     text-align: left !important;
 }
 #latestMovie img{
     width: 100% !important;
-    height: auto !important;
+    height: 350px !important;
 }
 
 
@@ -275,3 +275,48 @@ section { display: block; }
   background-color: #666;
   color: white;
 }
+
+
+
+.allmovies{
+    display: inline-block;
+    float: left;
+    width: 100%;
+    padding: 60px 35px 10px;
+    margin-top: 70px;
+}
+
+.allmovies h3{
+    font-size: 28px;
+    padding-bottom: 8px;
+}
+.allmovies hr{
+    border: none;
+    height: 1px;
+    color: black;
+    width: 100%;
+}
+.movie-poster-grid{
+    padding: 5px 0px;
+}
+
+.m1{
+    width: 24%;
+    height: auto;
+    margin-right: 10px;
+    float: left;
+    margin-top: 10px;
+}
+.m1 img{
+    width: 100%;
+    max-height: 350px;
+}
+
+/*
+@media screen and (max-width: 995px) {
+  
+}
+
+@media screen and (max-width: 1200px) {
+  
+}*/

@@ -18,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $success = false;
 }
 
-
 //Helper function to fetch latest movies.
 function fetchLatestMovies() {
     global $latestMovieIDArr, $latestMovieTitleArr, $latestPoster_portraitArr, $latestPoster_LandArr, $errorMsg, $success;
@@ -45,7 +44,7 @@ function fetchLatestMovies() {
 
         $stmt->close();
         $conn->close();
-        
+
         $count = 0;
         while ($row = $result->fetch_assoc()) {
             if ($count < 8) {
@@ -103,10 +102,10 @@ function fetchTopRatedMovies() {
 }
 ?>
 
-<div class="container">
+<div class="container" id="carouselSec">
     <!-----Slider----->
     <div id="slide">
-        
+
         <!-----Top Rated Movies----->
         <?php
         if ($success) {
@@ -118,7 +117,7 @@ function fetchTopRatedMovies() {
 
                         <!--Slides-->
                         <div class="carousel-inner" role="listbox">
-                            
+
                             <?php
                             for ($index = 0; $index < 8; $index++) {
                                 if ($index === 0) {
@@ -132,7 +131,7 @@ function fetchTopRatedMovies() {
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
                                                     <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                        <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
@@ -144,11 +143,11 @@ function fetchTopRatedMovies() {
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
                                                     <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                        <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
-                                            
+
                                             <?php
                                         } else if ($index === 3) {
                                             ?>
@@ -156,7 +155,7 @@ function fetchTopRatedMovies() {
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
                                                     <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                        <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
@@ -179,11 +178,11 @@ function fetchTopRatedMovies() {
                                             <div class="col-md-3 d-none d-md-block">
                                                 <div class="card mb-2">
                                                     <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
-                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                        <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
-                                            
+
                                             <?php
                                         } else {
                                             ?>
@@ -191,7 +190,7 @@ function fetchTopRatedMovies() {
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
                                                     <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                        <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
@@ -246,7 +245,7 @@ function fetchTopRatedMovies() {
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
                                                     <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                        <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
@@ -258,7 +257,7 @@ function fetchTopRatedMovies() {
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
                                                     <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                        <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
@@ -270,7 +269,7 @@ function fetchTopRatedMovies() {
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
                                                     <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                        <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
@@ -290,7 +289,7 @@ function fetchTopRatedMovies() {
                                             <div class="col-md-3 d-none d-md-block">
                                                 <div class="card mb-2">
                                                     <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                        <img class="card-img-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                        <img class="img-card-top" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
@@ -302,7 +301,7 @@ function fetchTopRatedMovies() {
                                             <div class="col-md-3">
                                                 <div class="card mb-2">
                                                     <a href="movie_template.php?id=<?= $latestMovieIDArr[$index] ?>">
-                                                        <img class="card-img" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
+                                                        <img class="img-card" src="data:image/jpeg;base64,<?= chunk_split(base64_encode($latestPoster_portraitArr[$index])) ?>" alt="<?= $movieTitleArr[$index] ?>">
                                                     </a>
                                                 </div>
                                             </div>
@@ -332,5 +331,8 @@ function fetchTopRatedMovies() {
             </div>
             <?php
         }
+        unset($errorMsg, $success, $latestMovieIDArr, $latestMovieTitleArr, $latestPoster_portraitArr, $movieIDArr, $movieTitleArr, $poster_portraitArr);
         ?>
     </div>
+</div>
+

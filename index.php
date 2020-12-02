@@ -19,7 +19,7 @@ print_r($_SESSION);
         <!-- Custom JS -->
         <script defer src="js/main.js"></script>
     </head>
-    <body class="d-flex flex-column min-vh-100">
+    <body class="d-flex flex-column min-vh-100" style="background: #f5f5f5;">
         <?php
         include "nav.inc.php";
         ?>
@@ -28,8 +28,6 @@ print_r($_SESSION);
         <main id="main-container" class="content flex-grow-1">
             <?php
             include "carousel.inc.php";
-            ?>
-            <?php
             include "movie_list.GridView.php";
             ?>
         </main>
