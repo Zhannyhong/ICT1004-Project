@@ -15,7 +15,7 @@
         include "nav.inc.php";
         ?>
 
-        <!-----Main----->
+        <!-- Main -->
         <div class="content">
                 <?php
                 include "carousel.inc.php";

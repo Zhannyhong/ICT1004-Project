@@ -4,56 +4,42 @@ $errorMsg = "";
 $success = true;
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    fetchAllLatestMovies();
-} else {
+    require "connect_database.php";
+
+    if ($success)
+        fetchAllMovies();
+        $conn->close();
+}
+else
+{
     $errorMsg = "This page is not to be run directly.";
     $success = false;
 }
 
 //Helper function to fetch all movies sort by latest movies come first.
-function fetchAllLatestMovies() {
-    global $movieIDArr, $movieTitleArr, $poster_portraitArr, $latestDesptArr, $errorMsg, $success;
+function fetchAllMovies() {
+    global $conn, $movieIDArr, $movieTitleArr, $poster_portraitArr, $latestDesptArr, $errorMsg, $success;
 
-// Create database connection.
-    $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
+    // lowercase search input
+    $stmt = $conn->prepare("SELECT m.movieID, m.movieTitle, m.poster_portrait, m.description FROM movies AS m ORDER BY releaseDate DESC");
+    require "handle_sql_execute_failure.php";
 
-// Check connection
-    if ($conn->connect_error) {
-        $conn->close();
-        $errorMsg = "Connection failed: " . $conn->connect_error;
+    if ($result->num_rows < 1) {
+        $errorMsg = "Movies not found";
         $success = false;
-    } else {
-// lowercase search input
-        $stmt = $conn->prepare("SELECT m.movieID, m.movieTitle, 
-            m.poster_portrait, m.description FROM movies AS m ORDER BY releaseDate DESC");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows < 1) {
-            $errorMsg = "Movies not found";
-            $success = false;
-        }
-        $stmt->close();
-        $conn->close();
+    }
 
-        $count = 0;
-        while ($row = $result->fetch_assoc()) {
-//            if ($count < 8) {
-            array_push($movieIDArr, $row['movieID']);
-            array_push($movieTitleArr, $row['movieTitle']);
-            array_push($poster_portraitArr, $row['poster_portrait']);
-            array_push($latestDesptArr, $row["description"]);
-            $count = $count + 1;
-//            } else {
-//                break;
-//            }
-        }
+    while ($row = $result->fetch_assoc()) {
+        array_push($movieIDArr, $row['movieID']);
+        array_push($movieTitleArr, $row['movieTitle']);
+        array_push($poster_portraitArr, $row['poster_portrait']);
+        array_push($latestDesptArr, $row["description"]);
     }
 }
 ?>
 
     <div class="allmovies">
-        <h2 class="font-weight-light ml-auto style-line">Movies</h2>
+        <h2 class="font-weight-light ml-auto style-line">All Movies</h2>
         <div class="movie-poster-grid">
             <?php
             if ($success) {
@@ -61,9 +47,8 @@ function fetchAllLatestMovies() {
                 for ($index = 0; $index < sizeof($movieTitleArr); $index++) {
                     ?>
                     <div class="m1">
-                        <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
-                            <img class="gridimg" src="data:image/jpeg;base64,
-                                 <?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" 
+                        <a href="movie_details.php?id=<?= $movieIDArr[$index] ?>">
+                            <img class="gridimg" src="data:image/jpeg;base64,<?=base64_encode($poster_portraitArr[$index])?>"
                                  alt="<?= $movieTitleArr[$index] ?>">
                         </a>
                     </div>
