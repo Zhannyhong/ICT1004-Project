@@ -3,7 +3,6 @@ session_start();
 /* Get LOGIN_SIGNUP_FROM, which was previously set at either movie_details
 or profile_page. */
 define("LOGIN_SIGNUP_FROM", $_SESSION['login_signup_from']);
-echo var_dump(LOGIN_SIGNUP_FROM);
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
     // Initialise input variables
@@ -134,7 +133,6 @@ function authenticateUser()
                 . "height='125px' alt='Success'>";
                 echo "<h1 class='display-4 mt-3'>Login Successful</h1>";
                 echo "<h3>Welcome back, $username.</h3>";
-                echo substr(LOGIN_SIGNUP_FROM, 0, 21);
                 if (substr(LOGIN_SIGNUP_FROM, 0, 21) === 'movie_details.php?id=')
                 {
                     echo '<a class="btn btn-success my-4" href="'

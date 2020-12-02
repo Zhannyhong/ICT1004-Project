@@ -6,7 +6,9 @@
 
 var stars = document.querySelectorAll(".rating span");;
 var rating = document.getElementById("rating");
-rating.value = "";
+if (rating.value !== "") {
+    showRating(rating.value);
+};
 
 function setRating(clickedStar) {
     var previousStar = document.querySelector(".rating span.is-active");

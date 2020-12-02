@@ -137,7 +137,7 @@ function saveReviewToDB()
 
                 if (substr(PREVIOUS_LOCATION, 0, 21) === 'movie_details.php?id=')
                 {
-                    echo '<a class="btn btn-danger my-4" href="movie_details.php?id=' . $movieID . '" role="button">Return to Movie</a>';
+                    echo '<a class="btn btn-danger my-4" href="' . PREVIOUS_LOCATION . '" role="button">Return to Movie</a>';
                 }
                 else if (PREVIOUS_LOCATION === 'profile_page.php')
                 {
