@@ -64,10 +64,10 @@ else
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">@</div>
                                     </div>
-                                    <input class="form-control" type="text" id="username" name="username" placeholder="Enter new username" maxlength="30">
+                                    <input class="form-control" type="text" id="username" name="username" placeholder="Enter new username" maxlength="10">
                                 </div>
                                 <small class="form-text text-muted">
-                                    Username must be unique and contain no more than 30 alphanumeric characters.
+                                    Username must be unique and contain no more than 10 alphanumeric characters.
                                 </small>
                             </div>
                             <div class="form-group">

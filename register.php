@@ -47,10 +47,10 @@ if (substr(PREVIOUS_LOCATION, 0, 21) === 'movie_details.php?id=')
                             <div class="input-group-prepend">
                                 <div class="input-group-text">@</div>
                             </div>
-                            <input required class="form-control" type="text" id="username" name="username" placeholder="Enter username" maxlength="30" pattern="[a-zA-Z0-9]+">
+                            <input required class="form-control" type="text" id="username" name="username" placeholder="Enter username" maxlength="10" pattern="[a-zA-Z0-9]+">
                         </div>
                         <small class="form-text text-muted">
-                            Username must be unique and contain no more than 30 alphanumeric characters.
+                            Username must be unique and contain no more than 10 alphanumeric characters.
                         </small>
                     </div>
                     <div class="form-group col">

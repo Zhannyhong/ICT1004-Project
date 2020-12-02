@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             }
             if (strlen($username) > 30)
             {
-                $errorMsg .= "Username contains more than 30 characters.<br>";
+                $errorMsg .= "Username contains more than 10 characters.<br>";
                 $success = false;
             }
         }
