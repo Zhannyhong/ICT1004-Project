@@ -59,27 +59,25 @@ function fetchAllLatestMovies() {
 ?>
 
 
-<div class="container">
-    <div class="allmovies">
-        <h3>Movies</h3>
-        <hr>
-        <div class="movie-poster-grid">
-            <?php
-            if ($success) {
+<div class="allmovies">
+    <h2 class="font-weight-light ml-auto style-line">Movies</h2>
+    <div class="movie-poster-grid">
+        <?php
+        if ($success) {
 
-                for ($index = 0; $index < sizeof($movieTitleArr); $index++) {
-                    ?>
-                    <div class="m1">
-                        <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
-                            <img class="" src="data:image/jpeg;base64,
-                                 <?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" 
-                                 alt="<?= $movieTitleArr[$index] ?>">
-                        </a>
-                    </div>
-                    <?php
-                }
+            for ($index = 0; $index < sizeof($movieTitleArr); $index++) {
+                ?>
+                <div class="m1">
+                    <a href="movie_template.php?id=<?= $movieIDArr[$index] ?>">
+                        <img class="" src="data:image/jpeg;base64,
+                             <?= chunk_split(base64_encode($poster_portraitArr[$index])) ?>" 
+                             alt="<?= $movieTitleArr[$index] ?>">
+                    </a>
+                </div>
+                <?php
             }
-            ?>
-        </div>
+        }
+        ?>
     </div>
 </div>
+

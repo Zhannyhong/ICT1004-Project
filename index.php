@@ -25,12 +25,13 @@ print_r($_SESSION);
         ?>
 
         <!-----Main----->
-        <main id="main-container" class="content flex-grow-1">
-            <?php
-            include "carousel.inc.php";
-            include "movie_list.GridView.php";
-            ?>
-        </main>
+        <div class="content">
+                <?php
+                include "carousel.inc.php";
+                include "movie_list.GridView.php";
+                ?>
+                
+        </div>
         <?php
         include "footer.inc.php";
         ?>
