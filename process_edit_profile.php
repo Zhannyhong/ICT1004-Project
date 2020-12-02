@@ -4,7 +4,7 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SESSION["loggedin"])
 {
     // Initialise input variables
-    $username = $file_upload = $pwd_hashed = $errorMsg = "";
+    $username = $file_upload = $pwd_hashed = $profile_pic = $errorMsg = "";
     $userID = $_SESSION["userID"];
     $success = true;
 
@@ -18,48 +18,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
     $user_details = $result->fetch_assoc();
     $username = $user_details["username"];
     $pwd_hashed = $user_details["password"];
+    $profile_pic = $user_details["profilePic"];
 
 
     // Sanitise and validate file uploaded
-    if (($_FILES['file_upload']['error']) == UPLOAD_ERR_NO_FILE)
+    if (($_FILES['file_upload']['error']) != UPLOAD_ERR_NO_FILE)
     {
-        // If user did not upload any files, use default profile picture
-        $file_upload = "images/default_profile_pic.png";
-    }
-    else if (($_FILES['file_upload']['error']) != UPLOAD_ERR_OK)
-    {
-        // Error occurred during uploading process
-        $file_err_num = $_FILES['file_upload']['error'];
-        $errorMsg .= "Error uploading file [error $file_err_num].<br>";
-        $success = false;
-    }
-    else
-    {
-        $allowed_extensions = array("jpeg", "jpg", "png");
-        $file_extension = strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
-
-        // Checks the file signature to ensure that it is a JPEG or PNG image
-        if (exif_imagetype($_FILES['image_upload']['tmp_name'] != IMAGETYPE_JPEG) or exif_imagetype($_FILES['image_upload']['tmp_name'] != IMAGETYPE_PNG))
+        if (($_FILES['file_upload']['error']) != UPLOAD_ERR_OK)
         {
-            $errorMsg .= "File uploaded is not an image.<br>";
+            // Error occurred during uploading process
+            $file_err_num = $_FILES['file_upload']['error'];
+            $errorMsg .= "Error uploading file [error $file_err_num].<br>";
             $success = false;
         }
-
-        // Checks that file uploaded is only of the allowed extensions
-        if (!in_array($file_extension, $allowed_extensions))
+        else
         {
-            $errorMsg .= "File uploaded is not a JPEG, JPG, or PNG file.<br>";
-            $success = false;
-        }
+            $allowed_extensions = array("jpeg", "jpg", "png");
+            $file_extension = strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
 
-        // Checks that file uploaded is not more than 2MB
-        if ($_FILES['file_upload']['size'] > 2097152)
-        {
-            $errorMsg .= "File uploaded is more than 2MB.<br>";
-            $success = false;
-        }
+            // Checks the file signature to ensure that it is a JPEG or PNG image
+            if (exif_imagetype($_FILES['image_upload']['tmp_name'] != IMAGETYPE_JPEG) or exif_imagetype($_FILES['image_upload']['tmp_name'] != IMAGETYPE_PNG))
+            {
+                $errorMsg .= "File uploaded is not an image.<br>";
+                $success = false;
+            }
 
-        $file_upload = $_FILES["file_upload"]["tmp_name"];
+            // Checks that file uploaded is only of the allowed extensions
+            if (!in_array($file_extension, $allowed_extensions))
+            {
+                $errorMsg .= "File uploaded is not a JPEG, JPG, or PNG file.<br>";
+                $success = false;
+            }
+
+            // Checks that file uploaded is not more than 2MB
+            if ($_FILES['file_upload']['size'] > 2097152)
+            {
+                $errorMsg .= "File uploaded is more than 2MB.<br>";
+                $success = false;
+            }
+
+            $file_upload = $_FILES["file_upload"]["tmp_name"];
+        }
     }
 
 
@@ -148,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
         saveProfileChanges();
 
     $conn->close();
-    unset($allowed_extensions, $file_err_num, $file_extension, $file_upload, $pwd_hashed, $result, $userID, $user_details, $username);
+    unset($allowed_extensions, $file_err_num, $file_extension, $file_upload, $pwd_hashed, $profile_pic, $result, $userID, $user_details, $username);
 }
 else
 {
@@ -172,13 +171,17 @@ function sanitize_input($data)
 //Helper function to write the member data to the DB
 function saveProfileChanges()
 {
-    global $conn, $userID, $file_upload, $username, $pwd_hashed, $errorMsg, $success;
+    global $conn, $userID, $file_upload, $username, $pwd_hashed, $profile_pic, $errorMsg, $success;
 
-    // Formats image SRC to be uploaded to database
-    $encoded_file = base64_encode(file_get_contents($file_upload));
-    $file_mime = mime_content_type($file_upload);
-    $profile_pic = "data:" . $file_mime . ";base64," . $encoded_file;
-    
+    // If user wants to change his profile picture
+    if (($_FILES['file_upload']['error']) != UPLOAD_ERR_NO_FILE)
+    {
+        // Formats image SRC to be uploaded to database
+        $encoded_file = base64_encode(file_get_contents($file_upload));
+        $file_mime = mime_content_type($file_upload);
+        $profile_pic = "data:" . $file_mime . ";base64," . $encoded_file;
+    }
+
     // Update user profile details in database
     $stmt = $conn->prepare("UPDATE users SET username=?, profilePic=?, password=? WHERE userID=?");
     $stmt->bind_param("ssss", $username, $profile_pic, $pwd_hashed, $userID);

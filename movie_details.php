@@ -264,12 +264,13 @@ function fetchMovieData()
                     ?>
                 </div>
 
+                <!-- Displays all reviews for the movie -->
                 <div class="review">
                     <div>
                         <?php
-                        // Remove /ICT1004-Project/
-                        $_SESSION['current_review_location'] = 
-                                substr($_SERVER['REQUEST_URI'], 17);
+                        // Removes "/ICT1004-Project/" from URL
+                        $_SESSION['current_review_location'] = substr($_SERVER['REQUEST_URI'], 17);
+
                         for ($index = 0; $index < sizeof($reviewRatingArr); $index++)
                         {
                         ?>
@@ -280,7 +281,7 @@ function fetchMovieData()
                                 <h5><?=$usernameArr[$index]?></h5>
                                 <h6 class="small"><?=$reviewDateArr[$index]?></h6>
                             </div>
-                            <div class="col-8 col-md-9 mt-4">
+                            <div class="col-8 col-md-9">
                                 <?php
                                 if ($userIDArr[$index] == $userID)
                                 { 
@@ -316,7 +317,7 @@ function fetchMovieData()
                                 <?php
                                 }
                                 ?>
-                                <div class="star-rating-reviews">
+                                <div class="star-rating-reviews mt-4">
                                     <?php
                                     for ($number = 0; $number < $reviewRatingArr[$index]; $number++)
                                     {

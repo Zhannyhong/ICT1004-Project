@@ -24,8 +24,8 @@ session_start();
             <span class="subhead">WHAT WE DO</span>
             <p class="lead">
                 We are the world's most trusted recommendation resource for quality entertainment. At Popcorn,
-                you can find the stuff you love, or share your opinions with other avid movie watchers. If you are just
-                a casual movie binger, or a serious movie critic, you have come to the right place!
+                you can find the stuff you love, or share your candid opinions with other avid movie watchers. If you
+                are just a casual movie binger, or a serious movie critic, you have come to the right place!
             </p>
         </header>
 
