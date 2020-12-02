@@ -88,7 +88,7 @@ function fetchReviewData(){
                         <input type="hidden" name="reviewID" id="reviewID"
                                value="<?=$reviewID?>">
                         <input type="hidden" name="intent" id="intent" value="updated">
-                        <input type="hidden" name="rating" id="rating">
+                        <input type="hidden" name="rating" id="rating" value="<?=$reviewRating?>">
                         <!-- Unusual format to remove whitespaces
                         between stars -->
                         <span data-score="1">★</span
