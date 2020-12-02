@@ -8,10 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     if ($success)
         fetchAllMovies();
-        $conn->close();
-}
-else
-{
+    $conn->close();
+} else {
     $errorMsg = "This page is not to be run directly.";
     $success = false;
 }
@@ -38,24 +36,27 @@ function fetchAllMovies() {
 }
 ?>
 
-    <div class="allmovies">
-        <h2 class="font-weight-light ml-auto style-line">All Movies</h2>
-        <div class="movie-poster-grid">
-            <?php
-            if ($success) {
+<div class="allmovies">
+    <h2 class="font-weight-light ml-auto style-line">All Movies</h2>
+    <div class="movie-poster-grid">
+        <?php
+        if ($success) {
 
-                for ($index = 0; $index < sizeof($movieTitleArr); $index++) {
-                    ?>
-                    <div class="m1">
-                        <a href="movie_details.php?id=<?= $movieIDArr[$index] ?>">
-                            <img class="gridimg" src="data:image/jpeg;base64,<?=base64_encode($poster_portraitArr[$index])?>"
-                                 alt="<?= $movieTitleArr[$index] ?>">
-                        </a>
-                    </div>
-                    <?php
-                }
+            for ($index = 0; $index < sizeof($movieTitleArr); $index++) {
+                ?>
+                <div class="m1">
+                    <a href="movie_details.php?id=<?= $movieIDArr[$index] ?>">
+                        <img class="gridimg" src="data:image/jpeg;base64,<?= base64_encode($poster_portraitArr[$index]) ?>"
+                             alt="<?= $movieTitleArr[$index] ?>">
+                        <div class="overlay">
+                            <div class="textoverlay"><?= $movieTitleArr[$index] ?></div>
+                        </div>
+                    </a>
+                </div>
+                <?php
             }
-            ?>
-        </div>
+        }
+        ?>
     </div>
+</div>
 

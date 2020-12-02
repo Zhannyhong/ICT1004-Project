@@ -4,7 +4,7 @@
 
 <!-- Left side of the navigation bar -->
 <div class="topnav" id="myTopnav">
-    <a class="nav-brand" href="index.php">
+    <a class="nav-brand" href="index.php" title="Popcorn Movies&Reviews">
         <img class="logo" src="images/logo.gif" alt="Popcorn Logo"/>
         <label id="menu" class="nav-menu"></label>
     </a>
@@ -51,7 +51,7 @@
         </div>
     </form>
 
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()" title="Menu">
         <i class="fa fa-bars" style="color: black"></i>
     </a>
 

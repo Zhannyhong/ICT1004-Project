@@ -72,9 +72,9 @@ function fetchTopRatedMovies() {
 <div id="slide">
 
     <!-- Top Rated Movies -->
-<?php
-if ($success) {
-    ?>
+    <?php
+    if ($success) {
+        ?>
         <div id="topRatedSec" class="container text-center my-3">
             <h2 class="font-weight-light ml-auto style-line">Top Rated movies</h2>
             <div class="row mx-auto my-auto">
@@ -83,10 +83,10 @@ if ($success) {
                     <!-- Slides -->
                     <div class="carousel-inner" role="listbox">
 
-    <?php
-    for ($index = 0; $index < 8; $index++) {
-        if ($index === 0) {
-            ?>
+                        <?php
+                        for ($index = 0; $index < 8; $index++) {
+                            if ($index === 0) {
+                                ?>
 
                                 <!--First slide-->
                                 <div class="carousel-item active">
@@ -101,9 +101,9 @@ if ($success) {
                                             </div>
                                         </div>
 
-            <?php
-        } else if ($index === 1 || $index === 2) {
-            ?>
+                                        <?php
+                                    } else if ($index === 1 || $index === 2) {
+                                        ?>
 
                                         <div class="col-md-3">
                                             <div class="card mb-2">
@@ -113,9 +113,9 @@ if ($success) {
                                             </div>
                                         </div>
 
-            <?php
-        } else if ($index === 3) {
-            ?>
+                                        <?php
+                                    } else if ($index === 3) {
+                                        ?>
 
                                         <div class="col-md-3">
                                             <div class="card mb-2">
@@ -136,9 +136,9 @@ if ($success) {
 
                                     <div class="row">
 
-            <?php
-        } else if ($index === 4 || $index === 5 || $index === 6) {
-            ?>
+                                        <?php
+                                    } else if ($index === 4 || $index === 5 || $index === 6) {
+                                        ?>
 
                                         <div class="col-md-3 d-none d-md-block">
                                             <div class="card mb-2">
@@ -148,9 +148,9 @@ if ($success) {
                                             </div>
                                         </div>
 
-            <?php
-        } else {
-            ?>
+                                        <?php
+                                    } else {
+                                        ?>
 
                                         <div class="col-md-3">
                                             <div class="card mb-2">
@@ -165,11 +165,11 @@ if ($success) {
                                 <!--/.Second slide-->
 
 
-            <?php
-        }
-    }
-}
-?>
+                                <?php
+                            }
+                        }
+                    }
+                    ?>
 
                 </div>
                 <!--/.Slides-->
@@ -186,9 +186,9 @@ if ($success) {
     </div>
 
     <!-- Latest Movies -->
-<?php
-if ($success) {
-    ?>
+    <?php
+    if ($success) {
+        ?>
         <div id="latestSec" class="container text-center my-3">
             <h2 class="font-weight-light ml-auto style-line">Latest movies</h2>
             <div class="row mx-auto my-auto">
@@ -197,10 +197,10 @@ if ($success) {
                     <!--Slides-->
                     <div class="carousel-inner" role="listbox">
 
-    <?php
-    for ($index = 0; $index < 8; $index++) {
-        if ($index === 0) {
-            ?>
+                        <?php
+                        for ($index = 0; $index < 8; $index++) {
+                            if ($index === 0) {
+                                ?>
 
                                 <!--First slide-->
                                 <div class="carousel-item active">
@@ -215,9 +215,9 @@ if ($success) {
                                             </div>
                                         </div>
 
-            <?php
-        } else if ($index === 1 || $index === 2) {
-            ?>
+                                        <?php
+                                    } else if ($index === 1 || $index === 2) {
+                                        ?>
 
                                         <div class="col-md-3">
                                             <div class="card mb-2">
@@ -227,9 +227,9 @@ if ($success) {
                                             </div>
                                         </div>
 
-            <?php
-        } else if ($index === 3) {
-            ?>
+                                        <?php
+                                    } else if ($index === 3) {
+                                        ?>
 
                                         <div class="col-md-3">
                                             <div class="card mb-2">
@@ -247,9 +247,9 @@ if ($success) {
 
                                     <div class="row">
 
-            <?php
-        } else if ($index === 4 || $index === 5 || $index === 6) {
-            ?>
+                                        <?php
+                                    } else if ($index === 4 || $index === 5 || $index === 6) {
+                                        ?>
 
                                         <div class="col-md-3 d-none d-md-block">
                                             <div class="card mb-2">
@@ -259,9 +259,9 @@ if ($success) {
                                             </div>
                                         </div>
 
-            <?php
-        } else {
-            ?>
+                                        <?php
+                                    } else {
+                                        ?>
 
                                         <div class="col-md-3">
                                             <div class="card mb-2">
@@ -276,10 +276,10 @@ if ($success) {
                                 <!--/.Second slide-->
 
 
-            <?php
-        }
-    }
-    ?>
+                                <?php
+                            }
+                        }
+                        ?>
 
                     </div>
                     <!--/.Slides-->
@@ -294,9 +294,58 @@ if ($success) {
                 </div>
             </div>
         </div>
-    <?php
-}
-unset($errorMsg, $success, $latestMovieIDArr, $latestMovieTitleArr, $latestPoster_portraitArr, $movieIDArr, $movieTitleArr, $poster_portraitArr);
-?>
+        <?php
+    }
+    ?>
 </div>
 
+<div id="griddisplay">
+    <div class="allmovies">
+        <h2 class="font-weight-light ml-auto style-line">Top Rated Movies</h2>
+        <div class="movie-poster-grid">
+            <?php
+            if ($success) {
+
+                for ($index = 0; $index < sizeof($movieTitleArr); $index++) {
+                    ?>
+                    <div class="m1">
+                        <a href="movie_details.php?id=<?= $movieIDArr[$index] ?>">
+                            <img class="gridimg" src="data:image/jpeg;base64,<?= base64_encode($poster_portraitArr[$index]) ?>"
+                                 alt="<?= $movieTitleArr[$index] ?>">
+                            <div class="overlay">
+                            <div class="textoverlay"><?= $movieTitleArr[$index] ?></div>
+                        </div>
+                        </a>
+                    </div>
+                    <?php
+                }
+            }
+            ?>
+        </div>
+    </div>
+    <div class="allmovies">
+        <h2 class="font-weight-light ml-auto style-line">Latest Movies</h2>
+        <div class="movie-poster-grid">
+            <?php
+            if ($success) {
+
+                for ($index = 0; $index < sizeof($latestMovieTitleArr); $index++) {
+                    ?>
+                    <div class="m1">
+                        <a href="movie_details.php?id=<?= $latestMovieIDArr[$index] ?>">
+                            <img class="gridimg" src="data:image/jpeg;base64,<?= base64_encode($latestPoster_portraitArr[$index]) ?>"
+                                 alt="<?= $latestMovieTitleArr[$index] ?>">
+                            <div class="overlay">
+                            <div class="textoverlay"><?= $latestMovieTitleArr[$index] ?></div>
+                        </div>
+                        </a>
+                    </div>
+                    <?php
+                }
+            }
+                unset($errorMsg, $success, $latestMovieIDArr, $latestMovieTitleArr, $latestPoster_portraitArr, $movieIDArr, $movieTitleArr, $poster_portraitArr);
+
+            ?>
+        </div>
+    </div>
+</div>

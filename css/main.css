@@ -171,12 +171,12 @@ footer {
 }
 
 .content {
-  width: 70%;
-  height: auto;
-  min-height: 300px;
-  margin: auto;
-  background: white;
-  position: relative;
+    width: 70%;
+    height: auto;
+    min-height: 300px;
+    margin: auto;
+    background: white;
+    position: relative;
 }
 
 /*-----search_result.php-----*/
@@ -249,32 +249,32 @@ section { display: block; }
 /*-----Movie Grid View----*/
 /* Create two equal columns that floats next to each other */
 .m-column {
-  float: left;
-  width: 50%;
-  padding: 10px;
+    float: left;
+    width: 50%;
+    padding: 10px;
 }
 
 /* Clear floats after the columns */
 .row:after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 /* Style the buttons */
 .btn {
-  border: none;
-  outline: none;
-  padding: 12px 16px;
-  cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    cursor: pointer;
 }
 
 .btn:hover {
-  background-color: #ddd;
+    background-color: #ddd;
 }
 
 .btn.active {
-  background-color: #666;
-  color: white;
+    background-color: #666;
+    color: white;
 }
 
 
@@ -282,19 +282,21 @@ section { display: block; }
 .allmovies{
     display: inline-block;
     float: left;
-    width: 100%;
+    /*    width: 100%;*/
     padding: 60px 35px 5px;
     margin-top: 70px;
     margin: auto;
+    margin-bottom: 50px;
 }
 
 .allmovies h3{
     padding-bottom: 8px;
 }
 .movie-poster-grid{
-    padding: 5px 5px;
+    padding: 30px 0px;
 }
 .m1{
+    position: relative;
     width: 24%;
     height: auto;
     margin-right: 0.8%;
@@ -306,25 +308,48 @@ section { display: block; }
     height: 350px;
     margin-left: 10px;
 }
+#griddisplay{
+    display: none;
+}
 
 
 @media screen and (max-width: 768px) {
+    #slide {display: none;}
+    #griddisplay {display: inline-block;}
+
     body div.content{
         margin: 0;
         height: 100%;
         width: 100%;
     }
-  .m1{
+    .m1{
         width: 100%;
+        height: 80%;
         margin-bottom: 10px;
         margin-right: 0;
     }
-    .m1:nth-child(n){
+    .m1:nth-child(2n+1){
         float: right;
     }
     .m1 img.gridimg{
         margin-left: 0px;
+        height: 350px;
+        width: 100%;
     }
+    .allmovies {
+        display: inline-block;
+        float: left;
+        /* width: 100%; */
+        padding: 60px 35px 5px;
+        margin-bottom: 50px;
+    }
+    .overlay{
+        width: 100%;
+        height: 80%;
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+
 }
 
 @media screen and (max-width: 1024px) {
@@ -347,13 +372,87 @@ section { display: block; }
     div.col-md-3 {
         padding: 0 !important;
     }
-    
+    .allmovies {
+        display: inline-block;
+        float: left;
+        /* width: 100%; */
+        padding: 60px 35px 5px;
+        margin-bottom: 50px;
+    }
+    .overlay{
+        width: 45%;
+        margin-bottom: 10px;
+        margin-right: 0;
+        margin-left: 0 !important;
+    }
+
 }
 
 @media screen and (max-width: 1150px) {
-    
+
     div.col-md-3 {
         padding: 0 !important;
     }
-    
+
+}
+
+@media screen and (max-width: 441px){
+    #slide {display: none;}
+    #griddisplay {display: inline-block;}
+
+
+    body div.content{
+        margin: 0;
+        height: 100%;
+        width: 100%;
+    }
+    .allmovies {
+        display: inline-block;
+        float: left;
+        /* width: 100%; */
+        padding: 60px 35px 5px;
+        margin-bottom: 50px;
+    }
+
+    .m1 img.gridimg {
+        width: 100%;
+        height: 200px;
+    }
+    .movie-poster-grid {
+        padding: 0;
+    }
+
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.7); /* Black see-through */
+    margin-right: 0.8%;
+    margin-left: 10px;
+
+}
+
+.m1:hover .overlay {
+    opacity: 1;
+}
+
+.textoverlay {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
