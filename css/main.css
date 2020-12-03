@@ -282,19 +282,14 @@ section { display: block; }
 .allmovies{
     display: inline-block;
     float: left;
-    /*    width: 100%;*/
-    padding: 60px 35px 5px;
-    margin-top: 70px;
-    margin: auto;
+    padding: 50px 10px 20px;
     margin-bottom: 50px;
 }
 
 .allmovies h3{
     padding-bottom: 8px;
 }
-.movie-poster-grid{
-    padding: 30px 0px;
-}
+
 .m1{
     position: relative;
     width: 24%;

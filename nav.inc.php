@@ -32,8 +32,8 @@
 
             unset($profile_pic);
         } else {
-            echo "<i class='fas fa-user-circle'></i>";
-            echo "<label id='login' style='font-size: 30px; margin-left: 5px; color: black'></label>";
+            echo "<i class='fas fa-user-circle fa-10x' style='font-size:2.5rem;'></i>";
+            echo "<label id='login' style='font-size: 2rem; margin-left: 5px; color: black'></label>";
             
         }
         ?>

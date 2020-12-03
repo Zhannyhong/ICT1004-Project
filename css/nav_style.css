@@ -35,12 +35,12 @@
     text-decoration: none;
     padding: 18px 20px;
     margin-top: 25px;
-    font-size: 30px;
+    font-size: 2rem;
 }
 
 .topnav a.nav-right-2 i{
     color: black;
-    font-size: 30px;
+    font-size: 2rem;
 }
 
 .topnav form.nav-form-right {
