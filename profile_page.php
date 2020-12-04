@@ -102,16 +102,16 @@
                         </div>
                         <div class="col-8 col-md-9">
                             <div>
-                                <button type="button" class="close" data-toggle="modal" data-target="#confirm<?=$row['reviewID']?>" aria-label="Delete Review" title="Delete Review">
+                                <button type="button" class="close" data-toggle="modal" data-target="#confirm" aria-label="Delete Review" title="Delete Review">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
 
                                 <!-- Confirm review deletion -->
-                                <div class="modal fade" id="confirm<?=$row['reviewID']?>" tabindex="-1" role="dialog" aria-labelledby="DeleteReview<?=$row['reviewID']?>" aria-hidden="true">
+                                <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="DeleteReview" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="DeleteReview<?=$row['reviewID']?>">Delete Review</h5>
+                                                <h5 class="modal-title" id="DeleteReview">Delete Review</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>

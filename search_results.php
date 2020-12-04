@@ -33,18 +33,9 @@ function getSearchResults()
 {
     global $movieIDArr, $movieTitleArr, $genreArr, $actorsArr, $releaseDateArr, $poster_portraitArr, $poster_landscapeArr, $search_input, $errorMsg, $success;
 
-    // Create database connection.
-    $config = parse_ini_file('../../private/db-config.ini');
-    $conn = new mysqli($config['servername'], $config['username'], $config['password'], $config['dbname']);
-    
-    // Check connection
-    if ($conn->connect_error)
-    {
-        $conn->close();
-        $errorMsg = "Connection failed: " . $conn->connect_error;
-        $success = false;
-    }
-    else
+    require "connect_database.php";
+
+    if ($success)
     {
         // lowercase search input
         $search_input = strtolower($search_input);
@@ -52,16 +43,14 @@ function getSearchResults()
         $stmt = $conn->prepare("SELECT * FROM movies
                                 WHERE (LOWER(movieTitle) LIKE ?)");
         $stmt->bind_param("s", $param);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        require "handle_sql_execute_failure.php";
+        $conn->close();
+
         if ($result->num_rows < 1)
         {   
             $errorMsg = "Movie not found";
             $success = false;
         }
-        
-        $stmt->close();
-        $conn->close();
         
         while ($row = $result->fetch_assoc()) {
             array_push($movieIDArr, $row['movieID']);
