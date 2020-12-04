@@ -45,9 +45,8 @@ function fetchAllMovies() {
             for ($index = 0; $index < sizeof($movieTitleArr); $index++) {
                 ?>
                 <div class="m1">
-                    <a href="movie_details.php?id=<?= $movieIDArr[$index] ?>">
-                        <img class="gridimg" src="data:image/jpeg;base64,<?= base64_encode($poster_portraitArr[$index]) ?>"
-                             alt="<?= $movieTitleArr[$index] ?>">
+                    <a href="movie_details.php?id=<?= $movieIDArr[$index] ?>" title="Go to Movie">
+                        <img class="gridimg" src="data:image/jpeg;base64,<?= base64_encode($poster_portraitArr[$index]) ?>" alt="<?= $movieTitleArr[$index] ?>">
                         <div class="overlay">
                             <div class="textoverlay"><?= $movieTitleArr[$index] ?></div>
                         </div>

@@ -1,10 +1,3 @@
-<?php
-/*
-require 'Zebra_Session.php';
-$session = new Zebra_Session($conn, 'sEcUr1tY_c0dE');
-*/
-session_start();
-?>
 
 <!DOCTYPE html>
 <html lang="en">

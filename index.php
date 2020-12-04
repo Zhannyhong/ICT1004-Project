@@ -9,7 +9,7 @@
         <!-- Custom JS -->
         <script defer src="js/main.js"></script>
     </head>
-    <main class="d-flex flex-column min-vh-100" style="background: #f5f5f5;">
+    <main class="d-flex flex-column min-vh-100 text-center" style="background: #f5f5f5;">
         <?php
         session_start();
         include "nav.inc.php";
