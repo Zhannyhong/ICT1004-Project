@@ -126,13 +126,13 @@ function sanitize_input($data)
 
                             <div class="col-md-9 mt-4">
                                 <h1 class="display-4"><?=$movieTitleArr[$index]?></h1>
-                                <h6 class="small text-muted mb-4">Release date: <?=$releaseDateArr[$index]?></h6>
+                                <p class="small text-muted mb-4">Release date: <?=$releaseDateArr[$index]?></p>
 
-                                <h5>Genre:</h5>
-                                <h6 class="text-muted"><?=$genreArr[$index]?></h6>
+                                <p class="h5">Genre:</p>
+                                <p class="h6 text-muted"><?=$genreArr[$index]?></p>
 
-                                <h5>Cast:</h5>
-                                <h6 class="text-muted"><?=$actorsArr[$index]?></h6>
+                                <p class="h5">Cast:</p>
+                                <p class="h6 text-muted"><?=$actorsArr[$index]?></p>
 
                                 <a class="btn btn-success mb-3" href="movie_details.php?id=<?=$movieIDArr[$index]?>" role="button">Go to Movie</a>
                             </div>

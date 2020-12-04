@@ -9,7 +9,7 @@
         <!-- Custom JS -->
         <script defer src="js/main.js"></script>
     </head>
-    <body class="d-flex flex-column min-vh-100" style="background: #f5f5f5;">
+    <main class="d-flex flex-column min-vh-100" style="background: #f5f5f5;">
         <?php
         session_start();
         include "nav.inc.php";
@@ -26,5 +26,5 @@
         <?php
         include "footer.inc.php";
         ?>
-    </body>
+    </main>
 </html>

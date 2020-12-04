@@ -22,7 +22,7 @@ session_start();
         <header class="jumbotron text-center">
             <h1 class="display-4">About Us</h1>
             <span class="subhead">WHAT WE DO</span>
-            <p class="lead">
+            <p class="container lead">
                 We are the world's most trusted recommendation resource for quality entertainment. At Popcorn,
                 you can find the stuff you love, or share your candid opinions with other avid movie watchers. If you
                 are just a casual movie binger, or a serious movie critic, you have come to the right place!

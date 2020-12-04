@@ -1,8 +1,5 @@
-<?php
 
-
-?>
-<button id="ToTopButton" title="Go back to Top">&#9650;</button>
+<button id="ToTopButton" title="Go back to Top" role="button">&#9650;</button>
 <footer>
     <p>Copyright &copy; 2020 Popcorn Pte. Ltd.</p>
     <div>Icons made by
