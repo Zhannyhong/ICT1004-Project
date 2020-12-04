@@ -132,14 +132,7 @@
 
                             <div class="mt-4">
                                 <div class="star-rating-reviews">
-                                    <?php
-                                    for ($number = 0; $number < $row["reviewRating"]; $number++)
-                                    {
-                                    ?>
-                                    <span>★</span>
-                                    <?php
-                                    }
-                                    ?>
+                                    <span><?=str_repeat("★", $row["reviewRating"])?></span>
                                 </div>
                                 <h5><?=$row['reviewTitle']?></h5>
                                 <p><?=$row['writeUp']?></p>

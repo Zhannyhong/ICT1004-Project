@@ -36,6 +36,7 @@ else
         <?php
             include "head.inc.php";
         ?>
+        <!--<script defer src="js/form_validation.js"></script>-->
         <title>Edit Profile</title>
     </head>
     <body class="d-flex flex-column min-vh-100">
@@ -56,7 +57,7 @@ else
                         <div class="col-sm-7 col-md-9 my-4">
                             <div class="form-group">
                                 <label for="file_upload">Change Profile Picture</label>
-                                <input type="file" class="form-control-file" name="file_upload" accept=".jpeg, .jpg, .png">
+                                <input type="file" class="form-control-file" id="file_upload" name="file_upload" accept=".jpeg,.jpg,.png">
                             </div>
                             <div class="form-group">
                                 <label for="username">New Username</label>

@@ -22,6 +22,7 @@ if (substr(PREVIOUS_LOCATION, 0, 21) === 'movie_details.php?id=')
         <?php
             include "head.inc.php";
         ?>
+        <script defer src="js/form_validation.js"></script>
     </head>
     <body class="d-flex flex-column min-vh-100">
         <?php
@@ -41,7 +42,7 @@ if (substr(PREVIOUS_LOCATION, 0, 21) === 'movie_details.php?id=')
                         id="email" name="email" placeholder="Enter email">
                 </div>
                 <div class="row">
-                    <div class="form-group col">
+                    <div class="form-group col-md">
                         <label for="username">Username</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -53,9 +54,9 @@ if (substr(PREVIOUS_LOCATION, 0, 21) === 'movie_details.php?id=')
                             Username must be unique and contain no more than 10 alphanumeric characters.
                         </small>
                     </div>
-                    <div class="form-group col">
+                    <div class="form-group col-md">
                         <label for="file_upload">Choose Profile Picture</label>
-                        <input type="file" class="form-control-file" id="file_upload" name="file_upload" accept=".jpeg, .jpg, .png" aria-label="Choose Profile Picture">
+                        <input type="file" class="form-control-file" id="file_upload" name="file_upload" accept=".jpeg,.jpg,.png" aria-label="Choose Profile Picture">
                     </div>
                 </div>
 

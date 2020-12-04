@@ -21,44 +21,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
     $profile_pic = $user_details["profilePic"];
 
 
-    // Sanitise and validate file uploaded
+    // If user uploaded a file
     if (($_FILES['file_upload']['error']) != UPLOAD_ERR_NO_FILE)
     {
-        if (($_FILES['file_upload']['error']) != UPLOAD_ERR_OK)
+        // Sanitise and validate file uploaded
+        $allowed_extensions = array("jpeg", "jpg", "png");
+        $file_extension = strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
+
+        // Checks that file uploaded is only of the allowed extensions
+        if (!in_array($file_extension, $allowed_extensions))
+        {
+            $errorMsg .= "File uploaded is not a JPEG, JPG, or PNG file.<br>";
+            $success = false;
+        }
+
+        // Checks the file signature to ensure that it is a JPEG or PNG image
+        elseif (exif_imagetype($_FILES['image_upload']['tmp_name'] != IMAGETYPE_JPEG) or exif_imagetype($_FILES['image_upload']['tmp_name'] != IMAGETYPE_PNG))
+        {
+            $errorMsg .= "File uploaded is not an image.<br>";
+            $success = false;
+        }
+
+        // Checks that file uploaded is not more than 2MB
+        elseif (($_FILES['file_upload']['size'] > 2097152) || ($_FILES['file_upload']['size'] == 0))
+        {
+            // If file uploaded is of 0 size, it means that it has exceeded the php upload_max_filesize directive in php.ini
+            $errorMsg .= "File uploaded is more than 2MB.<br>";
+            $success = false;
+        }
+
+        // Catch other file upload errors
+        elseif (($_FILES['file_upload']['error']) != UPLOAD_ERR_OK)
         {
             // Error occurred during uploading process
             $file_err_num = $_FILES['file_upload']['error'];
             $errorMsg .= "Error uploading file [error $file_err_num].<br>";
             $success = false;
         }
-        else
-        {
-            $allowed_extensions = array("jpeg", "jpg", "png");
-            $file_extension = strtolower(pathinfo($_FILES['file_upload']['name'], PATHINFO_EXTENSION));
 
-            // Checks the file signature to ensure that it is a JPEG or PNG image
-            if (exif_imagetype($_FILES['image_upload']['tmp_name'] != IMAGETYPE_JPEG) or exif_imagetype($_FILES['image_upload']['tmp_name'] != IMAGETYPE_PNG))
-            {
-                $errorMsg .= "File uploaded is not an image.<br>";
-                $success = false;
-            }
-
-            // Checks that file uploaded is only of the allowed extensions
-            if (!in_array($file_extension, $allowed_extensions))
-            {
-                $errorMsg .= "File uploaded is not a JPEG, JPG, or PNG file.<br>";
-                $success = false;
-            }
-
-            // Checks that file uploaded is not more than 2MB
-            if ($_FILES['file_upload']['size'] > 2097152)
-            {
-                $errorMsg .= "File uploaded is more than 2MB.<br>";
-                $success = false;
-            }
-
-            $file_upload = $_FILES["file_upload"]["tmp_name"];
-        }
+        $file_upload = $_FILES["file_upload"]["tmp_name"];
     }
 
 
@@ -105,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["loggedin"]) && $_SE
         else
         {
             // Check if old password given is correct
-            if (!password_verify($_POST["new_pwd"], $pwd_hashed))
+            if (!password_verify($_POST["old_pwd"], $pwd_hashed))
             {
                 $errorMsg .= "Incorrect password.<br>";
                 $success = false;
@@ -218,7 +219,7 @@ function saveProfileChanges()
             else
             {
                 require "error_msg.php";
-                echo '<a class="btn btn-danger my-4" href="profile_page.php" role="button">Return to Profile page</a>';
+                echo '<a class="btn btn-danger my-4" href="edit_profile.php" role="button">Return to Edit Profile</a>';
                 echo "</div>";
             }
             ?>

@@ -317,14 +317,7 @@ function fetchMovieData()
                                 }
                                 ?>
                                 <div class="star-rating-reviews mt-4">
-                                    <?php
-                                    for ($number = 0; $number < $reviewRatingArr[$index]; $number++)
-                                    {
-                                    ?>
-                                    <span>★</span>
-                                    <?php
-                                    }
-                                    ?>
+                                    <span><?=str_repeat("★", $reviewRatingArr[$index])?></span>
                                 </div>
                                 <h5><?=$reviewTitleArr[$index]?></h5>
                                 <p><?=$writeupArr[$index]?></p>
