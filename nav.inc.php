@@ -8,8 +8,8 @@
         <img class="logo" src="images/logo.gif" alt="Popcorn Logo"/>
         <label id="menu" class="nav-menu"></label>
     </a>
-    <a class="btn" href="index.php"><i class="fa fa-home"></i> Home</a>
-    <a class="btn" href="about_us.php"><i class="fa fa-users"></i> About Us</a>
+    <a class="btn" href="index.php" title="Home"><i class="fa fa-home"></i> Home</a>
+    <a class="btn" href="about_us.php" title="About Us"><i class="fa fa-users"></i> About Us</a>
     <a id="loginIcon" class="nav-right-2" title="Account" href="login.php">
         <?php
         session_start();
@@ -43,7 +43,7 @@
     <form class="nav-form-right" action="search_results.php" method="post">
         <div class="input-group input-group-lg" id="search">
             <div class="input-group-prepend">
-                <button class="input-group-text" type="submit">
+                <button class="input-group-text" type="submit" alt="Search">
                     <i class="material-icons d-inline-block align-middle">search</i>
                 </button>
             </div>

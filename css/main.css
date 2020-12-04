@@ -306,6 +306,7 @@ section { display: block; }
 #griddisplay{
     display: none;
 }
+/*-----End Movie List Grid View-----*/
 
 
 @media screen and (max-width: 768px) {
