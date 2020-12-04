@@ -1,4 +1,4 @@
-# ICT1004-Project
+# [Popcorn](http://54.80.39.6/ICT1004-Project/index.php)
 
 ## Introduction
 Many movie review websites to date are cluttered and over-commercialised. They are often geared towards marketing the latest releases, and upcoming movies. Rotten Tomatoes determines the score of a film based on the averaged reviews of professional film critics. Existing movie-ranking sites are also skewed heavily towards the opinions of men, including IMDB where men often make up over 70 per cent of the voters for any film. There currently lacks a site for like-minded people and avid movie watchers to share their thoughts and opinions on the show they recently watched.
