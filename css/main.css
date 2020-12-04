@@ -301,7 +301,6 @@ section { display: block; }
 }
 .m1 img.gridimg{
     width: 100%;
-    height: 400px;
     margin-left: 10px;
 }
 #griddisplay{
@@ -330,7 +329,6 @@ section { display: block; }
     }
     .m1 img.gridimg{
         margin-left: 0;
-        height: 400px;
         width: 100%;
     }
     .allmovies {
@@ -411,7 +409,6 @@ section { display: block; }
 
     .m1 img.gridimg {
         width: 100%;
-        height: 200px;
     }
     .movie-poster-grid {
         padding: 0;
