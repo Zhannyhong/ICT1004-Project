@@ -238,7 +238,8 @@ section { display: block; }
     bottom: 20px;
     right: 15px;
     z-index: 99;
-    border-radius: 100%;
+    border-radius: 10%;
+    background-color: #59a9ff;
 }
 
 #ToTopButton:hover {

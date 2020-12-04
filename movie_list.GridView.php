@@ -37,7 +37,7 @@ function fetchAllMovies() {
 ?>
 
 <div class="allmovies">
-    <h2 class="font-weight-light style-line mx-2">All Movies</h2>
+    <h1 class="font-weight-light style-line mx-2">All Movies</h1>
     <div class="movie-poster-grid">
         <?php
         if ($success) {

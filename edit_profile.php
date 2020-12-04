@@ -36,7 +36,7 @@ else
         <?php
             include "head.inc.php";
         ?>
-        <!--<script defer src="js/form_validation.js"></script>-->
+        <script defer src="js/form_validation.js"></script>
         <title>Edit Profile</title>
     </head>
     <body class="d-flex flex-column min-vh-100">
@@ -51,8 +51,8 @@ else
                     <div class="row">
                         <div class="col-sm-5 col-md-3 text-center" id="change-pic">
                             <img class="avatar" src="<?=$user_details["profilePic"]?>" alt="Profile Picture">
-                            <h5><?=$user_details["username"]?></h5>
-                            <h6><?=$user_details["email"]?></h6>
+                            <p class="h5"><?=$user_details["username"]?></p>
+                            <p class="h6"><?=$user_details["email"]?></p>
                         </div>
                         <div class="col-sm-7 col-md-9 my-4">
                             <div class="form-group">

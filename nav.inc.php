@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="css/nav_style.css">
 
 <!-- Left side of the navigation bar -->
-<div class="topnav" id="myTopnav">
+<div class="topnav" id="myTopnav" role="navigation">
     <a class="nav-brand" href="index.php" title="Popcorn Movies&Reviews">
         <img class="logo" src="images/logo.gif" alt="Popcorn Logo"/>
         <label id="menu" class="nav-menu"></label>

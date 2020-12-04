@@ -141,17 +141,17 @@ function fetchMovieData()
                     </div>
 
                     <div class="col-md-5 card-text mt-3">
-                        <h6 class="text-muted">Director:</h6>
-                        <h6><?=$director?></h6>
+                        <p class="h6 text-muted">Director:</p>
+                        <p class="h6"><?=$director?></p>
 
-                        <h6 class="text-muted">Producer:</h6>
-                        <h6><?=$producer?></h6>
+                        <p class="h6 text-muted">Producer:</p>
+                        <p class="h6"><?=$producer?></p>
 
-                        <h6 class="text-muted">Cast:</h6>
-                        <h6><?=$actors?></h6>
+                        <p class="h6 text-muted">Cast:</p>
+                        <p class="h6"><?=$actors?></p>
 
-                        <h6 class="mt-5 text-muted">Genre:</h6>
-                        <h6><?=$genre?></h6>
+                        <p class="h6 mt-5 text-muted">Genre:</p>
+                        <p class="h6"><?=$genre?></p>
                     </div>
                 </div>
             </div>
@@ -162,7 +162,7 @@ function fetchMovieData()
                     <div class="card-body row">
                         <div class="col-xs-3 col-sm-4 col-md-3 text-center">
                             <h1 class="display-3"><?=$average_rating?></h1>
-                            <h6 class="text-muted"><?=$review_count?> Reviews</h6>
+                            <p class="h6 text-muted"><?=$review_count?> Reviews</p>
                         </div>
                         <div class="col-xs-9 col-sm-8 col-md-9">
                             <div class="row">
@@ -232,7 +232,7 @@ function fetchMovieData()
                             $userID = $_SESSION["userID"];
                     ?>
                     <form action="process_review.php" method="post">
-                        <h3>Leave a review</h3>
+                        <p class="h3">Leave a review</p>
                         <div class="form-group rating star-rating">
                             <input type="hidden" name="movieID" id="movieID"
                                    value="<?=$movieID?>">
@@ -277,8 +277,8 @@ function fetchMovieData()
                         <div class="row review-block">
                             <div class="col-4 col-md-3">
                                 <img class="avatar" src="<?=$profilePicArr[$index]?>" alt="<?=$usernameArr[$index]?> Reviewer Profile Picture">
-                                <h5><?=$usernameArr[$index]?></h5>
-                                <h6 class="small"><?=$reviewDateArr[$index]?></h6>
+                                <p class="h5"><?=$usernameArr[$index]?></p>
+                                <small><?=$reviewDateArr[$index]?></small>
                             </div>
                             <div class="col-8 col-md-9">
                                 <?php
@@ -319,7 +319,7 @@ function fetchMovieData()
                                 <div class="star-rating-reviews mt-4">
                                     <span><?=str_repeat("★", $reviewRatingArr[$index])?></span>
                                 </div>
-                                <h5><?=$reviewTitleArr[$index]?></h5>
+                                <p class="h5"><?=$reviewTitleArr[$index]?></p>
                                 <p><?=$writeupArr[$index]?></p>
                                 <?php
                                 if ($userIDArr[$index] == $userID)
